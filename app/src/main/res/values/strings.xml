@@ -7,4 +7,9 @@
     <string name="login">LOG IN</string>
     <string name="register">REGISTER</string>
     <string name="or">OR</string>
+    <string name="change_password">Change Password</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="reenter_new_pw">Re-Enter New Password</string>
+    <string name="save_continue">SAVE &amp; CONTINUE</string>
 </resources>
