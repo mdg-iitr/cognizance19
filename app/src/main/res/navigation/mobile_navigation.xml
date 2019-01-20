@@ -6,6 +6,12 @@
     app:startDestination="@id/landingFragment2">
 
     <fragment
+        android:id="@+id/dashboardSPPFragment"
+        android:name="com.mdgiitr.karthik.cognizance19.view.DashboardSPPFragment"
+        android:label="fragment_dashboard_spp"
+        tools:layout="@layout/fragment_dashboard_spp" />
+
+    <fragment
         android:id="@+id/landingFragment2"
         android:name="com.mdgiitr.karthik.cognizance19.view.LandingFragment"
         android:label="fragment_landing"
