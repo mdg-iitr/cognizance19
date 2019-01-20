@@ -15,7 +15,7 @@ import androidx.navigation.Navigation;
 
 public class LandingFragment extends Fragment {
 
-    private Button loginButton;
+    private Button loginButton, registerButton;
 
     public LandingFragment() {
         // Required empty public constructor
@@ -33,7 +33,16 @@ public class LandingFragment extends Fragment {
 
         loginButton = view.findViewById(R.id.login_button);
         loginButton.setOnClickListener((View v) -> {
-            Navigation.findNavController(getActivity(), R.id.my_nav_host_fragment).navigate(R.id.action_landingFragment2_to_userLoginFragment);
+            Bundle bundle = new Bundle();
+            bundle.putInt("tabToOpen", 0);
+            Navigation.findNavController(getActivity(), R.id.my_nav_host_fragment).navigate(R.id.action_landingFragment2_to_userLoginFragment, bundle);
+        });
+
+        registerButton = view.findViewById(R.id.register_button);
+        registerButton.setOnClickListener((View v) -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("tabToOpen", 1);
+            Navigation.findNavController(getActivity(), R.id.my_nav_host_fragment).navigate(R.id.action_landingFragment2_to_userLoginFragment, bundle);
         });
 
         return view;

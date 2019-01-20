@@ -31,4 +31,7 @@
     <string name="choose_a_file_to_upload">Choose a file to upload</string>
     <string name="upload">Upload</string>
     <string name="upload_excel_file">Upload excel file</string>
+    <string name="signup_participant">Sign Up as Participant</string>
+    <string name="signup_spp">Sign Up as SPP</string>
+    <string name="cancel">CANCEL</string>
 </resources>
