@@ -38,6 +38,11 @@ public class UserLoginFragment extends Fragment {
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
+        if (getArguments().getInt("tabToOpen") == 0) {
+            viewPager.setCurrentItem(0);
+        } else {
+            viewPager.setCurrentItem(1);
+        }
 
         return view;
     }

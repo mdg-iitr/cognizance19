@@ -8,4 +8,5 @@
     <color name="editText_blue">#78849E</color>
     <color name="editTextgray">#343434</color>
     <color name="orGray">#6B6B6B</color>
+    <color name="userType_gray">#464646</color>
 </resources>
