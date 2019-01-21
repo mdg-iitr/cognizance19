@@ -3,7 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/landingFragment2">
+    app:startDestination="@id/speceficEventFragment">
+
+
+    <fragment
+        android:id="@+id/speceficEventFragment"
+        android:name="com.mdgiitr.karthik.cognizance19.view.SpeceficEventFragment"
+        android:label="fragment_specefic_event"
+        tools:layout="@layout/fragment_specefic_event" />
 
     <fragment
         android:id="@+id/workshopsFragment"

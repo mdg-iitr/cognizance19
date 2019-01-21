@@ -22,7 +22,7 @@
             android:src="@drawable/ic_keyboard_arrow_left_gray_24dp" />
 
         <TextView
-            android:id="@+id/text_view"
+            android:id="@+id/specefic_event_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/workshops"
