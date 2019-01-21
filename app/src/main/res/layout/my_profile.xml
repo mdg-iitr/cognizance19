@@ -148,16 +148,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottom_nav_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@color/bottom_navigation_view_color"
-        app:itemBackground="@color/bottom_navigation_view_color"
-        app:itemTextColor="@color/bottom_nav_text_color"
-        android:elevation="15dp"
-        android:layout_marginTop="216dp"
-        app:menu="@menu/bottom_navigation_menu" />
 </LinearLayout>
 
