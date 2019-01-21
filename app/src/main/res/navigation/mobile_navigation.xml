@@ -8,9 +8,9 @@
 
     <fragment
         android:id="@+id/speceficEventFragment"
-        android:name="com.mdgiitr.karthik.cognizance19.view.SpeceficEventFragment"
+        android:name="com.mdgiitr.karthik.cognizance19.view.SpecificEventFragment"
         android:label="fragment_specefic_event"
-        tools:layout="@layout/fragment_specefic_event" />
+        tools:layout="@layout/fragment_specific_event" />
 
     <fragment
         android:id="@+id/workshopsFragment"
