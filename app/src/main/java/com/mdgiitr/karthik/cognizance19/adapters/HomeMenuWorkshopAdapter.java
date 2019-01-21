@@ -26,7 +26,7 @@ public class HomeMenuWorkshopAdapter extends RecyclerView.Adapter<HomeMenuWorksh
     @NonNull
     @Override
     public HomeMenuWorkshopViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_workshop, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_home_menu_workshop, parent, false);
         return new HomeMenuWorkshopViewHolder(view);
     }
 

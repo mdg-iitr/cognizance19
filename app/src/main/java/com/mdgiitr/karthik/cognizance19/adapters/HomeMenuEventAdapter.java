@@ -27,7 +27,7 @@ public class HomeMenuEventAdapter extends RecyclerView.Adapter<HomeMenuEventAdap
     @Override
     public HomeMenuEventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item_event, parent, false);
+                .inflate(R.layout.list_item_home_menu_event, parent, false);
 
         return new HomeMenuEventViewHolder(itemView);
     }

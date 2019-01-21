@@ -25,7 +25,7 @@ public class HomeMenuTechtainmentAdapter extends RecyclerView.Adapter<HomeMenuTe
     @Override
     public HomeMenuTechtainmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item_techtainment, parent, false);
+                .inflate(R.layout.list_item_home_menu_techtainment, parent, false);
 
         return new HomeMenuTechtainmentViewHolder(itemView);
     }
