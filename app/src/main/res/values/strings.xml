@@ -21,6 +21,23 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="login_fb">LOG IN WITH FACEBOOK</string>
     <string name="login_google">LOG IN WITH GOOGLE</string>
+    <string name="complete_your_profile">COMPLETE YOUR PROFILE</string>
+    <string name="Full_Name">Full Name</string>
+    <string name="Select_State">Select State</string>
+    <string name="Select_City">Select City</string>
+    <string name="Select_College">Select College</string>
+    <string name="Room_No_Hostel">Room No. Hostel</string>
+    <string name="Contact_No">Contact No.</string>
+    <string name="signed_up_with_SPP">I signed up with SPP</string>
+    <string name="profile">Profile</string>
+    <string name="name">Name</string>
+    <string name="cogni_id">Cogni ID</string>
+    <string name="Mobile_No">Mobile No.</string>
+    <string name="home">Home</string>
+    <string name="events">Events</string>
+    <string name="workshops">Workshops</string>
+    <string name="spotlight">Spotlight</string>
+    <string name="more">More</string>
     <string name="statistics">Statistics</string>
     <string name="users_referred">Users Referred</string>
     <string name="referal_score">Score</string>
@@ -39,4 +56,13 @@
     <string name="techtainment">TECHTAINMENT</string>
     <string name="guest_speaker">GUEST SPEAKER</string>
     <string name="last_year_highlight">Last year\'s Highlights</string>
+    <string-array name="Select_City">
+        <item>Select City</item>
+    </string-array>
+    <string-array name="Select_State">
+        <item>Select State</item>
+    </string-array>
+    <string-array name="Select_College">
+        <item>Select College</item>
+    </string-array>
 </resources>
