@@ -47,4 +47,17 @@
     <string-array name="Select_College">
         <item>Select College</item>
     </string-array>
+    <string name="statistics">Statistics</string>
+    <string name="users_referred">Users Referred</string>
+    <string name="referal_score">Score</string>
+    <string name="completed">Completed</string>
+    <string name="upload_a_photo">Upload a photo</string>
+    <string name="instruction_for_excel_file">Instruction for Excel File</string>
+    <string name="excel_instruction">Store all contacts in one workbook in the excel file under the column names “Names” and “Contact Details”. Store in formats .xls or .xlsx</string>
+    <string name="choose_a_file_to_upload">Choose a file to upload</string>
+    <string name="upload">Upload</string>
+    <string name="upload_excel_file">Upload excel file</string>
+    <string name="signup_participant">Sign Up as Participant</string>
+    <string name="signup_spp">Sign Up as SPP</string>
+    <string name="cancel">CANCEL</string>
 </resources>

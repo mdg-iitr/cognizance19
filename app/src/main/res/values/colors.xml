@@ -11,4 +11,5 @@
     <color name="complete_your_profile_color">#343434</color>
     <color name="bottom_navigation_view_color">#FFFFFF</color>
     <color name="bottom_nav_text_color">#B4B4B4</color>
+    <color name="userType_gray">#464646</color>
 </resources>
