@@ -6,6 +6,18 @@
     app:startDestination="@id/landingFragment2">
 
     <fragment
+        android:id="@+id/workshopsFragment"
+        android:name="com.mdgiitr.karthik.cognizance19.view.WorkshopsFragment"
+        android:label="fragment_workshops"
+        tools:layout="@layout/fragment_workshops" />
+
+    <fragment
+        android:id="@+id/homeMenuFragment"
+        android:name="com.mdgiitr.karthik.cognizance19.view.HomeMenuFragment"
+        android:label="fragment_home_menu"
+        tools:layout="@layout/fragment_home_menu" />
+
+    <fragment
         android:id="@+id/dashboardSPPFragment"
         android:name="com.mdgiitr.karthik.cognizance19.view.DashboardSPPFragment"
         android:label="fragment_dashboard_spp"

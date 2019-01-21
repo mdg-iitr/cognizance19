@@ -51,6 +51,11 @@
     <string name="signup_participant">Sign Up as Participant</string>
     <string name="signup_spp">Sign Up as SPP</string>
     <string name="cancel">CANCEL</string>
+    <string name="events">Events</string>
+    <string name="workshops">Workshops</string>
+    <string name="techtainment">TECHTAINMENT</string>
+    <string name="guest_speaker">GUEST SPEAKER</string>
+    <string name="last_year_highlight">Last year\'s Highlights</string>
     <string-array name="Select_City">
         <item>Select City</item>
     </string-array>
