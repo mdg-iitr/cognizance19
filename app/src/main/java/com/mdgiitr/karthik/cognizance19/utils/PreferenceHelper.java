@@ -18,4 +18,12 @@ public class PreferenceHelper {
     public void setToken(String token) {
         prefs.edit().putString("token", token).apply();
     }
+
+    public boolean getLoginStatus() {
+        return prefs.getBoolean("loginStatus", false);
+    }
+
+    public void setLoginStatus(boolean status) {
+        prefs.edit().putBoolean("loginStatus", status).apply();
+    }
 }

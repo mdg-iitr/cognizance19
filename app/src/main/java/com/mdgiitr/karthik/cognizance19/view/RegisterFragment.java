@@ -24,6 +24,7 @@ import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
 import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
 import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
 
+import androidx.navigation.NavOptions;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -169,7 +170,7 @@ public class RegisterFragment extends Fragment {
                             public void onNext(SignupResponse signupResponse) {
                                 progressDialog.dismiss();
                                 preferenceHelper.setToken(signupResponse.token);
-                                Log.d("TAGTAGTAG", preferenceHelper.getToken());
+                                navController.navigate(R.id.action_userLoginFragment_to_onBoardingFragment);
                                 Toast.makeText(getContext(), signupResponse.message, Toast.LENGTH_SHORT).show();
                             }
 
@@ -197,8 +198,7 @@ public class RegisterFragment extends Fragment {
                             @Override
                             public void onNext(SignupResponse signupResponse) {
                                 progressDialog.dismiss();
-                                preferenceHelper.setToken(signupResponse.token);
-                                Toast.makeText(getContext(), signupResponse.message, Toast.LENGTH_SHORT).show();
+                                handleSignupResponse(signupResponse);
                             }
 
                             @Override
@@ -245,6 +245,18 @@ public class RegisterFragment extends Fragment {
             Log.d("TAGTAGTAG", throwable.toString());
             Toast.makeText(getContext(), "No internet!", Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    private void handleSignupResponse(SignupResponse signupResponse) {
+
+        preferenceHelper.setToken(signupResponse.token);
+        preferenceHelper.setLoginStatus(true);
+        Toast.makeText(getContext(), signupResponse.message, Toast.LENGTH_SHORT).show();
+        NavOptions navOptions = new NavOptions.Builder()
+                .setPopUpTo(R.id.onBoardingFragment, true)
+                .build();
+        navController.navigate(R.id.action_userLoginFragment_to_onBoardingFragment, null, navOptions);
 
     }
 

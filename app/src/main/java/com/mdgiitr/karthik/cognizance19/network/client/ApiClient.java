@@ -1,6 +1,7 @@
 package com.mdgiitr.karthik.cognizance19.network.client;
 
 import com.google.gson.Gson;
+import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
 import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
 import com.mdgiitr.karthik.cognizance19.network.service.ApiService;
 
@@ -38,8 +39,13 @@ public class ApiClient {
 
     public Observable<SignupResponse> signUpRemote(String email, String role, String password) {
 
-        Observable<SignupResponse> signUpObservable = apiService.signUp(email, "remote", role, password);
-        return signUpObservable;
+        return apiService.signUp(email, "remote", role, password);
+
+    }
+
+    public Observable<LoginResponse> userLogin(String email, String password) {
+
+        return apiService.login(email, password);
 
     }
 }

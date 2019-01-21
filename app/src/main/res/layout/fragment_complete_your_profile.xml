@@ -70,7 +70,7 @@
                 android:entries="@array/Select_State"
                 android:paddingStart="15dp"
                 android:paddingTop="9dp"
-                android:paddingBottom="16dp"/>
+                android:paddingBottom="16dp" />
 
 
             <Spinner
@@ -84,7 +84,7 @@
                 android:entries="@array/Select_City"
                 android:paddingStart="15dp"
                 android:paddingTop="9dp"
-                android:paddingBottom="16dp"/>
+                android:paddingBottom="16dp" />
 
 
             <Spinner
@@ -98,7 +98,7 @@
                 android:entries="@array/Select_College"
                 android:paddingStart="15dp"
                 android:paddingTop="9dp"
-                android:paddingBottom="16dp"/>
+                android:paddingBottom="16dp" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -136,12 +136,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/signed_up_with_SPP" />
+                    android:text="@string/signed_up_with_SPP"
+                    android:textSize="20sp" />
 
                 <android.support.v7.widget.AppCompatCheckBox
                     android:id="@+id/check_box"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:buttonTint="@color/bg_blue"
                     android:checked="false"
                     android:focusable="auto" />
 

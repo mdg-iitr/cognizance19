@@ -6,18 +6,6 @@
     app:startDestination="@id/landingFragment2">
 
     <fragment
-        android:id="@+id/homeMenuFragment"
-        android:name="com.mdgiitr.karthik.cognizance19.view.HomeMenuFragment"
-        android:label="fragment_home_menu"
-        tools:layout="@layout/fragment_home_menu" />
-
-    <fragment
-        android:id="@+id/dashboardSPPFragment"
-        android:name="com.mdgiitr.karthik.cognizance19.view.DashboardSPPFragment"
-        android:label="fragment_dashboard_spp"
-        tools:layout="@layout/fragment_dashboard_spp" />
-
-    <fragment
         android:id="@+id/landingFragment2"
         android:name="com.mdgiitr.karthik.cognizance19.view.LandingFragment"
         android:label="fragment_landing"
@@ -28,16 +16,64 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_landingFragment2_to_onBoardingFragment"
+            app:destination="@id/onBoardingFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
-    <fragment
-        android:id="@+id/changePasswordFragment"
-        android:name="com.mdgiitr.karthik.cognizance19.view.ChangePasswordFragment"
-        android:label="fragment_change_password"
-        tools:layout="@layout/fragment_change_password" />
     <fragment
         android:id="@+id/userLoginFragment"
         android:name="com.mdgiitr.karthik.cognizance19.view.UserLoginFragment"
         android:label="fragment_user_login"
-        tools:layout="@layout/fragment_user_login" />
+        tools:layout="@layout/fragment_user_login">
+        <action
+            android:id="@+id/action_userLoginFragment_to_onBoardingFragment"
+            app:destination="@id/onBoardingFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        android:name="com.mdgiitr.karthik.cognizance19.view.OnBoardingFragment"
+        android:label="onboarding_fragment"
+        tools:layout="@layout/fragment_onboarding">
+        <action
+            android:id="@+id/action_onBoardingFragment_to_completeYourProfileFragment"
+            app:destination="@id/completeYourProfileFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_onBoardingFragment_to_myProfileFragment"
+            app:destination="@id/myProfileFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/completeYourProfileFragment"
+        android:name="com.mdgiitr.karthik.cognizance19.view.CompleteYourProfileFragment"
+        android:label="fragment_complete_your_profile"
+        tools:layout="@layout/fragment_complete_your_profile" />
+    <fragment
+        android:id="@+id/myProfileFragment"
+        android:name="com.mdgiitr.karthik.cognizance19.view.MyProfileFragment"
+        android:label="my_profile"
+        tools:layout="@layout/my_profile">
+        <action
+            android:id="@+id/action_myProfileFragment_to_landingFragment2"
+            app:destination="@id/landingFragment2"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 </navigation>

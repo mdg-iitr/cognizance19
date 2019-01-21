@@ -54,6 +54,7 @@
     <string name="techtainment">TECHTAINMENT</string>
     <string name="guest_speaker">GUEST SPEAKER</string>
     <string name="last_year_highlight">Last year\'s Highlights</string>
+    <string name="logout">Logout</string>
     <string-array name="Select_City">
         <item>Select City</item>
     </string-array>

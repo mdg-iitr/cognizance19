@@ -9,7 +9,13 @@ import android.view.ViewGroup;
 
 import com.mdgiitr.karthik.cognizance19.R;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
+
 public class OnBoardingFragment extends Fragment {
+
+    CircleImageView smallImageView;
 
     public OnBoardingFragment() {
         // Required empty public constructor
@@ -23,8 +29,15 @@ public class OnBoardingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.onboarding_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_onboarding, container, false);
+
+        smallImageView = view.findViewById(R.id.small_profile_image);
+
+        smallImageView.setOnClickListener((View v) -> {
+            navController.navigate(R.id.action_onBoardingFragment_to_myProfileFragment);
+        });
+
+        return view;
     }
 
 }

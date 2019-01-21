@@ -1,5 +1,6 @@
 package com.mdgiitr.karthik.cognizance19.network.service;
 
+import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
 import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
 
 import io.reactivex.Observable;
@@ -15,5 +16,9 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("session/users/signup/{role}")
     Observable<SignupResponse> signUp(@Field("email") String email, @Field("type") String type, @Path("role") String role, @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("session/users/login")
+    Observable<LoginResponse> login(@Field("email") String email, @Field("password") String password);
 
 }
