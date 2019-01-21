@@ -38,15 +38,6 @@
     <string name="workshops">Workshops</string>
     <string name="spotlight">Spotlight</string>
     <string name="more">More</string>
-    <string-array name="Select_City">
-        <item>Select City</item>
-    </string-array>
-    <string-array name="Select_State">
-        <item>Select State</item>
-    </string-array>
-    <string-array name="Select_College">
-        <item>Select College</item>
-    </string-array>
     <string name="statistics">Statistics</string>
     <string name="users_referred">Users Referred</string>
     <string name="referal_score">Score</string>
@@ -60,4 +51,13 @@
     <string name="signup_participant">Sign Up as Participant</string>
     <string name="signup_spp">Sign Up as SPP</string>
     <string name="cancel">CANCEL</string>
+    <string-array name="Select_City">
+        <item>Select City</item>
+    </string-array>
+    <string-array name="Select_State">
+        <item>Select State</item>
+    </string-array>
+    <string-array name="Select_College">
+        <item>Select College</item>
+    </string-array>
 </resources>
