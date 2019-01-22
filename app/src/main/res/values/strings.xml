@@ -51,11 +51,16 @@
     <string name="signup_participant">Sign Up as Participant</string>
     <string name="signup_spp">Sign Up as SPP</string>
     <string name="cancel">CANCEL</string>
-    <string name="events">Events</string>
-    <string name="workshops">Workshops</string>
     <string name="techtainment">TECHTAINMENT</string>
     <string name="guest_speaker">GUEST SPEAKER</string>
     <string name="last_year_highlight">Last year\'s Highlights</string>
+    <string name="register_and_pay">Register and pay</string>
+    <string name="introduction">Introduction</string>
+    <string name="dummy_data">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="registration_procedure">Registration Procedure</string>
+    <string name="rules">Rules</string>
+    <string name="problem_statement">Problem Statement</string>
+    <string name="contact_details">Contact Details</string>
     <string-array name="Select_City">
         <item>Select City</item>
     </string-array>
