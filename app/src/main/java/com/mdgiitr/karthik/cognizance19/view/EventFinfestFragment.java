@@ -48,8 +48,7 @@ public class EventFinfestFragment extends Fragment {
 
         adapter.notifyDataSetChanged();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter)
-        ;
+        recyclerView.setAdapter(adapter);
         return view;
     }
 }
