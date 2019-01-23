@@ -39,7 +39,7 @@ public class PaymentFragment extends Fragment {
         int[] years;
         years = new int[50];
 
-        for (int i=0; i<50; i++){
+        for (int i=0; i < 50; i++){
             years[i] = 2019+i;
         }
 
