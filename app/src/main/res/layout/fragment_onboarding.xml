@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_gray"
         android:orientation="vertical">
 
@@ -46,6 +46,7 @@
         </RelativeLayout>
 
         <android.support.design.card.MaterialCardView
+            android:id="@+id/complete_you_profile_cardView"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:layout_marginStart="20dp"
@@ -58,7 +59,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/complete_your_profile"
-                android:textSize="22sp" />
+                android:textSize="22sp"
+                android:textStyle="bold" />
         </android.support.design.card.MaterialCardView>
 
         <android.support.design.card.MaterialCardView
