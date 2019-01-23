@@ -6,10 +6,8 @@
     android:background="#ffefefef"
     tools:context=".view.EventFinfestFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/finfest_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Finfest" />
-
+        android:layout_height="wrap_content"/>
 </FrameLayout>

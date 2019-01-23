@@ -12,14 +12,14 @@ import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.adapters.HomeMenuEventAdapter;
 import com.mdgiitr.karthik.cognizance19.adapters.HomeMenuTechtainmentAdapter;
 import com.mdgiitr.karthik.cognizance19.adapters.HomeMenuWorkshopAdapter;
-import com.mdgiitr.karthik.cognizance19.models.HomeMenuEventModel;
+import com.mdgiitr.karthik.cognizance19.models.EventModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeMenuFragment extends Fragment {
     private RecyclerView eventRecyclerView, workshopRecyclerView, techtainmentRecyclerView, guestRecyclerView;
-    private List<HomeMenuEventModel> eventList, workshopList;
+    private List<EventModel> eventList, workshopList;
     private List<String> techtainmentURL, guestURL;
     private HomeMenuEventAdapter eventAdapter;
     private HomeMenuWorkshopAdapter workshopAdapter;
@@ -46,13 +46,13 @@ public class HomeMenuFragment extends Fragment {
         techtainmentAdapter = new HomeMenuTechtainmentAdapter(getContext(),techtainmentURL);
         guestAdapter = new HomeMenuTechtainmentAdapter(getContext(), guestURL);
 
-        HomeMenuEventModel eventModel = new HomeMenuEventModel();
+        EventModel eventModel = new EventModel();
         eventModel.setEventName("Armageddon");
         eventModel.setEventCategory("#robotics, bot-wars");
         eventModel.setEventFollowers("100 followers");
         eventList.add(eventModel);
 
-        HomeMenuEventModel eventModel1 = new HomeMenuEventModel();
+        EventModel eventModel1 = new EventModel();
         eventModel1.setEventName("Powerdrift");
         eventModel1.setEventCategory("#robotics, race-car");
         eventModel1.setEventFollowers("70 followers");
