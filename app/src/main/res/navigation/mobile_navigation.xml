@@ -5,6 +5,19 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@id/landingFragment2">
 
+
+    <fragment
+        android:id="@+id/speceficEventFragment"
+        android:name="com.mdgiitr.karthik.cognizance19.view.SpecificEventFragment"
+        android:label="fragment_specefic_event"
+        tools:layout="@layout/fragment_specific_event" />
+
+    <fragment
+        android:id="@+id/workshopsFragment"
+        android:name="com.mdgiitr.karthik.cognizance19.view.WorkshopsFragment"
+        android:label="fragment_workshops"
+        tools:layout="@layout/fragment_workshops" />
+
     <fragment
         android:id="@+id/landingFragment2"
         android:name="com.mdgiitr.karthik.cognizance19.view.LandingFragment"
