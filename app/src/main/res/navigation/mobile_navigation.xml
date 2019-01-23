@@ -3,8 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/landingFragment2">
+    app:startDestination="@id/finfestAndLitfestFragment">
 
+
+    <fragment
+        android:id="@+id/finfestAndLitfestFragment"
+        android:name="com.mdgiitr.karthik.cognizance19.view.EventFinfestAndLitfestFragment"
+        android:label="fragment_finfest_and_litfest"
+        tools:layout="@layout/fragment_event_finfest_and_litfest" />
 
     <fragment
         android:id="@+id/speceficEventFragment"
