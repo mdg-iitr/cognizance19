@@ -7,4 +7,7 @@ public class SignupResponse {
     @SerializedName("message")
     public String message;
 
+    @SerializedName("token")
+    public String token;
+
 }
