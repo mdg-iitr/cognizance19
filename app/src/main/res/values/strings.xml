@@ -60,8 +60,11 @@
     <string name="dummy_data">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="registration_procedure">Registration Procedure</string>
     <string name="rules">Rules</string>
+    <string name="unregister">Unregister</string>
+    <string name="manage_team">Manage Team</string>
     <string name="problem_statement">Problem Statement</string>
     <string name="contact_details">Contact Details</string>
+    <string name="vertical_ellipsis">&#8942;</string>
     <string-array name="Select_City">
         <item>Select City</item>
     </string-array>
