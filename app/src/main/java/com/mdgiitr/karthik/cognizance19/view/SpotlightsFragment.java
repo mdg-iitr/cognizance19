@@ -2,50 +2,74 @@ package com.mdgiitr.karthik.cognizance19.view;
 
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.mdgiitr.karthik.cognizance19.R;
-import com.mdgiitr.karthik.cognizance19.adapters.SpotlightsVerticalRVAdapter;
-import com.mdgiitr.karthik.cognizance19.models.VerticalItemsModel;
+import com.mdgiitr.karthik.cognizance19.adapters.EventViewPagerAdapter;
+import com.mdgiitr.karthik.cognizance19.adapters.SpotlightAdapter;
+import com.mdgiitr.karthik.cognizance19.models.SpotlightModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class SpotlightsFragment extends Fragment {
-
-    private SpotlightsVerticalRVAdapter adapter;
-    private RecyclerView verticalRV;
-    private List<VerticalItemsModel> mItemsList;
-
-    public SpotlightsFragment() {
-        // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private EventViewPagerAdapter viewPagerAdapter;
+    private HashMap<Integer, Fragment> map;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.spotlights_fragment, container, false);
-        verticalRV = (RecyclerView)view.findViewById(R.id.vertical_spotlight_RV);
-        mItemsList = new ArrayList<>();
+        View view = inflater.inflate(R.layout.fragment_spotlight, container, false);
 
-        verticalRV.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        verticalRV.setLayoutManager(llm);
+        tabLayout = view.findViewById(R.id.spotlight_tabs);
+        viewPager = view.findViewById(R.id.spotlight_view_pager);
 
-        adapter = new SpotlightsVerticalRVAdapter(getActivity(), mItemsList);
-        verticalRV.setAdapter(adapter);
+        map = new HashMap<>();
+        viewPagerAdapter = new EventViewPagerAdapter(getChildFragmentManager(), map);
+
+        map.put(0, new SpotlightDay1Fragment());
+        map.put(1, new SpotlightDay2Fragment());
+        map.put(2, new SpotlightDay3Fragment());
+        viewPagerAdapter.notifyDataSetChanged();
+
+        viewPager.setAdapter(viewPagerAdapter);
+
+        tabLayout.setupWithViewPager(viewPager);
+        setUpTabs();
+
         return view;
     }
 
+
+    private void setUpTabs() {
+        tabLayout.getTabAt(0).setText("Day 1");
+        tabLayout.getTabAt(1).setText("Day 2");
+        tabLayout.getTabAt(2).setText("Day 3");
+
+        ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
+        int tabsCount = vg.getChildCount();
+        for (int j = 0; j < tabsCount; j++) {
+            ViewGroup vgTab = (ViewGroup) vg.getChildAt(j);
+            int tabChildsCount = vgTab.getChildCount();
+            for (int i = 0; i < tabChildsCount; i++) {
+                View tabViewChild = vgTab.getChildAt(i);
+                if (tabViewChild instanceof TextView) {
+                    ((TextView) tabViewChild).setAllCaps(false);
+                    ((TextView) tabViewChild).setTextSize(15);
+                }
+            }
+        }
+    }
 }
