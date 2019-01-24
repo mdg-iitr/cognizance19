@@ -46,7 +46,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -59,7 +59,21 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textColor="@color/complete_your_profile_color" />
 
-            <Spinner
+            <EditText
+                android:id="@+id/full_name_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/edit_text_bg"
+                android:baselineAligned="false"
+                android:hint="@string/Full_Name"
+                android:paddingStart="15dp"
+                android:paddingTop="9dp"
+                android:paddingBottom="16dp" />
+
+            <AutoCompleteTextView
                 android:id="@+id/select_state"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,13 +81,13 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="24dp"
                 android:background="@drawable/edit_text_bg"
-                android:entries="@array/Select_State"
+                android:hint="@string/Select_State"
                 android:paddingStart="15dp"
                 android:paddingTop="9dp"
-                android:paddingBottom="16dp"/>
+                android:paddingBottom="16dp" />
 
 
-            <Spinner
+            <AutoCompleteTextView
                 android:id="@+id/select_city"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -82,12 +96,14 @@
                 android:layout_marginEnd="24dp"
                 android:background="@drawable/edit_text_bg"
                 android:entries="@array/Select_City"
+                android:hint="@string/Select_City"
                 android:paddingStart="15dp"
+                android:enabled="false"
                 android:paddingTop="9dp"
-                android:paddingBottom="16dp"/>
+                android:paddingBottom="16dp" />
 
 
-            <Spinner
+            <AutoCompleteTextView
                 android:id="@+id/select_college"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -96,11 +112,13 @@
                 android:layout_marginEnd="24dp"
                 android:background="@drawable/edit_text_bg"
                 android:entries="@array/Select_College"
+                android:hint="@string/Select_College"
                 android:paddingStart="15dp"
                 android:paddingTop="9dp"
-                android:paddingBottom="16dp"/>
+                android:paddingBottom="16dp" />
 
             <EditText
+                android:id="@+id/room_no_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -114,6 +132,7 @@
                 android:paddingBottom="16dp" />
 
             <EditText
+                android:id="@+id/contact_no_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -133,26 +152,30 @@
                 android:layout_marginTop="30dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/signed_up_with_SPP" />
+                    android:text="@string/signed_up_with_SPP"
+                    android:textSize="20sp" />
 
                 <android.support.v7.widget.AppCompatCheckBox
                     android:id="@+id/check_box"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:buttonTint="@color/bg_blue"
                     android:checked="false"
                     android:focusable="auto" />
 
             </LinearLayout>
 
             <Button
+                android:id="@+id/cont_Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="48dp"
                 android:layout_marginEnd="28dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/blue_button_bg"
                 android:baselineAligned="false"
                 android:text="@string/cont"

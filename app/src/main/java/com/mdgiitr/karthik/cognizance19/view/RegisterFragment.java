@@ -2,21 +2,34 @@ package com.mdgiitr.karthik.cognizance19.view;
 
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mdgiitr.karthik.cognizance19.EmailPasswordValidator;
 import com.mdgiitr.karthik.cognizance19.R;
+import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
+import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
+import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
+
+import androidx.navigation.NavOptions;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.HttpException;
 
 import static com.mdgiitr.karthik.cognizance19.MainActivity.REGISTRATION_TYPE_PARTICIPANT;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.REGISTRATION_TYPE_SPP;
@@ -25,11 +38,14 @@ import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 public class RegisterFragment extends Fragment {
 
     public static int REGISTRATION_TYPE = -1;
+    EditText emailEditText, passwordEditText;
     private Button cancelAction, nextAction, contButton;
     private TextView signupParticipant, signupSPP;
-    EditText emailEditText, passwordEditText;
     private Dialog typeDialog;
+    private ProgressDialog progressDialog;
     private boolean isVisible = false, emailValid = false, passwordValid = false;
+    private PreferenceHelper preferenceHelper;
+    private ApiClient apiClient;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -44,6 +60,13 @@ public class RegisterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register, container, false);
+
+        preferenceHelper = new PreferenceHelper(getActivity());
+
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Registering, please wait.");
+
+        apiClient = new ApiClient();
 
         emailEditText = view.findViewById(R.id.email_editText);
         passwordEditText = view.findViewById(R.id.password_editText);
@@ -129,6 +152,70 @@ public class RegisterFragment extends Fragment {
         if (isVisible)
             typeDialog.show();
 
+        contButton.setOnClickListener((View v) -> {
+
+            progressDialog.show();
+
+            if (REGISTRATION_TYPE == REGISTRATION_TYPE_PARTICIPANT) {
+                apiClient.signUpRemote(emailEditText.getText().toString(), "cogni_user", passwordEditText.getText().toString())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<SignupResponse>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(SignupResponse signupResponse) {
+                                progressDialog.dismiss();
+                                preferenceHelper.setToken(signupResponse.token);
+                                navController.navigate(R.id.action_userLoginFragment_to_onBoardingFragment);
+                                Toast.makeText(getContext(), signupResponse.message, Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                progressDialog.dismiss();
+                                handleSignupError(e);
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        });
+            } else {
+                apiClient.signUpRemote(emailEditText.getText().toString(), "spp", passwordEditText.getText().toString())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<SignupResponse>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(SignupResponse signupResponse) {
+                                progressDialog.dismiss();
+                                handleSignupResponse(signupResponse);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                progressDialog.dismiss();
+                                handleSignupError(e);
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        });
+            }
+
+        });
+
         return view;
     }
 
@@ -146,6 +233,31 @@ public class RegisterFragment extends Fragment {
             isVisible = isVisibleToUser;
         if (isVisibleToUser && typeDialog != null)
             typeDialog.show();
+    }
+
+    private void handleSignupError(Throwable throwable) {
+
+        try {
+            if (((HttpException) throwable).code() == 400) {
+                Toast.makeText(getContext(), "User Already Registered", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            Log.d("TAGTAGTAG", throwable.toString());
+            Toast.makeText(getContext(), "No internet!", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void handleSignupResponse(SignupResponse signupResponse) {
+
+        preferenceHelper.setToken(signupResponse.token);
+        preferenceHelper.setLoginStatus(true);
+        Toast.makeText(getContext(), signupResponse.message, Toast.LENGTH_SHORT).show();
+        NavOptions navOptions = new NavOptions.Builder()
+                .setPopUpTo(R.id.onBoardingFragment, true)
+                .build();
+        navController.navigate(R.id.action_userLoginFragment_to_onBoardingFragment, null, navOptions);
+
     }
 
 }
