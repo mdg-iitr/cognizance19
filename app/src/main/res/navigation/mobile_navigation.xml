@@ -5,6 +5,13 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@id/landingFragment2">
 
+
+    <fragment
+        android:id="@+id/SpotlightFragment"
+        android:name="com.mdgiitr.karthik.cognizance19.view.SpotlightsFragment"
+        android:label="fragment_spotlight"
+        tools:layout="@layout/fragment_spotlight" />
+
     <fragment
         android:id="@+id/centerStageAndDepartmentalFragment"
         android:name="com.mdgiitr.karthik.cognizance19.view.EventCenterStageAndDepartmentalFragment"

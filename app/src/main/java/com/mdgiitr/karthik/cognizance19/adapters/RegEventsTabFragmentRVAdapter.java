@@ -2,7 +2,6 @@ package com.mdgiitr.karthik.cognizance19.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,37 +12,24 @@ import android.widget.Toast;
 
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.models.RegEventsModel;
-import com.mdgiitr.karthik.cognizance19.models.VerticalItemsModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RegEventsTabFragmentRVAdapter extends RecyclerView.Adapter<RegEventsTabFragmentRVAdapter.SimpleViewHolder> {
 
-    private List<RegEventsModel> mData;
     Context mContext;
+    private List<RegEventsModel> mData;
 
-    public static class SimpleViewHolder extends RecyclerView.ViewHolder {
-        public final TextView title;
-        Button button;
-
-        public SimpleViewHolder(View view) {
-            super(view);
-            Context context = itemView.getContext();
-            title = (TextView) view.findViewById(R.id.reg_events_tab_RV_text);
-            button = (Button) view.findViewById(R.id.reg_events_tab_RV_button);
-        }
-    }
-
-    public RegEventsTabFragmentRVAdapter(Context context, List<RegEventsModel> data){
+    public RegEventsTabFragmentRVAdapter(Context context, List<RegEventsModel> data) {
         mContext = context;
-        if(data != null){
+        if (data != null) {
             mData = new ArrayList<>(data);
-        }
-        else {
+        } else {
             mData = new ArrayList<>();
         }
     }
+
     @NonNull
     @Override
     public RegEventsTabFragmentRVAdapter.SimpleViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -65,5 +51,17 @@ public class RegEventsTabFragmentRVAdapter extends RecyclerView.Adapter<RegEvent
     @Override
     public int getItemCount() {
         return mData.size();
+    }
+
+    public static class SimpleViewHolder extends RecyclerView.ViewHolder {
+        public final TextView title;
+        Button button;
+
+        public SimpleViewHolder(View view) {
+            super(view);
+            Context context = itemView.getContext();
+            title = (TextView) view.findViewById(R.id.reg_events_tab_RV_text);
+            button = (Button) view.findViewById(R.id.reg_events_tab_RV_button);
+        }
     }
 }
