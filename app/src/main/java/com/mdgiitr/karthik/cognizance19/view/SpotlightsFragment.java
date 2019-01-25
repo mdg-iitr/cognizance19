@@ -5,26 +5,20 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mdgiitr.karthik.cognizance19.R;
-import com.mdgiitr.karthik.cognizance19.adapters.EventViewPagerAdapter;
-import com.mdgiitr.karthik.cognizance19.adapters.SpotlightAdapter;
-import com.mdgiitr.karthik.cognizance19.models.SpotlightModel;
+import com.mdgiitr.karthik.cognizance19.adapters.ViewPagerAdapter;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class SpotlightsFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private EventViewPagerAdapter viewPagerAdapter;
+    private ViewPagerAdapter viewPagerAdapter;
     private HashMap<Integer, Fragment> map;
 
     @Override
@@ -37,7 +31,7 @@ public class SpotlightsFragment extends Fragment {
         viewPager = view.findViewById(R.id.spotlight_view_pager);
 
         map = new HashMap<>();
-        viewPagerAdapter = new EventViewPagerAdapter(getChildFragmentManager(), map);
+        viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), map);
 
         map.put(0, new SpotlightDay1Fragment());
         map.put(1, new SpotlightDay2Fragment());

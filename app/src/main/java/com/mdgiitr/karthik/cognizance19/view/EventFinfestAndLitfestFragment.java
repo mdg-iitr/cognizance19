@@ -11,14 +11,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mdgiitr.karthik.cognizance19.R;
-import com.mdgiitr.karthik.cognizance19.adapters.EventViewPagerAdapter;
+import com.mdgiitr.karthik.cognizance19.adapters.ViewPagerAdapter;
 
 import java.util.HashMap;
 
 public class EventFinfestAndLitfestFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private EventViewPagerAdapter viewPagerAdapter;
+    private ViewPagerAdapter viewPagerAdapter;
     private HashMap<Integer, Fragment> map;
 
     @SuppressLint("UseSparseArrays")
@@ -32,7 +32,7 @@ public class EventFinfestAndLitfestFragment extends Fragment {
         viewPager = view.findViewById(R.id.finfest_litfest_view_pager);
 
         map = new HashMap<>();
-        viewPagerAdapter = new EventViewPagerAdapter(getChildFragmentManager(), map);
+        viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), map);
 
         map.put(0, new EventFinfestFragment());
         map.put(1, new EventLitfestFragment());
