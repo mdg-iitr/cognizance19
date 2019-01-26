@@ -51,11 +51,6 @@ public class UserLoginFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
         setUpTabs();
 
-        if (getArguments().getInt("tabToOpen") == 0) {
-            viewPager.setCurrentItem(0);
-        } else {
-            viewPager.setCurrentItem(1);
-        }
 
         return view;
     }

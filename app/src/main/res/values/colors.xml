@@ -8,6 +8,7 @@
     <color name="editText_blue">#78849E</color>
     <color name="editTextgray">#343434</color>
     <color name="orGray">#6B6B6B</color>
+    <color name="mainbackgorund">#EFEFEF</color>
     <color name="complete_your_profile_color">#343434</color>
     <color name="bottom_navigation_view_color">#FFFFFF</color>
     <color name="bottom_nav_text_color">#B4B4B4</color>
