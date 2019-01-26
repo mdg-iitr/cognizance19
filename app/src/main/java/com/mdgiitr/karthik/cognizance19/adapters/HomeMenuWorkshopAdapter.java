@@ -2,6 +2,7 @@ package com.mdgiitr.karthik.cognizance19.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.models.HomeMenuEventModel;
 
 import java.util.List;
+
+import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
 public class HomeMenuWorkshopAdapter extends RecyclerView.Adapter<HomeMenuWorkshopAdapter.HomeMenuWorkshopViewHolder> {
     Context context;
@@ -39,6 +42,9 @@ public class HomeMenuWorkshopAdapter extends RecyclerView.Adapter<HomeMenuWorksh
         holder.eventName.setText(model.getEventName());
         holder.eventCategory.setText(model.getEventCategory());
         holder.eventFollower.setText(model.getEventFollowers());
+        holder.workshopCard.setOnClickListener(v -> {
+            navController.navigate(R.id.action_homeMenuFragment_to_workshopsFragment);
+        });
     }
 
     @Override
@@ -46,15 +52,18 @@ public class HomeMenuWorkshopAdapter extends RecyclerView.Adapter<HomeMenuWorksh
         return list.size();
     }
 
-    public class HomeMenuWorkshopViewHolder extends RecyclerView.ViewHolder{
+    public class HomeMenuWorkshopViewHolder extends RecyclerView.ViewHolder {
         public ImageView eventPic;
         public TextView eventName, eventCategory, eventFollower;
+        public CardView workshopCard;
+
         public HomeMenuWorkshopViewHolder(@NonNull View itemView) {
             super(itemView);
             eventPic = itemView.findViewById(R.id.home_menu_workshop_image);
             eventName = itemView.findViewById(R.id.home_menu_workshop_name);
             eventCategory = itemView.findViewById(R.id.home_menu_workshop_catagory);
             eventFollower = itemView.findViewById(R.id.home_menu_workshop_followers);
+            workshopCard = itemView.findViewById(R.id.workshopCard);
         }
     }
 }

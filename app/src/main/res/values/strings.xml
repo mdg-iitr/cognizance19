@@ -62,6 +62,12 @@
     <string name="rules">Rules</string>
     <string name="problem_statement">Problem Statement</string>
     <string name="contact_details">Contact Details</string>
+    <string name="unregister">Unregister</string>
+    <string name="manage_team">Manage Team</string>
+    <string name="add_team_members">Add Team Members</string>
+    <string name="add_more_members">+ Add More Members</string>
+    <string name="save">SAVE</string>
+
     <string-array name="Select_City">
         <item>Select City</item>
     </string-array>

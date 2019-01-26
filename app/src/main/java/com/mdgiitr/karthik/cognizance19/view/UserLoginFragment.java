@@ -14,7 +14,7 @@ import com.mdgiitr.karthik.cognizance19.adapters.ViewPagerAdapter;
 
 public class UserLoginFragment extends Fragment {
 
-    private ViewPager viewPager;
+    private static ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
     private TabLayout tabLayout;
 
@@ -45,6 +45,10 @@ public class UserLoginFragment extends Fragment {
         }
 
         return view;
+    }
+
+    public static void setViewPagerFragment(int i){
+        viewPager.setCurrentItem(i);
     }
 
 }

@@ -24,7 +24,6 @@ import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
 import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
 import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
 
-import androidx.navigation.NavOptions;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -34,6 +33,7 @@ import retrofit2.HttpException;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.REGISTRATION_TYPE_PARTICIPANT;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.REGISTRATION_TYPE_SPP;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
+import static com.mdgiitr.karthik.cognizance19.view.UserLoginFragment.setViewPagerFragment;
 
 public class RegisterFragment extends Fragment {
 
@@ -170,8 +170,9 @@ public class RegisterFragment extends Fragment {
                             public void onNext(SignupResponse signupResponse) {
                                 progressDialog.dismiss();
                                 preferenceHelper.setToken(signupResponse.token);
-                                navController.navigate(R.id.action_userLoginFragment_to_onBoardingFragment);
-                                Toast.makeText(getContext(), signupResponse.message, Toast.LENGTH_SHORT).show();
+                                setViewPagerFragment(0);
+//                                navController.navigate(R.id.action_userLoginFragment_to_onBoardingFragment);
+                                Toast.makeText(getContext(), signupResponse.message + "\nPlease verify your email.", Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
@@ -253,10 +254,7 @@ public class RegisterFragment extends Fragment {
         preferenceHelper.setToken(signupResponse.token);
         preferenceHelper.setLoginStatus(true);
         Toast.makeText(getContext(), signupResponse.message, Toast.LENGTH_SHORT).show();
-        NavOptions navOptions = new NavOptions.Builder()
-                .setPopUpTo(R.id.onBoardingFragment, true)
-                .build();
-        navController.navigate(R.id.action_userLoginFragment_to_onBoardingFragment, null, navOptions);
+        navController.navigateUp();
 
     }
 
