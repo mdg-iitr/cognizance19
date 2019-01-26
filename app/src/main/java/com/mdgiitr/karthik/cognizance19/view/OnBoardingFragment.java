@@ -48,7 +48,7 @@ public class OnBoardingFragment extends Fragment {
 
         smallImageView = view.findViewById(R.id.small_profile_image);
 
-        smallImageView.setOnClickListener(v -> navController.navigate(R.id.action_onBoardingFragment_to_myProfileFragment));
+//        smallImageView.setOnClickListener(v -> navController.navigate(R.id.action_onBoardingFragment_to_myProfileFragment));
 
         contButton.setOnClickListener(v -> navController.navigate(R.id.action_onBoardingFragment_to_homeMenuFragment));
 
