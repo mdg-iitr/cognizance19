@@ -60,14 +60,21 @@
     <string name="dummy_data">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="registration_procedure">Registration Procedure</string>
     <string name="rules">Rules</string>
+    <string name="unregister">Unregister</string>
+    <string name="manage_team">Manage Team</string>
     <string name="problem_statement">Problem Statement</string>
     <string name="contact_details">Contact Details</string>
+<<<<<<< HEAD
     <string name="unregister">Unregister</string>
     <string name="manage_team">Manage Team</string>
     <string name="add_team_members">Add Team Members</string>
     <string name="add_more_members">+ Add More Members</string>
     <string name="save">SAVE</string>
 
+=======
+    <string name="vertical_ellipsis">&#8942;</string>
+    <string name="spotlights">Spotlights</string>
+>>>>>>> b9fee2f3e66be7792d595e77da26c1ae2a46f8da
     <string-array name="Select_City">
         <item>Select City</item>
     </string-array>

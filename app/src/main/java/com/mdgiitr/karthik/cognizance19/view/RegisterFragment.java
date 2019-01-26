@@ -1,6 +1,5 @@
 package com.mdgiitr.karthik.cognizance19.view;
 
-
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.graphics.Color;
@@ -46,7 +45,6 @@ public class RegisterFragment extends Fragment {
     private boolean isVisible = false, emailValid = false, passwordValid = false;
     private PreferenceHelper preferenceHelper;
     private ApiClient apiClient;
-
     public RegisterFragment() {
         // Required empty public constructor
     }
@@ -59,6 +57,7 @@ public class RegisterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_register, container, false);
 
         preferenceHelper = new PreferenceHelper(getActivity());

@@ -2,10 +2,10 @@ package com.mdgiitr.karthik.cognizance19.models;
 
 import android.graphics.Bitmap;
 
-public class HomeMenuEventModel {
+public class EventModel {
     private String eventName, eventCategory, eventFollowers, eventPicURL;
 
-    public HomeMenuEventModel() {
+    public EventModel() {
     }
 
     public String getEventPicURl() {

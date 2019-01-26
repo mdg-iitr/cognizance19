@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mdgiitr.karthik.cognizance19.R;
-import com.mdgiitr.karthik.cognizance19.models.HomeMenuEventModel;
+import com.mdgiitr.karthik.cognizance19.models.EventModel;
 
 import java.util.List;
 
@@ -19,9 +19,9 @@ import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
 public class HomeMenuWorkshopAdapter extends RecyclerView.Adapter<HomeMenuWorkshopAdapter.HomeMenuWorkshopViewHolder> {
     Context context;
-    List<HomeMenuEventModel> list;
+    List<EventModel> list;
 
-    public HomeMenuWorkshopAdapter(Context context, List<HomeMenuEventModel> list) {
+    public HomeMenuWorkshopAdapter(Context context, List<EventModel> list) {
         this.context = context;
         this.list = list;
     }
@@ -35,7 +35,7 @@ public class HomeMenuWorkshopAdapter extends RecyclerView.Adapter<HomeMenuWorksh
 
     @Override
     public void onBindViewHolder(@NonNull HomeMenuWorkshopViewHolder holder, int position) {
-        HomeMenuEventModel model = list.get(position);
+        EventModel model = list.get(position);
 
 //        holder.eventPic.setImageBitmap(getImageFromGlide(model.getEventPicURl()));
         holder.eventPic.setImageResource(R.drawable.home_menu_gray_card);
