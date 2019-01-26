@@ -15,14 +15,12 @@ import android.widget.Toolbar;
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.adapters.TabViewPagerAdapter;
 
-import androidx.navigation.NavOptions;
-
 import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
 public class MyProfileFragment extends Fragment {
 
     private PopupMenu popupMenu;
-    private ImageView menuImageView;
+    private ImageView menuImageView, backIcon;
 
     public MyProfileFragment() {
         // Required empty public constructor
@@ -42,7 +40,7 @@ public class MyProfileFragment extends Fragment {
         setHasOptionsMenu(true);
 
         menuImageView = view.findViewById(R.id.menu_icon);
-
+        backIcon = view.findViewById(R.id.back_arrow_complete_your_profile);
         popupMenu = new PopupMenu(getActivity(), menuImageView);
         popupMenu.getMenuInflater().inflate(R.menu.profile_menu, popupMenu.getMenu());
 
@@ -93,14 +91,16 @@ public class MyProfileFragment extends Fragment {
 
             return false;
         });
+
+        backIcon.setOnClickListener(v -> navController.navigateUp());
         return view;
     }
 
     private void userLogout() {
-        NavOptions navOptions = new NavOptions.Builder()
-                .setPopUpTo(R.id.landingFragment2, true)
-                .build();
-        navController.navigate(R.id.action_myProfileFragment_to_landingFragment2, null, navOptions);
+//        NavOptions navOptions = new NavOptions.Builder()
+//                .setPopUpTo(R.id.onBoardingFragment, true)
+//                .build();
+        navController.navigate(R.id.action_myProfileFragment_to_landingFragment2);
 
     }
 

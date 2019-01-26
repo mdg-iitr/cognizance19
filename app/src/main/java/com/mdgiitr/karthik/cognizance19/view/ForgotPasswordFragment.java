@@ -6,10 +6,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.mdgiitr.karthik.cognizance19.R;
 
+import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
+
 public class ForgotPasswordFragment extends Fragment {
+
+    Button nextButton;
 
     public ForgotPasswordFragment() {
         // Required empty public constructor
@@ -23,8 +28,14 @@ public class ForgotPasswordFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_forgot_password, container, false);
+        View view = inflater.inflate(R.layout.fragment_forgot_password, container, false);
+
+        nextButton = view.findViewById(R.id.next_action);
+        nextButton.setOnClickListener((View v) -> {
+            navController.navigate(R.id.action_forgotPasswordFragment_to_changePasswordFragment);
+        });
+
+        return view;
     }
 
 }

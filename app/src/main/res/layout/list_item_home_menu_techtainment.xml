@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/techtainmentLayout"
     android:layout_width="78dp"
     android:layout_height="78dp"
     android:background="@drawable/home_menu_image_card"

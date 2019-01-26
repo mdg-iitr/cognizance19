@@ -35,6 +35,9 @@ public class HomeMenuTechtainmentAdapter extends RecyclerView.Adapter<HomeMenuTe
         String url = urlList.get(position);
         // holder.image.setImage(Retrieve image using glide for the given url).
         holder.image.setImageResource(R.drawable.home_menu_white_card); //Dummy data.
+        holder.image.setOnClickListener(v -> {
+
+        });
     }
 
 
@@ -45,7 +48,6 @@ public class HomeMenuTechtainmentAdapter extends RecyclerView.Adapter<HomeMenuTe
 
     public class HomeMenuTechtainmentViewHolder extends RecyclerView.ViewHolder {
         public ImageView image;
-
         public HomeMenuTechtainmentViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.home_menu_techtainment_image);

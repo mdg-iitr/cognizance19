@@ -62,6 +62,7 @@
 
 
         <TextView
+            android:id="@+id/forgot_password_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -132,11 +133,26 @@
             android:layout_marginEnd="37dp"
             android:background="@drawable/dark_blue_bg"
             android:baselineAligned="false"
-            android:drawableStart="@drawable/fb_icon"
+            android:orientation="horizontal" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="38dp"
+            android:src="@drawable/fb_icon" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:paddingStart="15dp"
             android:paddingTop="17.9dp"
             android:paddingBottom="19dp"
             android:text="@string/login_fb"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
 
         <Button
             android:id="@+id/google_login_Button"
@@ -147,11 +163,24 @@
             android:layout_marginEnd="37dp"
             android:background="@drawable/edit_text_bg"
             android:baselineAligned="false"
-            android:drawableStart="@drawable/google_icon"
-            android:paddingTop="18dp"
-            android:paddingBottom="18dp"
+            android:orientation="horizontal" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="38dp"
+            android:src="@drawable/google_icon" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="15dp"
+            android:paddingTop="17.9dp"
+            android:paddingBottom="19dp"
             android:text="@string/login_google"
-            android:textColor="@color/editTextgray" />
+            android:textColor="@color/editTextgray"
+            android:textStyle="bold" />
+
 
     </LinearLayout>
 

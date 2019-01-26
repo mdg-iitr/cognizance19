@@ -10,13 +10,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.mdgiitr.karthik.cognizance19.R;
+
+import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
 public class CompleteYourProfileFragment extends Fragment {
 
     private EditText nameEditText, roomNoEditText, contactNoEditText;
     private AutoCompleteTextView stateAutoCompleteTextView, cityAutoCompleteTextView, collegeAutoCompleteTextView;
+    private ImageView backIcon;
 
     public CompleteYourProfileFragment() {
         // Required empty public constructor
@@ -32,6 +36,7 @@ public class CompleteYourProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_complete_your_profile, container, false);
 
+        backIcon = view.findViewById(R.id.back_arrow_complete_your_profile);
         nameEditText = view.findViewById(R.id.full_name_editText);
         roomNoEditText = view.findViewById(R.id.room_no_editText);
         contactNoEditText = view.findViewById(R.id.contact_no_editText);
@@ -162,6 +167,8 @@ public class CompleteYourProfileFragment extends Fragment {
                 cityAutoCompleteTextView.setAdapter(cityAdapter);
             }
         });
+
+        backIcon.setOnClickListener(v -> navController.navigateUp());
 
         return view;
     }

@@ -69,6 +69,7 @@
                 android:background="@drawable/edit_text_bg"
                 android:baselineAligned="false"
                 android:hint="@string/Full_Name"
+                android:inputType="textPersonName"
                 android:paddingStart="15dp"
                 android:paddingTop="9dp"
                 android:paddingBottom="16dp" />
@@ -95,10 +96,10 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="24dp"
                 android:background="@drawable/edit_text_bg"
+                android:enabled="false"
                 android:entries="@array/Select_City"
                 android:hint="@string/Select_City"
                 android:paddingStart="15dp"
-                android:enabled="false"
                 android:paddingTop="9dp"
                 android:paddingBottom="16dp" />
 
@@ -127,6 +128,7 @@
                 android:background="@drawable/edit_text_bg"
                 android:baselineAligned="false"
                 android:hint="@string/Room_No_Hostel"
+                android:lines="1"
                 android:paddingStart="15dp"
                 android:paddingTop="9dp"
                 android:paddingBottom="16dp" />
@@ -141,6 +143,7 @@
                 android:background="@drawable/edit_text_bg"
                 android:baselineAligned="false"
                 android:hint="@string/Contact_No"
+                android:inputType="phone"
                 android:paddingStart="15dp"
                 android:paddingTop="9dp"
                 android:paddingBottom="16dp" />

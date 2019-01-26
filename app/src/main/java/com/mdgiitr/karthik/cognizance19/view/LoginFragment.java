@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mdgiitr.karthik.cognizance19.EmailPasswordValidator;
@@ -40,6 +41,7 @@ public class LoginFragment extends Fragment {
     private ApiClient apiClient;
     private PreferenceHelper preferenceHelper;
     private ProgressDialog progressDialog;
+    private TextView forgotPassword;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -64,6 +66,7 @@ public class LoginFragment extends Fragment {
         emailEditText = view.findViewById(R.id.email_editText);
         passwordEditText = view.findViewById(R.id.password_editText);
         contButton = view.findViewById(R.id.cont_Button);
+        forgotPassword = view.findViewById(R.id.forgot_password_textView);
 
         emailEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -108,6 +111,10 @@ public class LoginFragment extends Fragment {
             public void afterTextChanged(Editable s) {
 
             }
+        });
+
+        forgotPassword.setOnClickListener((View v) -> {
+            navController.navigate(R.id.action_userLoginFragment_to_forgotPasswordFragment);
         });
 
         contButton.setOnClickListener((View v) -> {
@@ -161,7 +168,7 @@ public class LoginFragment extends Fragment {
             REGISTRATION_TYPE = REGISTRATION_TYPE_SPP;
         }
         NavOptions navOptions = new NavOptions.Builder()
-                .setPopUpTo(R.id.onBoardingFragment, true)
+                .setPopUpTo(R.id.landingFragment2, true)
                 .build();
         navController.navigate(R.id.action_userLoginFragment_to_onBoardingFragment, null, navOptions);
         Toast.makeText(getContext(), loginResponse.message, Toast.LENGTH_SHORT).show();

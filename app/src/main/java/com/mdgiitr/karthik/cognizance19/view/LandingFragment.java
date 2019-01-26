@@ -52,7 +52,7 @@ public class LandingFragment extends Fragment {
 
         if (preferenceHelper.getLoginStatus()) {
             NavOptions navOptions = new NavOptions.Builder()
-                    .setPopUpTo(R.id.onBoardingFragment, true)
+                    .setPopUpTo(R.id.landingFragment2, true)
                     .build();
             navController.navigate(R.id.action_landingFragment2_to_onBoardingFragment, null, navOptions);
         }

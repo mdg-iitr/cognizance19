@@ -36,20 +36,20 @@ public class PaymentFragment extends Fragment {
         DateFormatSymbols symbols = new DateFormatSymbols();
         String[] monthNames = symbols.getMonths();
 
-        int[] years;
-        years = new int[50];
+        Integer[] years;
+        years = new Integer[50];
 
         for (int i=0; i < 50; i++){
             years[i] = 2019+i;
         }
 
-        ArrayAdapter<String> monthAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, monthNames);
+        ArrayAdapter<String> monthAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, monthNames);
         monthAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         monthSpinner.setAdapter(monthAdapter);
 
-        ArrayAdapter <Integer> yearAdapter = new ArrayAdapter <Integer>(this.getActivity(), android.R.layout.simple_spinner_item, years);
+        ArrayAdapter<Integer> yearAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, years);
         yearAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        monthSpinner.setAdapter(yearAdapter);
+        yearSpinner.setAdapter(yearAdapter);
 
         return v;
     }
