@@ -12,11 +12,14 @@ import android.view.ViewGroup;
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.adapters.ViewPagerAdapter;
 
+import java.util.HashMap;
+
 public class UserLoginFragment extends Fragment {
 
     private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
     private TabLayout tabLayout;
+    private HashMap<Integer, Fragment> map;
 
     public UserLoginFragment() {
         // Required empty public constructor
@@ -34,12 +37,28 @@ public class UserLoginFragment extends Fragment {
 
         tabLayout = view.findViewById(R.id.profile_tabs);
         viewPager = view.findViewById(R.id.view_pager);
-        viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
+
+        map = new HashMap<>();
+        viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(),map);
+
+        map.put(0, new LoginFragment());
+        map.put(1, new RegisterFragment());
+
+        viewPagerAdapter.notifyDataSetChanged();
+
+
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        setUpTabs();
 
 
         return view;
+    }
+
+    private void setUpTabs() {
+        tabLayout.getTabAt(0).setText("Log in");
+        tabLayout.getTabAt(1).setText("Register");
+
     }
 
 }

@@ -9,13 +9,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.mdgiitr.karthik.cognizance19.R;
+import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
 
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
+
+import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
 
 public class LandingFragment extends Fragment {
-
-    private Button loginButton;
+  
+    private Button loginButton, registerButton;
+    private PreferenceHelper preferenceHelper;
 
     public LandingFragment() {
         // Required empty public constructor
@@ -31,12 +36,27 @@ public class LandingFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_landing, container, false);
 
+        preferenceHelper = new PreferenceHelper(getActivity());
+
         loginButton = view.findViewById(R.id.login_button);
         loginButton.setOnClickListener((View v) -> {
             Navigation.findNavController(getActivity(), R.id.my_nav_host_fragment).navigate(R.id.action_landingFragment2_to_userLoginFragment);
         });
 
+        checkUserLoggedIn();
+
         return view;
+    }
+
+    private void checkUserLoggedIn() {
+
+        if (preferenceHelper.getLoginStatus()) {
+            NavOptions navOptions = new NavOptions.Builder()
+                    .setPopUpTo(R.id.onBoardingFragment, true)
+                    .build();
+            navController.navigate(R.id.action_landingFragment2_to_onBoardingFragment, null, navOptions);
+        }
+
     }
 
 }
