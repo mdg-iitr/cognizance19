@@ -8,6 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#ffefefef"
         android:orientation="vertical"
         tools:context=".view.RegisterFragment">
 
@@ -124,7 +125,7 @@
                 android:background="@color/editTextgray" />
         </RelativeLayout>
 
-        <Button
+        <LinearLayout
             android:id="@+id/fb_login_Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -133,28 +134,28 @@
             android:layout_marginEnd="37dp"
             android:background="@drawable/dark_blue_bg"
             android:baselineAligned="false"
-            android:orientation="horizontal" />
+            android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="38dp"
-            android:src="@drawable/fb_icon" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="38dp"
+                android:src="@drawable/fb_icon" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:paddingStart="15dp"
-            android:paddingTop="17.9dp"
-            android:paddingBottom="19dp"
-            android:text="@string/login_fb"
-            android:textColor="@android:color/white"
-            android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:paddingStart="15dp"
+                android:paddingTop="17.9dp"
+                android:paddingBottom="19dp"
+                android:text="@string/login_fb"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-
-        <Button
+        <LinearLayout
             android:id="@+id/google_login_Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -163,23 +164,25 @@
             android:layout_marginEnd="37dp"
             android:background="@drawable/edit_text_bg"
             android:baselineAligned="false"
-            android:orientation="horizontal" />
+            android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="38dp"
-            android:src="@drawable/google_icon" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="38dp"
+                android:src="@drawable/google_icon" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="15dp"
-            android:paddingTop="17.9dp"
-            android:paddingBottom="19dp"
-            android:text="@string/login_google"
-            android:textColor="@color/editTextgray"
-            android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="15dp"
+                android:paddingTop="17.9dp"
+                android:paddingBottom="19dp"
+                android:text="@string/login_google"
+                android:textColor="@color/editTextgray"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
 
     </LinearLayout>

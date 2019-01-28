@@ -9,7 +9,7 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
-    <style name="Base.Widget.Design.TabLayout" parent="android:Widget">
+    <style name="BlueBgTabs" parent="android:Widget">
         <item name="tabBackground">@drawable/tab_background</item>
         <item name="colorPrimary">#ffffffff</item>
         <item name="colorPrimaryDark">#ffffffff</item>

@@ -61,7 +61,7 @@
         android:layout_marginTop="21dp"
         android:layout_marginEnd="28dp"
         android:background="@drawable/blue_tab"
-        android:theme="@style/Base.Widget.Design.TabLayout"
+        android:theme="@style/BlueBgTabs"
         app:tabGravity="fill"
         app:tabIndicatorHeight="0dp"
         app:tabMode="fixed"
