@@ -1,21 +1,52 @@
 package com.mdgiitr.karthik.cognizance19.view;
 
+import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.mdgiitr.karthik.cognizance19.R;
+import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
+import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
+
+import java.io.File;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import okhttp3.ResponseBody;
+import retrofit2.HttpException;
+
+import static android.app.Activity.RESULT_OK;
 
 public class DashboardSPPFragment extends Fragment {
     private ProgressBar referalProgressBar;
-    private ImageButton splitExcelButton;
-    private LinearLayout excelCard;
-    private boolean isExcelVisible = false;
+    private ImageButton splitExcelButton, imageButton;
+    private Button uploadButton;
+    private LinearLayout excelCard, imageCard;
+    private EditText imageEditText;
+    private File imageFile;
+    private PreferenceHelper preferenceHelper;
+    private ApiClient apiClient;
+    private boolean isExcelVisible = false, isImageSetionVisible = false;
+    private int RESULT_LOAD_IMAGE = 100;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -23,27 +54,152 @@ public class DashboardSPPFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_dashboard_spp, container, false);
 
+        preferenceHelper = new PreferenceHelper(getActivity());
+        apiClient = new ApiClient();
+
         referalProgressBar = view.findViewById(R.id.referal_progress_bar);
         referalProgressBar.setProgress(48);
 
         splitExcelButton = view.findViewById(R.id.split_excel_card_button);
         excelCard = view.findViewById(R.id.excel_card);
 
-        splitExcelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isExcelVisible) {
-                    excelCard.setVisibility(View.GONE);
-                    isExcelVisible = false;
-                    splitExcelButton.setImageResource(R.drawable.ic_add_black_24dp);
-                } else {
-                    excelCard.setVisibility(View.VISIBLE);
-                    isExcelVisible = true;
-                    splitExcelButton.setImageResource(R.drawable.ic_remove_black_24dp);
-                }
+        imageButton = view.findViewById(R.id.imageSplit);
+        imageCard = view.findViewById(R.id.image_card);
+        imageEditText = view.findViewById(R.id.imageEditText);
+        uploadButton = view.findViewById(R.id.uploadImageButton);
+
+        splitExcelButton.setOnClickListener(v -> {
+            if (isExcelVisible) {
+                excelCard.setVisibility(View.GONE);
+                isExcelVisible = false;
+                splitExcelButton.setImageResource(R.drawable.ic_add_black_24dp);
+            } else {
+                excelCard.setVisibility(View.VISIBLE);
+                isExcelVisible = true;
+                splitExcelButton.setImageResource(R.drawable.ic_remove_black_24dp);
             }
         });
+
+        imageButton.setOnClickListener(v -> {
+            if (isImageSetionVisible) {
+                imageCard.setVisibility(View.GONE);
+                isImageSetionVisible = false;
+                imageButton.setImageResource(R.drawable.ic_add_black_24dp);
+            } else {
+                imageCard.setVisibility(View.VISIBLE);
+                isImageSetionVisible = true;
+                imageButton.setImageResource(R.drawable.ic_remove_black_24dp);
+            }
+        });
+
+        imageEditText.setOnClickListener(v -> getImage());
+
+        uploadButton.setOnClickListener(v -> {
+            uploadImage(imageFile);
+        });
+
         return view;
+    }
+
+    private void getImage() {
+
+        if (!preferenceHelper.getStoragePerm()) {
+            askStoragePermission();
+        } else {
+            Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(i, RESULT_LOAD_IMAGE);
+        }
+
+    }
+
+    public void askStoragePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                preferenceHelper.setStoragePerm(true);
+                getImage();
+            } else {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            }
+        } else { //permission is automatically granted on sdk<23 upon installation
+            preferenceHelper.setStoragePerm(true);
+            getImage();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            preferenceHelper.setStoragePerm(true);
+            getImage();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            Cursor cursor = getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+            cursor.moveToFirst();
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+            imageEditText.setText(picturePath);
+            imageFile = new File(picturePath);
+        }
+    }
+
+    private void uploadImage(File file) {
+
+        ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Uploading. Please Wait...");
+        if (file != null) {
+            progressDialog.show();
+            apiClient.updateUserImage(preferenceHelper.getToken(), file)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<ResponseBody>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(ResponseBody responseBody) {
+                            Log.d("TAGTAGTAG", responseBody.toString());
+                            progressDialog.dismiss();
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            progressDialog.dismiss();
+                            Log.d("TAGTAGTAG", e.toString());
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+
+        }
+
+    }
+
+    private void handleUploadErrorResponse(Throwable e) {
+
+        try {
+            if (((HttpException) e).code() == 412) {
+                Toast.makeText(getContext(), "File too large to be uploaded.", Toast.LENGTH_SHORT).show();
+            } else if (((HttpException) e).code() == 412) {
+                Toast.makeText(getContext(), "Please complete your registration by going to the dashboard", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
     }
 
 }

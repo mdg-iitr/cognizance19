@@ -197,37 +197,84 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="30dp"
+            app:cardCornerRadius="12dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/white_card">
+                android:animateLayoutChanges="true"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_weight="1"
-                    android:text="@string/upload_a_photo"
-                    android:textColor="#ff343434"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:background="@drawable/white_card">
 
-                <ImageButton
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_weight="1"
+                        android:text="@string/upload_a_photo"
+                        android:textColor="#ff343434"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <ImageButton
+                        android:id="@+id/imageSplit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginBottom="15dp"
+                        android:background="#ffffffff"
+                        android:src="@drawable/ic_add_black_24dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/image_card"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginBottom="15dp"
-                    android:background="#ffffffff"
-                    android:src="@drawable/ic_add_black_24dp" />
+                    android:background="@drawable/grey_card"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+
+                    <EditText
+                        android:id="@+id/imageEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="#ffffffff"
+                        android:focusable="false"
+                        android:hint="@string/choose_a_file_to_upload"
+                        android:padding="5dp"
+                        android:textSize="13sp" />
+
+                    <Button
+                        android:id="@+id/uploadImageButton"
+                        android:layout_width="55dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="48dp"
+                        android:background="@drawable/blue_upload_button"
+                        android:padding="5dp"
+                        android:text="@string/upload"
+                        android:textAllCaps="false"
+                        android:textColor="#ffffffff"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
-
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -239,8 +286,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:animateLayoutChanges="true">
+                android:animateLayoutChanges="true"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"

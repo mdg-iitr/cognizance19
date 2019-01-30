@@ -1,12 +1,20 @@
 package com.mdgiitr.karthik.cognizance19.network.client;
 
 import com.google.gson.Gson;
+import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
 import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
 import com.mdgiitr.karthik.cognizance19.network.service.ApiService;
 
+import java.io.File;
+
 import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -39,13 +47,34 @@ public class ApiClient {
 
     public Observable<SignupResponse> signUpRemote(String email, String role, String password) {
 
-        return apiService.signUp(email, "remote", role, password);
+        return apiService.signUp(email, "remote", role, password).subscribeOn(Schedulers.io());
 
     }
 
     public Observable<LoginResponse> userLogin(String email, String password) {
 
-        return apiService.login(email, password);
+        return apiService.login(email, password).subscribeOn(Schedulers.io());
+
+    }
+
+    public Observable<ResponseBody> updateUserImage(String token, File file) {
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+
+        return apiService.updateImage("Token " + token, body).subscribeOn(Schedulers.io());
+
+    }
+
+    public Observable<GeneralResponse> logout(String token) {
+
+        return apiService.userLogout("Token " + token).subscribeOn(Schedulers.io());
+
+    }
+
+    public Observable<GeneralResponse> updatePassword(String token, String currentPassword, String newPassword1, String newPassword2) {
+
+        return apiService.updatePassword("Token " + token, currentPassword, newPassword1, newPassword2).subscribeOn(Schedulers.io());
 
     }
 }
