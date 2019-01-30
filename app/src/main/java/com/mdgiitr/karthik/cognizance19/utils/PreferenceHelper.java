@@ -26,4 +26,12 @@ public class PreferenceHelper {
     public void setLoginStatus(boolean status) {
         prefs.edit().putBoolean("loginStatus", status).apply();
     }
+
+    public boolean getStoragePerm() {
+        return prefs.getBoolean("storage_perm", false);
+    }
+
+    public void setStoragePerm(boolean p) {
+        prefs.edit().putBoolean("storage_perm", p).apply();
+    }
 }

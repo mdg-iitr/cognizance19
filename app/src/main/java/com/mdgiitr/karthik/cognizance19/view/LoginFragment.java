@@ -25,7 +25,6 @@ import androidx.navigation.NavOptions;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
 import static com.mdgiitr.karthik.cognizance19.MainActivity.REGISTRATION_TYPE_PARTICIPANT;
@@ -120,7 +119,6 @@ public class LoginFragment extends Fragment {
         contButton.setOnClickListener((View v) -> {
             progressDialog.show();
             apiClient.userLogin(emailEditText.getText().toString(), passwordEditText.getText().toString())
-                    .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Observer<LoginResponse>() {
                         @Override
@@ -171,6 +169,7 @@ public class LoginFragment extends Fragment {
                 .setPopUpTo(R.id.landingFragment2, true)
                 .build();
         navController.navigate(R.id.action_userLoginFragment_to_onBoardingFragment, null, navOptions);
+//        navController.navigate(R.id.action_userLoginFragment_to_dashboardSPPFragment, null, navOptions);
         Toast.makeText(getContext(), loginResponse.message, Toast.LENGTH_SHORT).show();
 
     }

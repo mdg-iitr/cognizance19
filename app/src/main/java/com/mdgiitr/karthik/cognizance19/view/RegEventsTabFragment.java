@@ -42,45 +42,45 @@ public class RegEventsTabFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.reg_events_tab_fragment, container, false);
 
-        Button button = (Button) view.findViewById(R.id.reg_events_tab_RV_button);
-        button.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                PopupMenu popup = new PopupMenu(getActivity(), view);
-                popup.setOnMenuItemClickListener((PopupMenu.OnMenuItemClickListener) getActivity());
-                popup.inflate(R.menu.my_profile_events_menu);
-
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-                        switch (menuItem.getItemId()) {
-
-                            case R.id.unregister:
-                                Toast.makeText(getActivity(), "Working Fine!!", Toast.LENGTH_SHORT).show();
-                                return true;
-                            case R.id.manage_team:
-                                Toast.makeText(getActivity(), "Working Fine !!", Toast.LENGTH_SHORT).show();
-                                return true;
-                            default:
-                                return false;
-                        }
-                    }
-
-                });
-
-                popup.show();
-
-            }
-        });
-        recycler_view = (RecyclerView) view.findViewById(R.id.reg_events_tab_RV);
-        recycler_view.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        recycler_view.setLayoutManager(llm);
-
-        adapter = new RegEventsTabFragmentRVAdapter(getActivity(), mdata);
-        recycler_view.setAdapter(adapter);
-        populateRegEventModelList();
+//        Button button = (Button) view.findViewById(R.id.reg_events_tab_RV_button);
+//        button.setOnClickListener(new View.OnClickListener(){
+//
+//            @Override
+//            public void onClick(View view) {
+//                PopupMenu popup = new PopupMenu(getActivity(), view);
+//                popup.setOnMenuItemClickListener((PopupMenu.OnMenuItemClickListener) getActivity());
+//                popup.inflate(R.menu.my_profile_events_menu);
+//
+//                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                    @Override
+//                    public boolean onMenuItemClick(MenuItem menuItem) {
+//                        switch (menuItem.getItemId()) {
+//
+//                            case R.id.unregister:
+//                                Toast.makeText(getActivity(), "Working Fine!!", Toast.LENGTH_SHORT).show();
+//                                return true;
+//                            case R.id.manage_team:
+//                                Toast.makeText(getActivity(), "Working Fine !!", Toast.LENGTH_SHORT).show();
+//                                return true;
+//                            default:
+//                                return false;
+//                        }
+//                    }
+//
+//                });
+//
+//                popup.show();
+//
+//            }
+//        });
+//        recycler_view = (RecyclerView) view.findViewById(R.id.reg_events_tab_RV);
+//        recycler_view.setHasFixedSize(true);
+//        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+//        recycler_view.setLayoutManager(llm);
+//
+//        adapter = new RegEventsTabFragmentRVAdapter(getActivity(), mdata);
+//        recycler_view.setAdapter(adapter);
+//        populateRegEventModelList();
         return view;
     }
 
