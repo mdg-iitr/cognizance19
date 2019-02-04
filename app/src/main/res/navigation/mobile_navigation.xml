@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/landingFragment2">
+    app:startDestination="@id/homeMenuFragment">
 
 
     <fragment
@@ -29,12 +29,6 @@
         android:name="com.mdgiitr.karthik.cognizance19.view.SpecificEventFragment"
         android:label="fragment_specefic_event"
         tools:layout="@layout/fragment_specific_event" />
-
-    <fragment
-        android:id="@+id/workshopsFragment"
-        android:name="com.mdgiitr.karthik.cognizance19.view.WorkshopsFragment"
-        android:label="fragment_workshops"
-        tools:layout="@layout/fragment_workshops" />
 
     <fragment
         android:id="@+id/landingFragment2"
@@ -160,13 +154,6 @@
         <action
             android:id="@+id/action_homeMenuFragment_to_speceficEventFragment"
             app:destination="@id/speceficEventFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_homeMenuFragment_to_workshopsFragment"
-            app:destination="@id/workshopsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"

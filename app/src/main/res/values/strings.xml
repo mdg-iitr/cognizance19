@@ -69,6 +69,8 @@
     <string name="save">SAVE</string>
     <string name="vertical_ellipsis">&#8942;</string>
     <string name="spotlights">Spotlights</string>
+    <string name="exhibitions">EXHIBITIONS</string>
+    <string name="panel_discussion">Panel Discussion</string>
     <string-array name="Select_City">
         <item>Select City</item>
     </string-array>

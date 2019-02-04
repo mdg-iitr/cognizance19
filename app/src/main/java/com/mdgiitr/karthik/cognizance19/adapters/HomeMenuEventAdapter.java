@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.models.EventModel;
+import com.mdgiitr.karthik.cognizance19.models.HomeMenuEventModel;
 
 import java.util.List;
 
@@ -19,9 +20,9 @@ import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
 public class HomeMenuEventAdapter extends RecyclerView.Adapter<HomeMenuEventAdapter.HomeMenuEventViewHolder> {
     Context context;
-    List<EventModel> myList;
+    List<HomeMenuEventModel> myList;
 
-    public HomeMenuEventAdapter(Context context, List<EventModel> myList) {
+    public HomeMenuEventAdapter(Context context, List<HomeMenuEventModel> myList) {
         this.context = context;
         this.myList = myList;
     }
@@ -37,16 +38,11 @@ public class HomeMenuEventAdapter extends RecyclerView.Adapter<HomeMenuEventAdap
 
     @Override
     public void onBindViewHolder(@NonNull HomeMenuEventViewHolder holder, int position) {
-        EventModel model = myList.get(position);
+        HomeMenuEventModel model = myList.get(position);
 
         // holder.eventPic.setImage(getFromGlide(model.getImageURL()))
         holder.eventPic.setImageResource(R.drawable.home_menu_gray_card);
-        holder.eventName.setText(model.getEventName());
-        holder.eventCategory.setText(model.getEventCategory());
-        holder.eventFollower.setText(model.getEventFollowers());
-        holder.eventCard.setOnClickListener(v -> {
-            navController.navigate(R.id.action_homeMenuFragment_to_speceficEventFragment);
-        });
+        holder.eventName.setText(model.getEvent());
 
     }
 
@@ -57,15 +53,13 @@ public class HomeMenuEventAdapter extends RecyclerView.Adapter<HomeMenuEventAdap
 
     public class HomeMenuEventViewHolder extends RecyclerView.ViewHolder {
         public ImageView eventPic;
-        public TextView eventName, eventCategory, eventFollower;
+        public TextView eventName;
         public CardView eventCard;
 
         public HomeMenuEventViewHolder(@NonNull View itemView) {
             super(itemView);
             eventPic = itemView.findViewById(R.id.home_menu_event_image);
             eventName = itemView.findViewById(R.id.home_menu_event_name);
-            eventCategory = itemView.findViewById(R.id.home_menu_event_catagory);
-            eventFollower = itemView.findViewById(R.id.home_menu_event_followers);
             eventCard = itemView.findViewById(R.id.event_card);
         }
     }

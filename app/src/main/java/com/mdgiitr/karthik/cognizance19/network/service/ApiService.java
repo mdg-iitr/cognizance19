@@ -1,8 +1,11 @@
 package com.mdgiitr.karthik.cognizance19.network.service;
 
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
+import com.mdgiitr.karthik.cognizance19.models.HomeMenuWorkshopResponse;
+import com.mdgiitr.karthik.cognizance19.models.HomeMenuWorkshopsModel;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
 import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
+
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -38,5 +41,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("users/password/update")
     Observable<GeneralResponse> updatePassword(@Header("Authorization") String token, @Field("currentPassword") String currentPassword, @Field("newPassword1") String newPassword1, @Field("newPassword2") String newPassword2);
+
+    @GET("android/workshops")
+    Observable<HomeMenuWorkshopResponse> fetchWorkshops();
 
 }

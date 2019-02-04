@@ -1,7 +1,11 @@
 package com.mdgiitr.karthik.cognizance19.network.client;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
+import com.mdgiitr.karthik.cognizance19.models.HomeMenuWorkshopResponse;
+import com.mdgiitr.karthik.cognizance19.models.HomeMenuWorkshopsModel;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
 import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
 import com.mdgiitr.karthik.cognizance19.network.service.ApiService;
@@ -76,5 +80,9 @@ public class ApiClient {
 
         return apiService.updatePassword("Token " + token, currentPassword, newPassword1, newPassword2).subscribeOn(Schedulers.io());
 
+    }
+
+    public Observable<HomeMenuWorkshopResponse> fetchWorkshops(){
+        return apiService.fetchWorkshops().subscribeOn(Schedulers.io());
     }
 }
