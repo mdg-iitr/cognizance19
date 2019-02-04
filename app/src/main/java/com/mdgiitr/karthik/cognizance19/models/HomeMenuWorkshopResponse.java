@@ -2,7 +2,6 @@ package com.mdgiitr.karthik.cognizance19.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeMenuWorkshopResponse {
@@ -11,7 +10,7 @@ public class HomeMenuWorkshopResponse {
     String message;
 
     @SerializedName("workshops")
-    List<HomeMenuWorkshopsModel> workshopsModelList;
+    List<Event> workshopsModelList;
 
     public String getMessage() {
         return message;
@@ -21,11 +20,11 @@ public class HomeMenuWorkshopResponse {
         this.message = message;
     }
 
-    public List<HomeMenuWorkshopsModel> getWorkshopsModelList() {
+    public List<Event> getWorkshopsModelList() {
         return workshopsModelList;
     }
 
-    public void setWorkshopsModelList(List<HomeMenuWorkshopsModel> workshopsModelList) {
+    public void setWorkshopsModelList(List<Event> workshopsModelList) {
         this.workshopsModelList = workshopsModelList;
     }
 }

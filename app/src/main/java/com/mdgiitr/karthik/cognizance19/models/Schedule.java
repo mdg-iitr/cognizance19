@@ -2,7 +2,7 @@ package com.mdgiitr.karthik.cognizance19.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class HomeMenuWorkshopScheduleModel {
+public class Schedule {
 
     @SerializedName("day")
     int day;
