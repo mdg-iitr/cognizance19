@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.adapters.FinfestAdapter;
-import com.mdgiitr.karthik.cognizance19.models.EventModel;
+import com.mdgiitr.karthik.cognizance19.models.FinfestEventModel;
 import com.mdgiitr.karthik.cognizance19.models.FinfestModel;
 
 import java.util.ArrayList;
@@ -34,15 +34,15 @@ public class EventFinfestFragment extends Fragment {
         for (int i=1;i<=5;i++){
             FinfestModel finfestModel = new FinfestModel();
             finfestModel.setCategory("Category " + i);
-            List<EventModel> eventModelList = new ArrayList<>();
+            List<FinfestEventModel> finfestEventModelList = new ArrayList<>();
             for (int j=0;j<9;j++){
-                EventModel eventModel = new EventModel();
-                eventModel.setEventName("Power Drift");
-                eventModel.setEventCategory("#robotics,race-car");
-                eventModel.setEventFollowers("100 followers");
-                eventModelList.add(eventModel);
+                FinfestEventModel finfestEventModel = new FinfestEventModel();
+                finfestEventModel.setEventName("Power Drift");
+                finfestEventModel.setEventCategory("#robotics,race-car");
+                finfestEventModel.setEventFollowers("100 followers");
+                finfestEventModelList.add(finfestEventModel);
             }
-            finfestModel.setEventList(eventModelList);
+            finfestModel.setEventList(finfestEventModelList);
             list.add(finfestModel);
         }
 

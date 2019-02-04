@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mdgiitr.karthik.cognizance19.R;
-import com.mdgiitr.karthik.cognizance19.models.EventModel;
+import com.mdgiitr.karthik.cognizance19.models.FinfestEventModel;
 import com.mdgiitr.karthik.cognizance19.models.FinfestModel;
 
 import java.util.List;
@@ -38,9 +38,9 @@ public class FinfestAdapter extends RecyclerView.Adapter<FinfestAdapter.FinfestV
         FinfestModel finfestModel = list.get(position);
 
         holder.category.setText(finfestModel.getCategory());
-        List<EventModel> eventModelList = finfestModel.getEventList();
+        List<FinfestEventModel> finfestEventModelList = finfestModel.getEventList();
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
-        holder.recyclerView.setAdapter(new FinfestEventAdapter(eventModelList));
+        holder.recyclerView.setAdapter(new FinfestEventAdapter(finfestEventModelList));
     }
 
     @Override

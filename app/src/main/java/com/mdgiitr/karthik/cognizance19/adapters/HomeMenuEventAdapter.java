@@ -11,12 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mdgiitr.karthik.cognizance19.R;
-import com.mdgiitr.karthik.cognizance19.models.EventModel;
 import com.mdgiitr.karthik.cognizance19.models.HomeMenuEventModel;
 
 import java.util.List;
-
-import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
 public class HomeMenuEventAdapter extends RecyclerView.Adapter<HomeMenuEventAdapter.HomeMenuEventViewHolder> {
     Context context;
