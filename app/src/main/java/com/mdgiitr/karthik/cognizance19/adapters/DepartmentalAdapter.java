@@ -19,10 +19,12 @@ public class DepartmentalAdapter extends RecyclerView.Adapter<DepartmentalAdapte
 
     List<Departmental> list;
     Context context;
+    int screenWidth = 0;
 
-    public DepartmentalAdapter(Context context, List<Departmental> list) {
+    public DepartmentalAdapter(Context context, List<Departmental> list, int screenWidth) {
         this.context = context;
         this.list = list;
+        this.screenWidth = screenWidth;
     }
 
     @NonNull
@@ -37,7 +39,10 @@ public class DepartmentalAdapter extends RecyclerView.Adapter<DepartmentalAdapte
     @Override
     public void onBindViewHolder(@NonNull DepartmentalViewHolder holder, int position) {
         Departmental departmentalModel = list.get(position);
+        holder.deptIcon.getLayoutParams().height = (screenWidth / 2) - 100;
+        holder.deptIcon.getLayoutParams().width = (screenWidth / 2) - 100;
         holder.deptNameView.setText(departmentalModel.getName());
+        holder.deptIcon.requestLayout();
     }
 
     @Override

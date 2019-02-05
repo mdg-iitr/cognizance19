@@ -19,6 +19,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.mdgiitr.karthik.cognizance19.MainActivity.SCREEN_WIDTH;
+
 public class EventDepartmentalFragment extends Fragment {
     private final int NO_OF_COLUMNS = 2;
     private RecyclerView recyclerView;
@@ -53,7 +55,7 @@ public class EventDepartmentalFragment extends Fragment {
 
                     @Override
                     public void onNext(CenterstageOrDepartmentalEventsResponse response) {
-                        departmentalAdapter = new DepartmentalAdapter(getContext(), response.getDepartmental());
+                        departmentalAdapter = new DepartmentalAdapter(getContext(), response.getDepartmental(), SCREEN_WIDTH);
                         recyclerView.setAdapter(departmentalAdapter);
                         progressDialog.dismiss();
                     }
