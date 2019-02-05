@@ -2,7 +2,8 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="19dp">
+    android:layout_marginStart="19dp"
+    android:layout_marginBottom="5dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -13,7 +14,8 @@
         <ImageView
             android:id="@+id/centerstage_event_image"
             android:layout_width="232dp"
-            android:layout_height="111dp" />
+            android:layout_height="111dp"
+            android:src="@drawable/blue_gradient" />
 
         <LinearLayout
             android:layout_width="match_parent"

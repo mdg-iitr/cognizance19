@@ -5,6 +5,7 @@ import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
 import com.mdgiitr.karthik.cognizance19.models.HomeMenuWorkshopResponse;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
 import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
+import com.mdgiitr.karthik.cognizance19.models.UserSPPResponseModel;
 
 
 import io.reactivex.Observable;
@@ -25,7 +26,7 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("session/users/signup/{role}")
-    Observable<SignupResponse> signUp(@Field("email") String email, @Field("type") String type, @Path("role") String role, @Field("password") String password);
+    Observable<SignupResponse> signUp(@Field("email") String email, @Field("type") String type, @Path("role") String role, @Field("password") String password, @Field("name") String name);
 
     @FormUrlEncoded
     @POST("session/users/login")
@@ -42,10 +43,17 @@ public interface ApiService {
     @POST("users/password/update")
     Observable<GeneralResponse> updatePassword(@Header("Authorization") String token, @Field("currentPassword") String currentPassword, @Field("newPassword1") String newPassword1, @Field("newPassword2") String newPassword2);
 
+    @GET("users")
+    Observable<UserSPPResponseModel> getUserDetails(@Header("Authorization") String token);
+
+    @POST("users/spp/upload/excel")
+    Observable<ResponseBody> uploadExcel(@Header("Authorization") String token, @Part MultipartBody.Part file);
+
     @GET("android/workshops")
     Observable<HomeMenuWorkshopResponse> fetchWorkshops();
 
     @GET("android/events")
     Observable<CenterstageOrDepartmentalEventsResponse> fetchEvents();
+
 
 }

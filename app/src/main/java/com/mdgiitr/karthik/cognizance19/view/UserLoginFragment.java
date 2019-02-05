@@ -54,7 +54,7 @@ public class UserLoginFragment extends Fragment {
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         setUpTabs();
-
+        setTab(getArguments().getInt("fr_open"));
 
         return view;
     }
@@ -62,8 +62,10 @@ public class UserLoginFragment extends Fragment {
     private void setUpTabs() {
         tabLayout.getTabAt(0).setText("Log in");
         tabLayout.getTabAt(1).setText("Register");
+    }
 
-
+    private void setTab(int i) {
+        viewPager.setCurrentItem(i);
     }
 
 }

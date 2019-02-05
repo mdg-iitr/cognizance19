@@ -168,8 +168,8 @@ public class LoginFragment extends Fragment {
         NavOptions navOptions = new NavOptions.Builder()
                 .setPopUpTo(R.id.landingFragment2, true)
                 .build();
-        navController.navigate(R.id.action_userLoginFragment_to_onBoardingFragment, null, navOptions);
-//        navController.navigate(R.id.action_userLoginFragment_to_dashboardSPPFragment, null, navOptions);
+//        navController.navigate(R.id.action_userLoginFragment_to_onBoardingFragment, null, navOptions);
+        navController.navigate(R.id.action_userLoginFragment_to_dashboardSPPFragment, null, navOptions);
         Toast.makeText(getContext(), loginResponse.message, Toast.LENGTH_SHORT).show();
 
     }

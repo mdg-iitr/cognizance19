@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/myProfileFragment">
+    app:startDestination="@id/centerStageAndDepartmentalFragment">
+  >
 
 
     <fragment
@@ -51,7 +52,11 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_landingFragment2_to_centerStageAndDepartmentalFragment"
-            app:destination="@id/centerStageAndDepartmentalFragment" />
+            app:destination="@id/centerStageAndDepartmentalFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/userLoginFragment"
@@ -74,7 +79,11 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_userLoginFragment_to_dashboardSPPFragment"
-            app:destination="@id/dashboardSPPFragment" />
+            app:destination="@id/dashboardSPPFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/onBoardingFragment"
@@ -126,7 +135,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
