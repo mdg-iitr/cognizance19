@@ -18,7 +18,7 @@ import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
 
 public class LandingFragment extends Fragment {
-  
+
     private Button loginButton, registerButton;
     private PreferenceHelper preferenceHelper;
 
@@ -40,7 +40,16 @@ public class LandingFragment extends Fragment {
 
         loginButton = view.findViewById(R.id.login_button);
         loginButton.setOnClickListener((View v) -> {
-            Navigation.findNavController(getActivity(), R.id.my_nav_host_fragment).navigate(R.id.action_landingFragment2_to_userLoginFragment);
+            Bundle bundle = new Bundle();
+            bundle.putInt("fr_open", 0);
+            Navigation.findNavController(getActivity(), R.id.my_nav_host_fragment).navigate(R.id.action_landingFragment2_to_userLoginFragment, bundle);
+        });
+
+        registerButton = view.findViewById(R.id.register_button);
+        registerButton.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("fr_open", 1);
+            Navigation.findNavController(getActivity(), R.id.my_nav_host_fragment).navigate(R.id.action_landingFragment2_to_userLoginFragment, bundle);
         });
 
         checkUserLoggedIn();

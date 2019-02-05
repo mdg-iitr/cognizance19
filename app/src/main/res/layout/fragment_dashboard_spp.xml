@@ -63,6 +63,7 @@
             android:background="@drawable/referal_diplay">
 
             <TextView
+                android:id="@+id/referal_codeView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -99,6 +100,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/usersReferredView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
@@ -127,6 +129,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/referalScoreView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
@@ -179,6 +182,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/progressText"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="48/100 Students"

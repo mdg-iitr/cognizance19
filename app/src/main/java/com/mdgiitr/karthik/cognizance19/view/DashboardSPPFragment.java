@@ -20,9 +20,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mdgiitr.karthik.cognizance19.R;
+import com.mdgiitr.karthik.cognizance19.models.UserDetailsResponseModel;
+import com.mdgiitr.karthik.cognizance19.models.UserResponseModel;
 import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
 import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
 
@@ -41,6 +44,7 @@ public class DashboardSPPFragment extends Fragment {
     private ImageButton splitExcelButton, imageButton;
     private Button uploadButton;
     private LinearLayout excelCard, imageCard;
+    private TextView referalCodeTextView, usersReferredTextView, scoreTextView, progressText;
     private EditText imageEditText;
     private File imageFile;
     private PreferenceHelper preferenceHelper;
@@ -58,7 +62,7 @@ public class DashboardSPPFragment extends Fragment {
         apiClient = new ApiClient();
 
         referalProgressBar = view.findViewById(R.id.referal_progress_bar);
-        referalProgressBar.setProgress(48);
+        referalProgressBar.setProgress(0);
 
         splitExcelButton = view.findViewById(R.id.split_excel_card_button);
         excelCard = view.findViewById(R.id.excel_card);
@@ -67,6 +71,10 @@ public class DashboardSPPFragment extends Fragment {
         imageCard = view.findViewById(R.id.image_card);
         imageEditText = view.findViewById(R.id.imageEditText);
         uploadButton = view.findViewById(R.id.uploadImageButton);
+        referalCodeTextView = view.findViewById(R.id.referal_codeView);
+        usersReferredTextView = view.findViewById(R.id.usersReferredView);
+        scoreTextView = view.findViewById(R.id.referalScoreView);
+        progressText = view.findViewById(R.id.progressText);
 
         splitExcelButton.setOnClickListener(v -> {
             if (isExcelVisible) {
@@ -97,6 +105,8 @@ public class DashboardSPPFragment extends Fragment {
         uploadButton.setOnClickListener(v -> {
             uploadImage(imageFile);
         });
+
+        populateViewsFromDB();
 
         return view;
     }
@@ -188,12 +198,61 @@ public class DashboardSPPFragment extends Fragment {
 
     }
 
+    private void populateViewsFromDB() {
+
+        apiClient.getUserDetails(preferenceHelper.getToken())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<UserResponseModel>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(UserResponseModel userResponseModel) {
+                        populateViews(userResponseModel.getDetails());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        handleUserDetailsErrorResponse(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+
+    private void populateViews(UserDetailsResponseModel details) {
+
+        referalCodeTextView.setText(details.getReferalCode());
+        usersReferredTextView.setText(details.getUsersReferred());
+        scoreTextView.setText(details.getScore());
+        referalProgressBar.setProgress(Integer.parseInt(details.getUsersReferred()));
+        progressText.setText(details.getUsersReferred() + "/100 Students    ");
+    }
+
     private void handleUploadErrorResponse(Throwable e) {
 
         try {
             if (((HttpException) e).code() == 412) {
                 Toast.makeText(getContext(), "File too large to be uploaded.", Toast.LENGTH_SHORT).show();
             } else if (((HttpException) e).code() == 412) {
+                Toast.makeText(getContext(), "Please complete your registration by going to the dashboard", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+    }
+
+    private void handleUserDetailsErrorResponse(Throwable e) {
+
+        try {
+            if (((HttpException) e).code() == 412) {
                 Toast.makeText(getContext(), "Please complete your registration by going to the dashboard", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception exception) {

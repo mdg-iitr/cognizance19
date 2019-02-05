@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
 import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
+import com.mdgiitr.karthik.cognizance19.models.UserResponseModel;
 import com.mdgiitr.karthik.cognizance19.network.service.ApiService;
 
 import java.io.File;
@@ -45,9 +46,9 @@ public class ApiClient {
 
     }
 
-    public Observable<SignupResponse> signUpRemote(String email, String role, String password) {
+    public Observable<SignupResponse> signUpRemote(String email, String role, String password, String name) {
 
-        return apiService.signUp(email, "remote", role, password).subscribeOn(Schedulers.io());
+        return apiService.signUp(email, "remote", role, password, name).subscribeOn(Schedulers.io());
 
     }
 
@@ -75,6 +76,21 @@ public class ApiClient {
     public Observable<GeneralResponse> updatePassword(String token, String currentPassword, String newPassword1, String newPassword2) {
 
         return apiService.updatePassword("Token " + token, currentPassword, newPassword1, newPassword2).subscribeOn(Schedulers.io());
+
+    }
+
+    public Observable<UserResponseModel> getUserDetails(String token) {
+
+        return apiService.getUserDetails("Token " + token).subscribeOn(Schedulers.io());
+
+    }
+
+    public Observable<ResponseBody> uploadExcel(String token, File file) {
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+
+        return apiService.uploadExcel("Token " + token, body).subscribeOn(Schedulers.io());
 
     }
 }

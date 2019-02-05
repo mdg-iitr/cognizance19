@@ -1,5 +1,7 @@
 package com.mdgiitr.karthik.cognizance19;
 
+import android.util.Patterns;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,6 +21,10 @@ public class EmailPasswordValidator {
 
         else return false;
 
+    }
+
+    public static boolean isPhoneValid(String phone){
+        return Patterns.PHONE.matcher(phone).matches();
     }
 
 }

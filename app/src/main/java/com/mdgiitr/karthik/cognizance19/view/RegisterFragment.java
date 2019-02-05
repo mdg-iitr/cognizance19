@@ -1,9 +1,7 @@
 package com.mdgiitr.karthik.cognizance19.view;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -14,14 +12,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 import com.mdgiitr.karthik.cognizance19.EmailPasswordValidator;
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
 import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
 import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
+
+import org.json.JSONException;
+
+import java.util.Arrays;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -29,22 +42,25 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
-import static com.mdgiitr.karthik.cognizance19.MainActivity.REGISTRATION_TYPE_PARTICIPANT;
-import static com.mdgiitr.karthik.cognizance19.MainActivity.REGISTRATION_TYPE_SPP;
+import static com.mdgiitr.karthik.cognizance19.EmailPasswordValidator.isPhoneValid;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 import static com.mdgiitr.karthik.cognizance19.view.UserLoginFragment.setViewPagerFragment;
 
 public class RegisterFragment extends Fragment {
 
-    public static int REGISTRATION_TYPE = -1;
-    EditText emailEditText, passwordEditText;
-    private Button cancelAction, nextAction, contButton;
-    private TextView signupParticipant, signupSPP;
-    private Dialog typeDialog;
+    private static final String EMAIL = "email";
+    public static int REGISTRATION_TYPE = -1, RC_SIGN_IN = 100;
+    private EditText emailEditText, passwordEditText, nameEditText, mobileEditText;
+    private Button contButton;
+    private CallbackManager callbackManager;
     private ProgressDialog progressDialog;
-    private boolean isVisible = false, emailValid = false, passwordValid = false;
+    private boolean isVisible = false, emailValid = false, passwordValid = false, nameFilled = false, phoneFilled = false;
     private PreferenceHelper preferenceHelper;
     private ApiClient apiClient;
+    private View signInGoogle, signInFacebook;
+    private GoogleSignInOptions gso;
+    private GoogleSignInClient googleSignInClient;
+
     public RegisterFragment() {
         // Required empty public constructor
     }
@@ -67,9 +83,65 @@ public class RegisterFragment extends Fragment {
 
         apiClient = new ApiClient();
 
+        signInGoogle = view.findViewById(R.id.google_login_Button);
+        signInFacebook = view.findViewById(R.id.fb_login_Button);
+
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        googleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
+
+        callbackManager = CallbackManager.Factory.create();
+
         emailEditText = view.findViewById(R.id.email_editText);
         passwordEditText = view.findViewById(R.id.password_editText);
+        nameEditText = view.findViewById(R.id.name_editText);
+        mobileEditText = view.findViewById(R.id.number_editText);
         contButton = view.findViewById(R.id.cont_Button);
+
+        nameEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    nameFilled = true;
+                } else {
+                    nameFilled = false;
+                }
+                isEmailPwValid();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        mobileEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (isPhoneValid(s.toString())) {
+                    phoneFilled = true;
+                } else {
+                    phoneFilled = false;
+                }
+                isEmailPwValid();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         emailEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -116,123 +188,83 @@ public class RegisterFragment extends Fragment {
             }
         });
 
-        typeDialog = new Dialog(getContext());
-        typeDialog.setContentView(R.layout.registration_type_dialog);
-        typeDialog.setCancelable(false);
-        typeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        signupParticipant = typeDialog.findViewById(R.id.signup_as_participant);
-        signupSPP = typeDialog.findViewById(R.id.signup_as_spp);
-
-        cancelAction = typeDialog.findViewById(R.id.cancel_action);
-        nextAction = typeDialog.findViewById(R.id.next_action);
-
-        signupSPP.setOnClickListener((View v) -> {
-            signupSPP.setTextColor(Color.BLUE);
-            signupParticipant.setTextColor(getActivity().getResources().getColor(R.color.userType_gray));
-            REGISTRATION_TYPE = REGISTRATION_TYPE_SPP;
-            nextAction.setEnabled(true);
-        });
-
-        signupParticipant.setOnClickListener((View v) -> {
-            signupParticipant.setTextColor(Color.BLUE);
-            signupSPP.setTextColor(getActivity().getResources().getColor(R.color.userType_gray));
-            REGISTRATION_TYPE = REGISTRATION_TYPE_PARTICIPANT;
-            nextAction.setEnabled(true);
-        });
-
-        cancelAction.setOnClickListener((View v) -> {
-            typeDialog.dismiss();
-            navController.navigateUp();
-        });
-
-        nextAction.setOnClickListener((View v) -> typeDialog.dismiss());
-
-        if (isVisible)
-            typeDialog.show();
-
         contButton.setOnClickListener((View v) -> {
 
             progressDialog.show();
 
-            if (REGISTRATION_TYPE == REGISTRATION_TYPE_PARTICIPANT) {
-                apiClient.signUpRemote(emailEditText.getText().toString(), "cogni_user", passwordEditText.getText().toString())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<SignupResponse>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
+            apiClient.signUpRemote(emailEditText.getText().toString(), "cogni_user", passwordEditText.getText().toString(), nameEditText.getText().toString())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<SignupResponse>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
-                            }
+                        }
 
-                            @Override
-                            public void onNext(SignupResponse signupResponse) {
-                                progressDialog.dismiss();
-                                preferenceHelper.setToken(signupResponse.token);
-                                setViewPagerFragment(0);
+                        @Override
+                        public void onNext(SignupResponse signupResponse) {
+                            progressDialog.dismiss();
+                            preferenceHelper.setToken(signupResponse.token);
+                            setViewPagerFragment(0);
 //                                navController.navigate(R.id.action_userLoginFragment_to_onBoardingFragment);
-                                Toast.makeText(getContext(), signupResponse.message + "\nPlease verify your email.", Toast.LENGTH_SHORT).show();
-                            }
+                            Toast.makeText(getContext(), signupResponse.message + "\nPlease verify your email.", Toast.LENGTH_SHORT).show();
+                        }
 
-                            @Override
-                            public void onError(Throwable e) {
-                                progressDialog.dismiss();
-                                handleSignupError(e);
-                            }
+                        @Override
+                        public void onError(Throwable e) {
+                            progressDialog.dismiss();
+                            handleSignupError(e);
+                        }
 
-                            @Override
-                            public void onComplete() {
+                        @Override
+                        public void onComplete() {
 
-                            }
-                        });
-            } else {
-                apiClient.signUpRemote(emailEditText.getText().toString(), "spp", passwordEditText.getText().toString())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<SignupResponse>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
+                        }
+                    });
 
-                            }
-
-                            @Override
-                            public void onNext(SignupResponse signupResponse) {
-                                progressDialog.dismiss();
-                                handleSignupResponse(signupResponse);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                progressDialog.dismiss();
-                                handleSignupError(e);
-                            }
-
-                            @Override
-                            public void onComplete() {
-
-                            }
-                        });
-            }
 
         });
+
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), (object, response) -> {
+                    try {
+                        String email = object.getString("email");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email");
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
+
+        signInGoogle.setOnClickListener(v -> googleSignIn());
+
+        signInFacebook.setOnClickListener(v -> LoginManager.getInstance().logInWithReadPermissions(getActivity(), Arrays.asList("email", "public_profile")));
 
         return view;
     }
 
     private void isEmailPwValid() {
-        if (emailValid && passwordValid) {
+        if (emailValid && passwordValid && phoneFilled && nameFilled) {
             contButton.setEnabled(true);
         } else {
             contButton.setEnabled(false);
         }
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (isVisibleToUser)
-            isVisible = isVisibleToUser;
-        if (isVisibleToUser && typeDialog != null)
-            typeDialog.show();
     }
 
     private void handleSignupError(Throwable throwable) {
@@ -257,4 +289,34 @@ public class RegisterFragment extends Fragment {
 
     }
 
+    private void googleSignIn() {
+
+        Intent signInIntent = googleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleGoogleSignInResult(task);
+        }
+    }
+
+    private void handleGoogleSignInResult(Task<GoogleSignInAccount> task) {
+        try {
+            GoogleSignInAccount account = task.getResult(ApiException.class);
+        } catch (ApiException e) {
+            Log.d("GOOGLE_SIGNIN_FAILED", "signInResult:failed code=" + e.getStatusCode());
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getActivity());
+    }
 }
