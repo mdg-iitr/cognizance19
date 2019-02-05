@@ -24,8 +24,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mdgiitr.karthik.cognizance19.R;
-import com.mdgiitr.karthik.cognizance19.models.UserDetailsResponseModel;
-import com.mdgiitr.karthik.cognizance19.models.UserResponseModel;
+import com.mdgiitr.karthik.cognizance19.models.UserDetailsSPPResponseModel;
+import com.mdgiitr.karthik.cognizance19.models.UserSPPResponseModel;
 import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
 import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
 
@@ -202,14 +202,14 @@ public class DashboardSPPFragment extends Fragment {
 
         apiClient.getUserDetails(preferenceHelper.getToken())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<UserResponseModel>() {
+                .subscribe(new Observer<UserSPPResponseModel>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(UserResponseModel userResponseModel) {
+                    public void onNext(UserSPPResponseModel userResponseModel) {
                         populateViews(userResponseModel.getDetails());
                     }
 
@@ -226,7 +226,7 @@ public class DashboardSPPFragment extends Fragment {
 
     }
 
-    private void populateViews(UserDetailsResponseModel details) {
+    private void populateViews(UserDetailsSPPResponseModel details) {
 
         referalCodeTextView.setText(details.getReferalCode());
         usersReferredTextView.setText(details.getUsersReferred());

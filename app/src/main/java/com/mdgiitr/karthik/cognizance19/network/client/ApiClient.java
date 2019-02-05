@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
 import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
-import com.mdgiitr.karthik.cognizance19.models.UserResponseModel;
+import com.mdgiitr.karthik.cognizance19.models.UserSPPResponseModel;
 import com.mdgiitr.karthik.cognizance19.network.service.ApiService;
 
 import java.io.File;
@@ -79,7 +79,7 @@ public class ApiClient {
 
     }
 
-    public Observable<UserResponseModel> getUserDetails(String token) {
+    public Observable<UserSPPResponseModel> getUserDetails(String token) {
 
         return apiService.getUserDetails("Token " + token).subscribeOn(Schedulers.io());
 

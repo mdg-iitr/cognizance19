@@ -3,14 +3,14 @@ package com.mdgiitr.karthik.cognizance19.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class UserResponseModel {
+public class UserSPPResponseModel {
 
     @SerializedName("message")
     @Expose
     private String message;
     @SerializedName("details")
     @Expose
-    private UserDetailsResponseModel details;
+    private UserDetailsSPPResponseModel details;
 
     public String getMessage() {
         return message;
@@ -20,11 +20,11 @@ public class UserResponseModel {
         this.message = message;
     }
 
-    public UserDetailsResponseModel getDetails() {
+    public UserDetailsSPPResponseModel getDetails() {
         return details;
     }
 
-    public void setDetails(UserDetailsResponseModel details) {
+    public void setDetails(UserDetailsSPPResponseModel details) {
         this.details = details;
     }
 
