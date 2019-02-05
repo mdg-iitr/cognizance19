@@ -1,9 +1,12 @@
 package com.mdgiitr.karthik.cognizance19.network.service;
 
+import com.mdgiitr.karthik.cognizance19.models.CenterstageOrDepartmentalEventsResponse;
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
+import com.mdgiitr.karthik.cognizance19.models.HomeMenuWorkshopResponse;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
 import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
 import com.mdgiitr.karthik.cognizance19.models.UserSPPResponseModel;
+
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -45,5 +48,12 @@ public interface ApiService {
 
     @POST("users/spp/upload/excel")
     Observable<ResponseBody> uploadExcel(@Header("Authorization") String token, @Part MultipartBody.Part file);
+
+    @GET("android/workshops")
+    Observable<HomeMenuWorkshopResponse> fetchWorkshops();
+
+    @GET("android/events")
+    Observable<CenterstageOrDepartmentalEventsResponse> fetchEvents();
+
 
 }

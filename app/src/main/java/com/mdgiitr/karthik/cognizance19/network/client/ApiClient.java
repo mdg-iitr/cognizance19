@@ -1,7 +1,9 @@
 package com.mdgiitr.karthik.cognizance19.network.client;
 
 import com.google.gson.Gson;
+import com.mdgiitr.karthik.cognizance19.models.CenterstageOrDepartmentalEventsResponse;
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
+import com.mdgiitr.karthik.cognizance19.models.HomeMenuWorkshopResponse;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
 import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
 import com.mdgiitr.karthik.cognizance19.models.UserSPPResponseModel;
@@ -91,6 +93,13 @@ public class ApiClient {
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
 
         return apiService.uploadExcel("Token " + token, body).subscribeOn(Schedulers.io());
+    }
 
+    public Observable<HomeMenuWorkshopResponse> fetchWorkshops() {
+        return apiService.fetchWorkshops().subscribeOn(Schedulers.io());
+    }
+
+    public Observable<CenterstageOrDepartmentalEventsResponse> fetchEvents() {
+        return apiService.fetchEvents().subscribeOn(Schedulers.io());
     }
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 public class FinfestModel {
     private String category;
-    private List<EventModel> eventList;
+    private List<FinfestEventModel> eventList;
 
     public FinfestModel() {
     }
@@ -17,11 +17,11 @@ public class FinfestModel {
         this.category = category;
     }
 
-    public List<EventModel> getEventList() {
+    public List<FinfestEventModel> getEventList() {
         return eventList;
     }
 
-    public void setEventList(List<EventModel> eventList) {
+    public void setEventList(List<FinfestEventModel> eventList) {
         this.eventList = eventList;
     }
 }

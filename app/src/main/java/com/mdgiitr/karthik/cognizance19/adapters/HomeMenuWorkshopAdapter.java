@@ -10,18 +10,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.mdgiitr.karthik.cognizance19.R;
-import com.mdgiitr.karthik.cognizance19.models.EventModel;
+import com.mdgiitr.karthik.cognizance19.models.Event;
 
 import java.util.List;
 
-import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
-
 public class HomeMenuWorkshopAdapter extends RecyclerView.Adapter<HomeMenuWorkshopAdapter.HomeMenuWorkshopViewHolder> {
-    Context context;
-    List<EventModel> list;
+    private Context context;
+    private List<Event> list;
 
-    public HomeMenuWorkshopAdapter(Context context, List<EventModel> list) {
+    public HomeMenuWorkshopAdapter(Context context, List<Event> list) {
         this.context = context;
         this.list = list;
     }
@@ -35,16 +35,17 @@ public class HomeMenuWorkshopAdapter extends RecyclerView.Adapter<HomeMenuWorksh
 
     @Override
     public void onBindViewHolder(@NonNull HomeMenuWorkshopViewHolder holder, int position) {
-        EventModel model = list.get(position);
+        Event model = list.get(position);
 
-//        holder.eventPic.setImageBitmap(getImageFromGlide(model.getEventPicURl()));
-        holder.eventPic.setImageResource(R.drawable.home_menu_gray_card);
-        holder.eventName.setText(model.getEventName());
-        holder.eventCategory.setText(model.getEventCategory());
-        holder.eventFollower.setText(model.getEventFollowers());
-        holder.workshopCard.setOnClickListener(v -> {
-            navController.navigate(R.id.action_homeMenuFragment_to_workshopsFragment);
-        });
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .error(R.drawable.home_menu_gray_card);
+        Glide.with(context)
+                .load(model.getImageURL())
+                .apply(options)
+                .into(holder.workshopPic);
+
+        holder.workshopName.setText(model.getName());
     }
 
     @Override
@@ -52,17 +53,16 @@ public class HomeMenuWorkshopAdapter extends RecyclerView.Adapter<HomeMenuWorksh
         return list.size();
     }
 
-    public class HomeMenuWorkshopViewHolder extends RecyclerView.ViewHolder {
-        public ImageView eventPic;
-        public TextView eventName, eventCategory, eventFollower;
-        public CardView workshopCard;
+    class HomeMenuWorkshopViewHolder extends RecyclerView.ViewHolder {
+        ImageView workshopPic;
+        TextView workshopName, workshopTagline;
+        CardView workshopCard;
 
-        public HomeMenuWorkshopViewHolder(@NonNull View itemView) {
+        HomeMenuWorkshopViewHolder(@NonNull View itemView) {
             super(itemView);
-            eventPic = itemView.findViewById(R.id.home_menu_workshop_image);
-            eventName = itemView.findViewById(R.id.home_menu_workshop_name);
-            eventCategory = itemView.findViewById(R.id.home_menu_workshop_catagory);
-            eventFollower = itemView.findViewById(R.id.home_menu_workshop_followers);
+            workshopPic = itemView.findViewById(R.id.home_menu_workshop_image);
+            workshopName = itemView.findViewById(R.id.home_menu_workshop_name);
+            workshopTagline = itemView.findViewById(R.id.home_menu_workshop_tagline);
             workshopCard = itemView.findViewById(R.id.workshopCard);
         }
     }

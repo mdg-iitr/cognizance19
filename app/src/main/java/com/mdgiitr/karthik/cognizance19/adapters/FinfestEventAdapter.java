@@ -9,14 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mdgiitr.karthik.cognizance19.R;
-import com.mdgiitr.karthik.cognizance19.models.EventModel;
+import com.mdgiitr.karthik.cognizance19.models.FinfestEventModel;
 
 import java.util.List;
 
 public class FinfestEventAdapter extends RecyclerView.Adapter<FinfestEventAdapter.FinfestEventViewHolder> {
-    List<EventModel> eventList;
+    List<FinfestEventModel> eventList;
 
-    public FinfestEventAdapter(List<EventModel> eventList) {
+    public FinfestEventAdapter(List<FinfestEventModel> eventList) {
         this.eventList = eventList;
     }
 
@@ -31,7 +31,7 @@ public class FinfestEventAdapter extends RecyclerView.Adapter<FinfestEventAdapte
 
     @Override
     public void onBindViewHolder(@NonNull FinfestEventViewHolder holder, int position) {
-        EventModel model = eventList.get(position);
+        FinfestEventModel model = eventList.get(position);
 
         // holder.eventPic.setImage(getFromGlide(model.getImageURL()))
         holder.eventPic.setImageResource(R.drawable.home_menu_gray_card);

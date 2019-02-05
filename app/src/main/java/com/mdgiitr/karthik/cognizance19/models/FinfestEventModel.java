@@ -2,10 +2,10 @@ package com.mdgiitr.karthik.cognizance19.models;
 
 import android.graphics.Bitmap;
 
-public class EventModel {
+public class FinfestEventModel {
     private String eventName, eventCategory, eventFollowers, eventPicURL;
 
-    public EventModel() {
+    public FinfestEventModel() {
     }
 
     public String getEventPicURl() {
