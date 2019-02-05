@@ -1,6 +1,7 @@
 package com.mdgiitr.karthik.cognizance19.network.client;
 
 import com.google.gson.Gson;
+import com.mdgiitr.karthik.cognizance19.models.CenterstageOrDepartmentalEventsResponse;
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
 import com.mdgiitr.karthik.cognizance19.models.HomeMenuWorkshopResponse;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
@@ -79,7 +80,11 @@ public class ApiClient {
 
     }
 
-    public Observable<HomeMenuWorkshopResponse> fetchWorkshops(){
+    public Observable<HomeMenuWorkshopResponse> fetchWorkshops() {
         return apiService.fetchWorkshops().subscribeOn(Schedulers.io());
+    }
+
+    public Observable<CenterstageOrDepartmentalEventsResponse> fetchEvents() {
+        return apiService.fetchEvents().subscribeOn(Schedulers.io());
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 public class Event {
 
     @SerializedName("id")
-    int ID;
+    Integer ID;
 
     @SerializedName("thumbnail")
     String imageURL;
@@ -47,11 +47,11 @@ public class Event {
         this.name = name;
     }
 
-    public int getID() {
+    public Integer getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(Integer ID) {
         this.ID = ID;
     }
 

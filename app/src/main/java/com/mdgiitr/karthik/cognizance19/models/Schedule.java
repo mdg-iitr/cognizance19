@@ -5,16 +5,16 @@ import com.google.gson.annotations.SerializedName;
 public class Schedule {
 
     @SerializedName("day")
-    int day;
+    Integer day;
 
     @SerializedName("time")
     String time;
 
-    public int getDay() {
+    public Integer getDay() {
         return day;
     }
 
-    public void setDay(int day) {
+    public void setDay(Integer day) {
         this.day = day;
     }
 
