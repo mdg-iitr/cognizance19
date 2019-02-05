@@ -35,7 +35,7 @@ public class EventCenterStageAndDepartmentalFragment extends Fragment {
         viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), map);
 
         map.put(0, new EventCenterStageFragment());
-        map.put(1, new EventDepartmentalFregment());
+        map.put(1, new EventDepartmentalFragment());
         viewPagerAdapter.notifyDataSetChanged();
 
         viewPager.setAdapter(viewPagerAdapter);
