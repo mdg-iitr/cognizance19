@@ -242,7 +242,7 @@
                     android:id="@+id/image_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/grey_card"
+                    android:background="@drawable/gray_card"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:visibility="gone">
@@ -325,7 +325,7 @@
                     android:id="@+id/excel_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/grey_card"
+                    android:background="@drawable/gray_card"
                     android:orientation="vertical"
                     android:visibility="gone">
 

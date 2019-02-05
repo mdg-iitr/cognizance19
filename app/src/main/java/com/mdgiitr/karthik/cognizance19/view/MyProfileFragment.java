@@ -3,20 +3,15 @@ package com.mdgiitr.karthik.cognizance19.view;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.mdgiitr.karthik.cognizance19.R;
-import com.mdgiitr.karthik.cognizance19.adapters.TabViewPagerAdapter;
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
 import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
 import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
@@ -47,7 +42,7 @@ public class MyProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.my_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
         setHasOptionsMenu(true);
 
         preferenceHelper = new PreferenceHelper(getActivity());

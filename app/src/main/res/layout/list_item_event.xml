@@ -15,7 +15,7 @@
             android:id="@+id/centerstage_event_image"
             android:layout_width="232dp"
             android:layout_height="111dp"
-            android:src="@drawable/blue_gradient" />
+            android:src="@drawable/gray_card" />
 
         <LinearLayout
             android:layout_width="match_parent"
