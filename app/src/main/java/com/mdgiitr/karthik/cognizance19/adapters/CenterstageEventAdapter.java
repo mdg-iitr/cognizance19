@@ -1,5 +1,6 @@
 package com.mdgiitr.karthik.cognizance19.adapters;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.models.Event;
 
@@ -15,8 +18,10 @@ import java.util.List;
 
 public class CenterstageEventAdapter extends RecyclerView.Adapter<CenterstageEventAdapter.CenterstageEventViewHolder> {
     List<Event> eventList;
+    Context context;
 
-    public CenterstageEventAdapter(List<Event> eventList) {
+    public CenterstageEventAdapter(Context context, List<Event> eventList) {
+        this.context = context;
         this.eventList = eventList;
     }
 
@@ -34,7 +39,13 @@ public class CenterstageEventAdapter extends RecyclerView.Adapter<CenterstageEve
         Event model = eventList.get(position);
 
         // holder.eventPic.setImage(getFromGlide(model.getImageURL()))
-        holder.eventPic.setImageResource(R.drawable.home_menu_gray_card);
+        RequestOptions options = new RequestOptions()
+                                        .centerCrop()
+                                        .error(R.drawable.home_menu_gray_card);
+        Glide.with(context)
+                .load(model.getImageURL())
+                .apply(options)
+                .into(holder.eventPic);
         holder.eventName.setText(model.getName());
         holder.eventTagline.setText(model.getTagline());
     }
