@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +30,7 @@ import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 public class MyProfileFragment extends Fragment {
 
     private PopupMenu popupMenu;
-    private ImageView menuImageView, backIcon;
+    private ImageView menuImageView, backIcon, userProfilePic;
     private ApiClient apiClient;
     private PreferenceHelper preferenceHelper;
 
@@ -55,39 +56,11 @@ public class MyProfileFragment extends Fragment {
 
         menuImageView = view.findViewById(R.id.menu_icon);
         backIcon = view.findViewById(R.id.back_arrow_complete_your_profile);
+        userProfilePic = view.findViewById(R.id.user_profile_pic);
         popupMenu = new PopupMenu(getActivity(), menuImageView);
         popupMenu.getMenuInflater().inflate(R.menu.profile_menu, popupMenu.getMenu());
 
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
-        final ViewPager viewPager = view.findViewById(R.id.view_pager_tab);
 
-        TabLayout tabLayout = view.findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 3"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        assert viewPager != null;
-        tabLayout.setupWithViewPager(viewPager);
-
-        final TabViewPagerAdapter adapter = new TabViewPagerAdapter(getChildFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
 
         menuImageView.setOnClickListener((View v) -> {
 
