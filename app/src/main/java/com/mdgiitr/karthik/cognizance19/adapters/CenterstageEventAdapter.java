@@ -38,7 +38,6 @@ public class CenterstageEventAdapter extends RecyclerView.Adapter<CenterstageEve
     public void onBindViewHolder(@NonNull CenterstageEventViewHolder holder, int position) {
         Event model = eventList.get(position);
 
-        // holder.eventPic.setImage(getFromGlide(model.getImageURL()))
         RequestOptions options = new RequestOptions()
                                         .centerCrop()
                                         .error(R.drawable.home_menu_gray_card);

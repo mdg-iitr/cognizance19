@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.models.Event;
 
@@ -35,7 +37,14 @@ public class HomeMenuWorkshopAdapter extends RecyclerView.Adapter<HomeMenuWorksh
     public void onBindViewHolder(@NonNull HomeMenuWorkshopViewHolder holder, int position) {
         Event model = list.get(position);
 
-        holder.workshopPic.setImageResource(R.drawable.home_menu_gray_card);
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .error(R.drawable.home_menu_gray_card);
+        Glide.with(context)
+                .load(model.getImageURL())
+                .apply(options)
+                .into(holder.workshopPic);
+
         holder.workshopName.setText(model.getName());
     }
 
