@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#ffefefef"
     android:orientation="vertical"
     tools:context=".view.MyProfileFragment">
@@ -25,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="96dp"
             android:layout_toEndOf="@id/back_arrow_complete_your_profile"
-            android:text="@string/profile"
+            android:text="@string/dashboard"
             android:textAlignment="center"
             android:textColor="#ff343434"
             android:textSize="24sp"
@@ -118,15 +119,50 @@
             </LinearLayout>
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/user_profile_pic"
+        <android.support.v7.widget.CardView
             android:layout_width="142dp"
             android:layout_height="142dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:foregroundGravity="center|top"
-            android:src="@drawable/grey_card" />
+            app:cardCornerRadius="18dp">
+
+            <ImageView
+                android:id="@+id/user_profile_pic"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/gray_card"/>
+
+
+            <LinearLayout
+                android:layout_width="142dp"
+                android:layout_height="46dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="96dp"
+                android:background="@drawable/update_profilepic_bg">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_photo_camera_white_24dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="22dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ffffffff"
+                    android:textSize="20sp"
+                    android:text="@string/update"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"/>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
     </RelativeLayout>
 
 

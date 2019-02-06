@@ -43,7 +43,7 @@ public class MyProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.my_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
         setHasOptionsMenu(true);
 
         preferenceHelper = new PreferenceHelper(getActivity());
