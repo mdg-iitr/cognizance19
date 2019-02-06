@@ -69,13 +69,6 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_userLoginFragment_to_dashboardSPPFragment"
-            app:destination="@id/dashboardSPPFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
             android:id="@+id/action_userLoginFragment_to_homeMenuFragment"
             app:destination="@id/homeMenuFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -130,6 +123,13 @@
         <action
             android:id="@+id/action_myProfileFragment_to_changePasswordFragment"
             app:destination="@id/changePasswordFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_myProfileFragment_to_dashboardSPPFragment"
+            app:destination="@id/dashboardSPPFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"

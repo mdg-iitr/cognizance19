@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -25,7 +26,6 @@ import android.widget.Toast;
 
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.models.UserDetailsSPPResponseModel;
-import com.mdgiitr.karthik.cognizance19.models.UserSPPResponseModel;
 import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
 import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
 
@@ -38,11 +38,13 @@ import okhttp3.ResponseBody;
 import retrofit2.HttpException;
 
 import static android.app.Activity.RESULT_OK;
+import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
 public class DashboardSPPFragment extends Fragment {
     private ProgressBar referalProgressBar;
     private ImageButton splitExcelButton, imageButton;
     private Button uploadButton;
+    private ImageView backIcon;
     private LinearLayout excelCard, imageCard;
     private TextView referalCodeTextView, usersReferredTextView, scoreTextView, progressText;
     private EditText imageEditText;
@@ -75,6 +77,7 @@ public class DashboardSPPFragment extends Fragment {
         usersReferredTextView = view.findViewById(R.id.usersReferredView);
         scoreTextView = view.findViewById(R.id.referalScoreView);
         progressText = view.findViewById(R.id.progressText);
+        backIcon = view.findViewById(R.id.back_arrow);
 
         splitExcelButton.setOnClickListener(v -> {
             if (isExcelVisible) {
@@ -102,11 +105,11 @@ public class DashboardSPPFragment extends Fragment {
 
         imageEditText.setOnClickListener(v -> getImage());
 
-        uploadButton.setOnClickListener(v -> {
-            uploadImage(imageFile);
-        });
+        uploadButton.setOnClickListener(v -> uploadImage(imageFile));
 
-        populateViewsFromDB();
+        backIcon.setOnClickListener(v -> navController.navigateUp());
+
+        populateViews(getArguments().getParcelable("userDetails"));
 
         return view;
     }
@@ -198,34 +201,6 @@ public class DashboardSPPFragment extends Fragment {
 
     }
 
-    private void populateViewsFromDB() {
-
-        apiClient.getUserDetails(preferenceHelper.getToken())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<UserSPPResponseModel>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(UserSPPResponseModel userResponseModel) {
-                        populateViews(userResponseModel.getDetails());
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        handleUserDetailsErrorResponse(e);
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
-    }
-
     private void populateViews(UserDetailsSPPResponseModel details) {
 
         referalCodeTextView.setText(details.getReferalCode());
@@ -249,16 +224,5 @@ public class DashboardSPPFragment extends Fragment {
 
     }
 
-    private void handleUserDetailsErrorResponse(Throwable e) {
-
-        try {
-            if (((HttpException) e).code() == 412) {
-                Toast.makeText(getContext(), "Please complete your registration by going to the dashboard", Toast.LENGTH_SHORT).show();
-            }
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-
-    }
 
 }

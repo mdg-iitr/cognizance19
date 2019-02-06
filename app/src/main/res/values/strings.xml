@@ -81,6 +81,7 @@
     <string name="download_problem_statement">Download Problem Statement</string>
     <string name="update">update</string>
     <string name="dashboard">Dashboard</string>
+    <string name="spp_dashboard">SPP Dashboard</string>
 
     <string-array name="Select_City">
         <item>Select City</item>

@@ -1,9 +1,22 @@
 package com.mdgiitr.karthik.cognizance19.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class UserDetailsSPPResponseModel {
+public class UserDetailsSPPResponseModel implements Parcelable {
+
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public UserDetailsSPPResponseModel createFromParcel(Parcel in) {
+            return new UserDetailsSPPResponseModel(in);
+        }
+
+        public UserDetailsSPPResponseModel[] newArray(int size) {
+            return new UserDetailsSPPResponseModel[size];
+        }
+    };
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -76,6 +89,18 @@ public class UserDetailsSPPResponseModel {
     @SerializedName("referalCode")
     @Expose
     private String referalCode;
+
+    public UserDetailsSPPResponseModel(Parcel parcel) {
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
     public Integer getId() {
         return id;
