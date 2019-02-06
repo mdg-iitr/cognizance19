@@ -38,4 +38,12 @@ public class PreferenceHelper {
     public void clearSharedPrefs() {
         prefs.edit().clear().apply();
     }
+
+    public Integer getUserType() {
+        return prefs.getInt("user_type", -1);
+    }
+
+    public void setUserType(int i) {
+        prefs.edit().putInt("user_type", i).apply();
+    }
 }
