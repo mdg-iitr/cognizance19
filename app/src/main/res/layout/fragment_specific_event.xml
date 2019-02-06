@@ -235,16 +235,19 @@
                     android:src="@drawable/ic_add_black_24dp" />
             </LinearLayout>
 
-            <TextView
+            <Button
                 android:id="@+id/specific_event_problem_statement"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="23dp"
+                android:layout_marginStart="46dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginEnd="17dp"
-                android:text="@string/dummy_data"
-                android:textColor="#ff343434"
+                android:layout_marginEnd="46dp"
+                android:background="@color/bg_blue"
+                android:text="@string/download_problem_statement"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="@android:color/white"
                 android:textSize="15sp"
+                android:textStyle="bold"
                 android:visibility="gone" />
 
             <View

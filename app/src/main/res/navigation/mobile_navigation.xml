@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/myProfileFragment">
-
+    app:startDestination="@id/landingFragment2">
 
     <fragment
         android:id="@+id/SpotlightFragment"
@@ -43,15 +42,15 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_landingFragment2_to_onBoardingFragment"
-            app:destination="@id/onBoardingFragment"
+            android:id="@+id/action_landingFragment2_to_centerStageAndDepartmentalFragment"
+            app:destination="@id/centerStageAndDepartmentalFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_landingFragment2_to_centerStageAndDepartmentalFragment"
-            app:destination="@id/centerStageAndDepartmentalFragment"
+            android:id="@+id/action_landingFragment2_to_homeMenuFragment2"
+            app:destination="@id/homeMenuFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -63,13 +62,6 @@
         android:label="fragment_user_login"
         tools:layout="@layout/fragment_user_login">
         <action
-            android:id="@+id/action_userLoginFragment_to_onBoardingFragment"
-            app:destination="@id/onBoardingFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
             android:id="@+id/action_userLoginFragment_to_forgotPasswordFragment"
             app:destination="@id/forgotPasswordFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -79,6 +71,13 @@
         <action
             android:id="@+id/action_userLoginFragment_to_dashboardSPPFragment"
             app:destination="@id/dashboardSPPFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_userLoginFragment_to_homeMenuFragment"
+            app:destination="@id/homeMenuFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -162,6 +161,13 @@
         <action
             android:id="@+id/action_homeMenuFragment_to_speceficEventFragment"
             app:destination="@id/speceficEventFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_homeMenuFragment_to_myProfileFragment"
+            app:destination="@id/myProfileFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"

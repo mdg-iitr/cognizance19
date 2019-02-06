@@ -1,12 +1,12 @@
 package com.mdgiitr.karthik.cognizance19.network.service;
 
 import com.mdgiitr.karthik.cognizance19.models.CenterstageOrDepartmentalEventsResponse;
+import com.mdgiitr.karthik.cognizance19.models.EventResponse;
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
 import com.mdgiitr.karthik.cognizance19.models.HomeMenuWorkshopResponse;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
 import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
 import com.mdgiitr.karthik.cognizance19.models.UserSPPResponseModel;
-
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -19,6 +19,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Streaming;
 
 public interface ApiService {
 
@@ -54,6 +55,9 @@ public interface ApiService {
 
     @GET("android/events")
     Observable<CenterstageOrDepartmentalEventsResponse> fetchEvents();
+
+    @GET("android/event/{id}")
+    Observable<EventResponse> getSpecificEventDetails(@Path("id") String id);
 
 
 }

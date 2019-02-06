@@ -20,13 +20,17 @@ import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
+
 public class HomeMenuFragment extends Fragment {
     private RecyclerView eventRecyclerView, workshopRecyclerView, techtainmentRecyclerView, guestRecyclerView;
+    private CircleImageView smallImageView;
     private List<HomeMenuEventModel> eventList;
     private List<String> techtainmentURL, guestURL;
     private HomeMenuEventAdapter eventAdapter;
@@ -46,6 +50,7 @@ public class HomeMenuFragment extends Fragment {
         workshopRecyclerView = view.findViewById(R.id.home_menu_workshop_recyclerview);
         techtainmentRecyclerView = view.findViewById(R.id.home_menu_techtainment_recyclerview);
         guestRecyclerView = view.findViewById(R.id.home_menu_guest_recyclerview);
+        smallImageView = view.findViewById(R.id.small_profile_image);
 
         eventList = new ArrayList<>();
         techtainmentURL = new ArrayList<>();
@@ -112,6 +117,8 @@ public class HomeMenuFragment extends Fragment {
 
         guestRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         guestRecyclerView.setAdapter(guestAdapter);
+
+        smallImageView.setOnClickListener(v -> navController.navigate(R.id.action_homeMenuFragment_to_myProfileFragment));
 
         return view;
     }

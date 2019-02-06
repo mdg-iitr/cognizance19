@@ -16,6 +16,7 @@ import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
 import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
 import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
 
+import androidx.navigation.NavOptions;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -54,7 +55,6 @@ public class MyProfileFragment extends Fragment {
         userProfilePic = view.findViewById(R.id.user_profile_pic);
         popupMenu = new PopupMenu(getActivity(), menuImageView);
         popupMenu.getMenuInflater().inflate(R.menu.profile_menu, popupMenu.getMenu());
-
 
 
         menuImageView.setOnClickListener((View v) -> {
@@ -113,10 +113,11 @@ public class MyProfileFragment extends Fragment {
     private void handleLogoutResponse(GeneralResponse generalResponse) {
 
         Toast.makeText(getContext(), generalResponse.message, Toast.LENGTH_SHORT).show();
-//                NavOptions navOptions = new NavOptions.Builder()
-//                .setPopUpTo(R.id.onBoardingFragment, true)
-//                .build();
-        navController.navigate(R.id.action_myProfileFragment_to_landingFragment2);
+        preferenceHelper.clearSharedPrefs();
+        NavOptions navOptions = new NavOptions.Builder()
+                .setPopUpTo(R.id.homeMenuFragment, true)
+                .build();
+        navController.navigate(R.id.action_myProfileFragment_to_landingFragment2, null, navOptions);
 
     }
 

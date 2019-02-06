@@ -63,7 +63,7 @@ public class LandingFragment extends Fragment {
             NavOptions navOptions = new NavOptions.Builder()
                     .setPopUpTo(R.id.landingFragment2, true)
                     .build();
-            navController.navigate(R.id.action_landingFragment2_to_onBoardingFragment, null, navOptions);
+            navController.navigate(R.id.action_landingFragment2_to_homeMenuFragment2, null, navOptions);
         }
 
     }

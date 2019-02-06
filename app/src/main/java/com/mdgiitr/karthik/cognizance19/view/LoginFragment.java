@@ -168,8 +168,8 @@ public class LoginFragment extends Fragment {
         NavOptions navOptions = new NavOptions.Builder()
                 .setPopUpTo(R.id.landingFragment2, true)
                 .build();
-//        navController.navigate(R.id.action_userLoginFragment_to_onBoardingFragment, null, navOptions);
-        navController.navigate(R.id.action_userLoginFragment_to_dashboardSPPFragment, null, navOptions);
+        navController.navigate(R.id.action_userLoginFragment_to_homeMenuFragment, null, navOptions);
+//        navController.navigate(R.id.action_userLoginFragment_to_dashboardSPPFragment, null, navOptions);
         Toast.makeText(getContext(), loginResponse.message, Toast.LENGTH_SHORT).show();
 
     }
@@ -181,6 +181,8 @@ public class LoginFragment extends Fragment {
                 Toast.makeText(getContext(), "User not found", Toast.LENGTH_SHORT).show();
             } else if ((((HttpException) throwable).code() == 412)) {
                 Toast.makeText(getContext(), "Please verify your email.", Toast.LENGTH_SHORT).show();
+            } else if (((HttpException) throwable).code() == 400) {
+                Toast.makeText(getContext(), "Please enter correct email-id and password.", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             Log.d("TAGTAGTAG", throwable.toString());
