@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -214,7 +215,9 @@ public class SpecificEventFragment extends Fragment {
         contactDetails.setText(Html.fromHtml(contacts));
 
         probStatement.setOnClickListener(v -> {
-            saveDownloadedFile(downloadClient.downloadFile(eventSpecificModel.getProblemStatement().replace("https://drive.google.com/", "")));
+            Log.d("TAGTGATAG", eventSpecificModel.getProblemStatement());
+            String temp = eventSpecificModel.getProblemStatement().replace("https://drive.google.com/", "").replace("%2F", "/").replace("%3F", "?");
+            saveDownloadedFile(downloadClient.downloadFile( "download"));
         });
 
     }
@@ -250,6 +253,7 @@ public class SpecificEventFragment extends Fragment {
                             fileOutputStream.close();
                             Toast.makeText(getActivity(), "Downloaded!", Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
+                            Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
                         }
 

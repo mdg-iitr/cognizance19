@@ -34,4 +34,8 @@ public class PreferenceHelper {
     public void setStoragePerm(boolean p) {
         prefs.edit().putBoolean("storage_perm", p).apply();
     }
+
+    public void clearSharedPrefs() {
+        prefs.edit().clear().apply();
+    }
 }

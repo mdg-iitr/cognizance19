@@ -37,8 +37,8 @@ public class DownloadClient {
 
     }
 
-    public Observable<ResponseBody> downloadFile(String url) {
-        return downloadService.downloadFile(url).subscribeOn(Schedulers.io());
+    public Observable<ResponseBody> downloadFile(String d) {
+        return downloadService.downloadFile(d).subscribeOn(Schedulers.io());
     }
 
 }
