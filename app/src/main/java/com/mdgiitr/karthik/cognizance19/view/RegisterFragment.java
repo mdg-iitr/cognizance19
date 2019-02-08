@@ -28,6 +28,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.mdgiitr.karthik.cognizance19.EmailPasswordValidator;
 import com.mdgiitr.karthik.cognizance19.R;
+import com.mdgiitr.karthik.cognizance19.models.FbGoogleLoginModel;
 import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
 import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
 import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
@@ -36,6 +37,7 @@ import org.json.JSONException;
 
 import java.util.Arrays;
 
+import androidx.navigation.NavOptions;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -228,9 +230,15 @@ public class RegisterFragment extends Fragment {
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                Log.d("TAGTAGTAG", "SUCCESS");
                 GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), (object, response) -> {
                     try {
                         String email = object.getString("email");
+                        String id = object.getString("id");
+                        String name = object.getString("name");
+                        String accessToken = loginResult.getAccessToken().toString();
+                        String imgUrl = "https://graph.facebook.com/" + id + "/picture?type=small";
+                        facebookLogin(email, name, imgUrl, accessToken);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -283,7 +291,6 @@ public class RegisterFragment extends Fragment {
     private void handleSignupResponse(SignupResponse signupResponse) {
 
         preferenceHelper.setToken(signupResponse.token);
-        preferenceHelper.setLoginStatus(true);
         Toast.makeText(getContext(), signupResponse.message, Toast.LENGTH_SHORT).show();
         navController.navigateUp();
 
@@ -294,6 +301,40 @@ public class RegisterFragment extends Fragment {
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
 
+    }
+
+    private void facebookLogin(String email, String name, String imgUrl, String accessToken) {
+
+        FbGoogleLoginModel loginModel = new FbGoogleLoginModel();
+        loginModel.setEmail(email);
+        loginModel.setAccessToken(accessToken);
+        loginModel.setImageUrl(imgUrl);
+        loginModel.setName(name);
+        loginModel.setType("facebook");
+        apiClient.fbGoogleLogin(loginModel)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<SignupResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(SignupResponse signupResponse) {
+                        handleLoginResponse(signupResponse);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getContext(), "Unable to login", Toast.LENGTH_SHORT).show();
+                        Log.d("FACEBOOK_LOGIN_ERROR", e.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @Override
@@ -312,6 +353,16 @@ public class RegisterFragment extends Fragment {
         } catch (ApiException e) {
             Log.d("GOOGLE_SIGNIN_FAILED", "signInResult:failed code=" + e.getStatusCode());
         }
+    }
+
+    private void handleLoginResponse(SignupResponse signupResponse) {
+        preferenceHelper.setLoginStatus(true);
+        preferenceHelper.setToken(signupResponse.token);
+        Toast.makeText(getContext(), "Successfully logged in!", Toast.LENGTH_SHORT).show();
+        NavOptions navOptions = new NavOptions.Builder()
+                .setPopUpTo(R.id.landingFragment2, true)
+                .build();
+        navController.navigate(R.id.action_userLoginFragment_to_homeMenuFragment, null, navOptions);
     }
 
     @Override

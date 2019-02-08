@@ -2,6 +2,7 @@ package com.mdgiitr.karthik.cognizance19.network.service;
 
 import com.mdgiitr.karthik.cognizance19.models.CenterstageOrDepartmentalEventsResponse;
 import com.mdgiitr.karthik.cognizance19.models.EventResponse;
+import com.mdgiitr.karthik.cognizance19.models.FbGoogleLoginModel;
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
 import com.mdgiitr.karthik.cognizance19.models.HomeMenuWorkshopResponse;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
@@ -11,6 +12,7 @@ import com.mdgiitr.karthik.cognizance19.models.UserSPPResponseModel;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -27,6 +29,9 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("session/users/signup/{role}")
     Observable<SignupResponse> signUp(@Field("email") String email, @Field("type") String type, @Path("role") String role, @Field("password") String password, @Field("name") String name);
+
+    @POST("session/users/oauth/cogni_user")
+    Observable<SignupResponse> signupFbGoogle(@Body FbGoogleLoginModel loginModel);
 
     @FormUrlEncoded
     @POST("session/users/login")

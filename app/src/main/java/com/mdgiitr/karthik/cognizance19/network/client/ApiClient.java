@@ -3,6 +3,7 @@ package com.mdgiitr.karthik.cognizance19.network.client;
 import com.google.gson.Gson;
 import com.mdgiitr.karthik.cognizance19.models.CenterstageOrDepartmentalEventsResponse;
 import com.mdgiitr.karthik.cognizance19.models.EventResponse;
+import com.mdgiitr.karthik.cognizance19.models.FbGoogleLoginModel;
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
 import com.mdgiitr.karthik.cognizance19.models.HomeMenuWorkshopResponse;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
@@ -110,6 +111,10 @@ public class ApiClient {
 
     public Observable<ResponseBody> updateUserDetails(String token, String state, String college, String address, String city, String gender, String year, String branch, String pincode, String mobile) {
         return apiService.updateUserDetails("Token " + token, state, college, address, city, gender, year, branch, pincode, mobile).subscribeOn(Schedulers.io());
+    }
+
+    public Observable<SignupResponse> fbGoogleLogin(FbGoogleLoginModel loginModel) {
+        return apiService.signupFbGoogle(loginModel).subscribeOn(Schedulers.io());
     }
 
 }
