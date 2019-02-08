@@ -182,9 +182,9 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onNext(UserSPPResponseModel userSPPResponseModel) {
                         progressDialog.dismiss();
-                        NavOptions navOptions = new NavOptions.Builder()
-                                .setPopUpTo(R.id.landingFragment2, true)
-                                .build();
+                            NavOptions navOptions = new NavOptions.Builder()
+                                    .setPopUpTo(R.id.landingFragment2, true)
+                                    .build();
                         if (userSPPResponseModel.getDetails().getIsCompleted()) {
                             Toast.makeText(getContext(), "Successfully logged in", Toast.LENGTH_SHORT).show();
                             preferenceHelper.setLoginStatus(true);

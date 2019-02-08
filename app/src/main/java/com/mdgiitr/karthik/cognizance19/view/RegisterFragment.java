@@ -2,6 +2,7 @@ package com.mdgiitr.karthik.cognizance19.view;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -20,12 +21,14 @@ import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.mdgiitr.karthik.cognizance19.AsyncResponse;
 import com.mdgiitr.karthik.cognizance19.EmailPasswordValidator;
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.models.FbGoogleLoginModel;
@@ -48,10 +51,11 @@ import static com.mdgiitr.karthik.cognizance19.EmailPasswordValidator.isPhoneVal
 import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 import static com.mdgiitr.karthik.cognizance19.view.UserLoginFragment.setViewPagerFragment;
 
-public class RegisterFragment extends Fragment {
+public class RegisterFragment extends Fragment implements AsyncResponse {
 
     private static final String EMAIL = "email";
     public static int REGISTRATION_TYPE = -1, RC_SIGN_IN = 100;
+    public RetrieveTokenTask retrieveTokenTask;
     private EditText emailEditText, passwordEditText, nameEditText, mobileEditText;
     private Button contButton;
     private CallbackManager callbackManager;
@@ -62,6 +66,7 @@ public class RegisterFragment extends Fragment {
     private View signInGoogle, signInFacebook;
     private GoogleSignInOptions gso;
     private GoogleSignInClient googleSignInClient;
+    private String name, email, imageUrl, accessToken;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -78,6 +83,9 @@ public class RegisterFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_register, container, false);
 
+        retrieveTokenTask = new RetrieveTokenTask();
+        retrieveTokenTask.asyncResponse = this;
+
         preferenceHelper = new PreferenceHelper(getActivity());
 
         progressDialog = new ProgressDialog(getActivity());
@@ -90,6 +98,7 @@ public class RegisterFragment extends Fragment {
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
+                .requestProfile()
                 .build();
         googleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
 
@@ -300,6 +309,7 @@ public class RegisterFragment extends Fragment {
 
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+        progressDialog.show();
 
     }
 
@@ -337,20 +347,46 @@ public class RegisterFragment extends Fragment {
                 });
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleGoogleSignInResult(task);
-        }
+    private void googleLogin(FbGoogleLoginModel googleLoginModel) {
+        apiClient.fbGoogleLogin(googleLoginModel)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<SignupResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(SignupResponse signupResponse) {
+                        progressDialog.dismiss();
+                        handleLoginResponse(signupResponse);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(getContext(), "Unable to login", Toast.LENGTH_SHORT).show();
+                        Log.d("GOOGLE_LOGIN_ERROR", e.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     private void handleGoogleSignInResult(Task<GoogleSignInAccount> task) {
         try {
             GoogleSignInAccount account = task.getResult(ApiException.class);
+            if (account.getPhotoUrl() != null) {
+                imageUrl = account.getPhotoUrl().toString();
+            }
+            name = account.getDisplayName();
+            email = account.getEmail();
+            retrieveTokenTask.execute(email);
         } catch (ApiException e) {
+            progressDialog.dismiss();
             Log.d("GOOGLE_SIGNIN_FAILED", "signInResult:failed code=" + e.getStatusCode());
         }
     }
@@ -369,5 +405,53 @@ public class RegisterFragment extends Fragment {
     public void onStart() {
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getActivity());
+    }
+
+    @Override
+    public void processFinish(String output) {
+
+        accessToken = output;
+        FbGoogleLoginModel googleLoginModel = new FbGoogleLoginModel();
+        googleLoginModel.setAccessToken(accessToken);
+        googleLoginModel.setName(name);
+        googleLoginModel.setImageUrl(imageUrl);
+        googleLoginModel.setEmail(email);
+        googleLoginModel.setType("google");
+        googleLogin(googleLoginModel);
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleGoogleSignInResult(task);
+        }
+    }
+
+    private class RetrieveTokenTask extends AsyncTask<String, Void, String> {
+        public AsyncResponse asyncResponse = null;
+
+        @Override
+        protected String doInBackground(String... params) {
+            String acctName = params[0];
+            String scopes = "oauth2:profile email";
+            String token = null;
+            try {
+                token = GoogleAuthUtil.getToken(getActivity(), acctName, scopes);
+            } catch (Exception e) {
+                progressDialog.dismiss();
+                Log.d("GOOGLE_TOKEN_ERROR", e.toString());
+            }
+            return token;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            asyncResponse.processFinish(s);
+        }
     }
 }
