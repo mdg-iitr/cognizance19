@@ -40,7 +40,6 @@ import org.json.JSONException;
 
 import java.util.Arrays;
 
-import androidx.navigation.NavOptions;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -395,10 +394,7 @@ public class RegisterFragment extends Fragment implements AsyncResponse {
         preferenceHelper.setLoginStatus(true);
         preferenceHelper.setToken(signupResponse.token);
         Toast.makeText(getContext(), "Successfully logged in!", Toast.LENGTH_SHORT).show();
-        NavOptions navOptions = new NavOptions.Builder()
-                .setPopUpTo(R.id.landingFragment2, true)
-                .build();
-        navController.navigate(R.id.action_userLoginFragment_to_homeMenuFragment, null, navOptions);
+        navController.navigate(R.id.action_userLoginFragment_to_completeYourProfileFragment);
     }
 
     @Override
