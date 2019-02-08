@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/speceficEventFragment">
+    app:startDestination="@id/landingFragment2">
 
     <fragment
         android:id="@+id/SpotlightFragment"
@@ -75,29 +75,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-    <fragment
-        android:id="@+id/onBoardingFragment"
-        android:name="com.mdgiitr.karthik.cognizance19.view.OnBoardingFragment"
-        android:label="onboarding_fragment"
-        tools:layout="@layout/fragment_onboarding">
         <action
-            android:id="@+id/action_onBoardingFragment_to_completeYourProfileFragment"
+            android:id="@+id/action_userLoginFragment_to_completeYourProfileFragment"
             app:destination="@id/completeYourProfileFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_onBoardingFragment_to_myProfileFragment"
-            app:destination="@id/myProfileFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_onBoardingFragment_to_homeMenuFragment"
-            app:destination="@id/homeMenuFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -107,7 +87,15 @@
         android:id="@+id/completeYourProfileFragment"
         android:name="com.mdgiitr.karthik.cognizance19.view.CompleteYourProfileFragment"
         android:label="fragment_complete_your_profile"
-        tools:layout="@layout/fragment_complete_your_profile" />
+        tools:layout="@layout/fragment_complete_your_profile">
+        <action
+            android:id="@+id/action_completeYourProfileFragment_to_homeMenuFragment"
+            app:destination="@id/homeMenuFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/myProfileFragment"
         android:name="com.mdgiitr.karthik.cognizance19.view.MyProfileFragment"
