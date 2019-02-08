@@ -1,9 +1,10 @@
 package com.mdgiitr.karthik.cognizance19.view;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.Fragment;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -204,8 +205,13 @@ public class SpecificEventFragment extends Fragment {
         contactDetails.setText(Html.fromHtml(contacts));
 
         probStatement.setOnClickListener(v -> {
-            Log.d("TAGTGATAG", eventSpecificModel.getProblemStatement());
-            String temp = eventSpecificModel.getProblemStatement();
+            String url = eventSpecificModel.getProblemStatement();
+            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+            builder.setToolbarColor(getContext().getResources().getColor(R.color.fragment_bg));
+            builder.setStartAnimations(getContext(), R.anim.slide_in_right, R.anim.slide_out_left);
+            builder.setExitAnimations(getContext(), R.anim.slide_in_left, R.anim.slide_out_right);
+            CustomTabsIntent customTabsIntent = builder.build();
+            customTabsIntent.launchUrl(getContext(), Uri.parse(url));
         });
 
     }

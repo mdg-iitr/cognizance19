@@ -78,7 +78,7 @@
     <string name="facebook_app_id">376446209576624</string>
     <string name="fb_login_protocol_scheme">fb376446209576624</string>
 
-    <string name="download_problem_statement">Download Problem Statement</string>
+    <string name="view_problem_statement">View Problem Statement</string>
     <string name="update">update</string>
     <string name="dashboard">Dashboard</string>
     <string name="spp_dashboard">SPP Dashboard</string>
