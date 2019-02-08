@@ -1,7 +1,6 @@
 package com.mdgiitr.karthik.cognizance19.view;
 
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.util.Log;
@@ -14,28 +13,20 @@ import android.widget.Button;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.models.ContactModel;
 import com.mdgiitr.karthik.cognizance19.models.EventResponse;
 import com.mdgiitr.karthik.cognizance19.models.EventSpecificModel;
 import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
-import com.mdgiitr.karthik.cognizance19.network.client.DownloadClient;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import okhttp3.ResponseBody;
 
 public class SpecificEventFragment extends Fragment {
     private static final int MEGABYTE = 1024 * 1024;
@@ -48,7 +39,6 @@ public class SpecificEventFragment extends Fragment {
     private ImageView introductionSplit, regProcedureSplit, rulesSplit, probStatementSplit, contactDetailsSplit;
     private String eventId = "";
     private ApiClient apiClient;
-    private DownloadClient downloadClient;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,7 +47,6 @@ public class SpecificEventFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_specific_event, container, false);
 
         apiClient = new ApiClient();
-        downloadClient = new DownloadClient();
 
         introduction = view.findViewById(R.id.specific_event_introduction);
         regProcedure = view.findViewById(R.id.specific_event_registration_procedure);
@@ -216,60 +205,10 @@ public class SpecificEventFragment extends Fragment {
 
         probStatement.setOnClickListener(v -> {
             Log.d("TAGTGATAG", eventSpecificModel.getProblemStatement());
-            String temp = eventSpecificModel.getProblemStatement().replace("https://drive.google.com/", "").replace("%2F", "/").replace("%3F", "?");
-            saveDownloadedFile(downloadClient.downloadFile( "download"));
+            String temp = eventSpecificModel.getProblemStatement();
         });
 
     }
 
-    private void saveDownloadedFile(Observable<ResponseBody> observable) {
-
-        observable
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ResponseBody>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(ResponseBody responseBody) {
-                        InputStream inputStream = responseBody.byteStream();
-                        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-                        File folder = new File(extStorageDirectory + "/Download");
-                        File pdfFile = new File(folder, "problem_statement.pdf");
-                        try {
-                            pdfFile.createNewFile();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            FileOutputStream fileOutputStream = new FileOutputStream(pdfFile);
-                            byte[] buffer = new byte[MEGABYTE];
-                            int bufferLength = 0;
-                            while ((bufferLength = inputStream.read(buffer)) > 0) {
-                                fileOutputStream.write(buffer, 0, bufferLength);
-                            }
-                            fileOutputStream.close();
-                            Toast.makeText(getActivity(), "Downloaded!", Toast.LENGTH_SHORT).show();
-                        } catch (Exception e) {
-                            Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
-                            e.printStackTrace();
-                        }
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
-    }
 
 }
