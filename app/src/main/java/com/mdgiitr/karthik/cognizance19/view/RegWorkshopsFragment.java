@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 
 import com.mdgiitr.karthik.cognizance19.R;
 
-public class RegWorkshopsTabFragment extends Fragment {
+public class RegWorkshopsFragment extends Fragment {
 
-    public RegWorkshopsTabFragment() {
+    public RegWorkshopsFragment() {
         // Required empty public constructor
     }
 
@@ -24,7 +24,7 @@ public class RegWorkshopsTabFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.reg_workshops_tab_fragment, container, false);
+        return inflater.inflate(R.layout.fragment_reg_workshops, container, false);
     }
 
 }

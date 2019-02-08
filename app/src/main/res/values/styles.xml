@@ -16,4 +16,11 @@
         <item name="colorAccent">#ff00aeef</item>
     </style>
 
+    <style name="WhiteTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">#ffefefef</item>
+        <item name="colorPrimaryDark">#ffefefef</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:navigationBarColor">@color/colorAccent</item>
+    </style>
+
 </resources>
