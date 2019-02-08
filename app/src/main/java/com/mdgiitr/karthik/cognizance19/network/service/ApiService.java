@@ -19,7 +19,6 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
-import retrofit2.http.Streaming;
 
 public interface ApiService {
 
@@ -46,6 +45,19 @@ public interface ApiService {
 
     @GET("users")
     Observable<UserSPPResponseModel> getUserDetails(@Header("Authorization") String token);
+
+    @FormUrlEncoded
+    @POST("users")
+    Observable<ResponseBody> updateUserDetails(@Header("Authorization") String token,
+                                               @Field("state") String state,
+                                               @Field("college") String college,
+                                               @Field("address") String address,
+                                               @Field("city") String city,
+                                               @Field("gender") String gender,
+                                               @Field("year") String year,
+                                               @Field("branch") String branch,
+                                               @Field("pincode") String pincode,
+                                               @Field("mobile") String mobile);
 
     @POST("users/spp/upload/excel")
     Observable<ResponseBody> uploadExcel(@Header("Authorization") String token, @Part MultipartBody.Part file);

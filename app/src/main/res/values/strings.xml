@@ -82,6 +82,10 @@
     <string name="update">update</string>
     <string name="dashboard">Dashboard</string>
     <string name="spp_dashboard">SPP Dashboard</string>
+    <string name="gender">Gender</string>
+    <string name="pincode">Pincode</string>
+    <string name="year">Year</string>
+    <string name="branch">Branch</string>
 
     <string-array name="Select_City">
         <item>Select City</item>

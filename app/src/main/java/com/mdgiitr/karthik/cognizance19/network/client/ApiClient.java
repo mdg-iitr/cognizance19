@@ -108,4 +108,8 @@ public class ApiClient {
         return apiService.getSpecificEventDetails(id).subscribeOn(Schedulers.io());
     }
 
+    public Observable<ResponseBody> updateUserDetails(String token, String state, String college, String address, String city, String gender, String year, String branch, String pincode, String mobile) {
+        return apiService.updateUserDetails("Token " + token, state, college, address, city, gender, year, branch, pincode, mobile).subscribeOn(Schedulers.io());
+    }
+
 }

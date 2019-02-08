@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.mdgiitr.karthik.cognizance19.EmailPasswordValidator;
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
+import com.mdgiitr.karthik.cognizance19.models.UserSPPResponseModel;
 import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
 import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
 
@@ -128,7 +129,6 @@ public class LoginFragment extends Fragment {
 
                         @Override
                         public void onNext(LoginResponse loginResponse) {
-                            progressDialog.dismiss();
                             handleLoginResponse(loginResponse);
                         }
 
@@ -159,18 +159,58 @@ public class LoginFragment extends Fragment {
     private void handleLoginResponse(LoginResponse loginResponse) {
 
         preferenceHelper.setToken(loginResponse.token);
-        preferenceHelper.setLoginStatus(true);
         if (loginResponse.role.equals("cogni_user")) {
             REGISTRATION_TYPE = REGISTRATION_TYPE_PARTICIPANT;
         } else if (loginResponse.role.equals("spp")) {
             REGISTRATION_TYPE = REGISTRATION_TYPE_SPP;
         }
-        NavOptions navOptions = new NavOptions.Builder()
-                .setPopUpTo(R.id.landingFragment2, true)
-                .build();
-        navController.navigate(R.id.action_userLoginFragment_to_homeMenuFragment, null, navOptions);
-//        navController.navigate(R.id.action_userLoginFragment_to_dashboardSPPFragment, null, navOptions);
-        Toast.makeText(getContext(), loginResponse.message, Toast.LENGTH_SHORT).show();
+
+        checkUserDetailsComplete();
+
+    }
+
+    private void checkUserDetailsComplete() {
+
+        apiClient.getUserDetails(preferenceHelper.getToken())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<UserSPPResponseModel>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(UserSPPResponseModel userSPPResponseModel) {
+                        progressDialog.dismiss();
+                        NavOptions navOptions = new NavOptions.Builder()
+                                .setPopUpTo(R.id.landingFragment2, true)
+                                .build();
+                        if (userSPPResponseModel.getDetails().getIsCompleted()) {
+                            Toast.makeText(getContext(), "Successfully logged in", Toast.LENGTH_SHORT).show();
+                            preferenceHelper.setLoginStatus(true);
+                            navController.navigate(R.id.action_userLoginFragment_to_homeMenuFragment, null, navOptions);
+                        } else {
+                            navController.navigate(R.id.action_userLoginFragment_to_completeYourProfileFragment);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        progressDialog.dismiss();
+                        try {
+                            if ((((HttpException) e).code() == 412)) {
+                                navController.navigate(R.id.action_userLoginFragment_to_completeYourProfileFragment);
+                            }
+                        } catch (Exception e1) {
+                            Log.d("ERROR", e1.toString());
+                        }
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
 
     }
 
