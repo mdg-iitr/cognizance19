@@ -33,6 +33,7 @@ public class RegEventsFragment extends Fragment {
     private RegEventsAdapter adapter;
     private PreferenceHelper preferenceHelper;
     private ApiClient apiClient;
+    private List<RegEventsModel> regEventsList;
 
     public RegEventsFragment() {
         // Required empty public constructor
@@ -57,28 +58,35 @@ public class RegEventsFragment extends Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<RegEventsResponse>() {
-                               @Override
-                               public void onSubscribe(Disposable d) {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-                               }
+                    }
 
-                               @Override
-                               public void onNext(RegEventsResponse regEventsResponse) {
-                                   adapter = new RegEventsAdapter(getContext(),regEventsResponse.getEvents());
-                                   recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                                   recyclerView.setAdapter(adapter);
-                               }
+                    @Override
+                    public void onNext(RegEventsResponse regEventsResponse) {
+                        int size = regEventsResponse.getEvents().size();
+                        regEventsList = new ArrayList<>();
+                        for (int i = 0; i < size; i++) {
+                            if (!regEventsResponse.getEvents().get(i).getType().equals("workshop")) {
+                                regEventsList.add(regEventsResponse.getEvents().get(i));
+                            }
+                        }
+                        adapter = new RegEventsAdapter(getContext(), regEventsList);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                        recyclerView.setAdapter(adapter);
+                    }
 
-                               @Override
-                               public void onError(Throwable e) {
-                                   Toast.makeText(getContext(),"Error in fetching Registered Events.",Toast.LENGTH_SHORT).show();
-                               }
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getContext(), "Error in fetching Registered Events.", Toast.LENGTH_SHORT).show();
+                    }
 
-                               @Override
-                               public void onComplete() {
+                    @Override
+                    public void onComplete() {
 
-                               }
-                           });
+                    }
+                });
         return view;
     }
 
