@@ -78,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="78dp"
+                android:layout_marginTop="50dp"
                 android:layout_marginBottom="15dp"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
@@ -163,6 +163,23 @@
 
 
     </RelativeLayout>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/my_profile_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:tabGravity="fill"
+        app:tabIndicatorHeight="0dp"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="#727272"
+        app:tabTextColor="#95989A" />
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/my_profile_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
 </LinearLayout>

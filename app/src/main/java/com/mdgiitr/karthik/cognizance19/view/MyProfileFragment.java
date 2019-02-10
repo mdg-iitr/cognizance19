@@ -3,10 +3,13 @@ package com.mdgiitr.karthik.cognizance19.view;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -14,11 +17,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.mdgiitr.karthik.cognizance19.R;
+import com.mdgiitr.karthik.cognizance19.adapters.ViewPagerAdapter;
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
 import com.mdgiitr.karthik.cognizance19.models.UserDetailsSPPResponseModel;
 import com.mdgiitr.karthik.cognizance19.models.UserSPPResponseModel;
 import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
 import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
+
+import java.util.HashMap;
 
 import androidx.navigation.NavOptions;
 import io.reactivex.Observer;
@@ -37,6 +43,10 @@ public class MyProfileFragment extends Fragment {
     private TextView nameView, emailView, cogniIDView, mobileNoView;
     private ApiClient apiClient;
     private PreferenceHelper preferenceHelper;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private ViewPagerAdapter viewPagerAdapter;
+    private HashMap<Integer, Fragment> map;
 
     public MyProfileFragment() {
         // Required empty public constructor
@@ -65,6 +75,21 @@ public class MyProfileFragment extends Fragment {
         emailView = view.findViewById(R.id.emailIdTextView);
         cogniIDView = view.findViewById(R.id.cogni_id_textView);
         mobileNoView = view.findViewById(R.id.mobileNoTextView);
+        tabLayout = view.findViewById(R.id.my_profile_tabs);
+        viewPager = view.findViewById(R.id.my_profile_view_pager);
+
+        map = new HashMap<>();
+        viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), map);
+
+
+        map.put(0, new RegEventsFragment());
+        map.put(1, new RegWorkshopsFragment());
+        viewPagerAdapter.notifyDataSetChanged();
+
+        viewPager.setAdapter(viewPagerAdapter);
+
+        tabLayout.setupWithViewPager(viewPager);
+        setUpTabs();
 
         popupMenu = new PopupMenu(getActivity(), menuImageView);
 
@@ -73,6 +98,14 @@ public class MyProfileFragment extends Fragment {
         populateViewsFromDB();
 
         return view;
+    }
+
+    private void setUpTabs(){
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_registered_24dp);
+        tabLayout.getTabAt(0).setText("Reg Events");
+
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_registered_24dp);
+        tabLayout.getTabAt(1).setText("Reg Workshops");
     }
 
     private void userLogout() {

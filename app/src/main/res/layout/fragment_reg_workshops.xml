@@ -4,18 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gray"
-    android:orientation="vertical"
-    tools:context=".view.RegEventsTabFragment">
-
-
+    android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/reg_workshops_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/reg_events_tab_RV"
-        android:visibility="gone"
-        />
-
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"/>
 
 </RelativeLayout>

@@ -6,6 +6,7 @@ import com.mdgiitr.karthik.cognizance19.models.FbGoogleLoginModel;
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
 import com.mdgiitr.karthik.cognizance19.models.HomeMenuWorkshopResponse;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
+import com.mdgiitr.karthik.cognizance19.models.RegEventsResponse;
 import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
 import com.mdgiitr.karthik.cognizance19.models.UserSPPResponseModel;
 
@@ -75,6 +76,9 @@ public interface ApiService {
 
     @GET("android/event/{id}")
     Observable<EventResponse> getSpecificEventDetails(@Path("id") String id);
+
+    @GET("users/events/registered")
+    Observable<RegEventsResponse> getRegisteredEvents(@Header("Authorization") String token);
 
 
 }

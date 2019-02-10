@@ -7,6 +7,7 @@ import com.mdgiitr.karthik.cognizance19.models.FbGoogleLoginModel;
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
 import com.mdgiitr.karthik.cognizance19.models.HomeMenuWorkshopResponse;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
+import com.mdgiitr.karthik.cognizance19.models.RegEventsResponse;
 import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
 import com.mdgiitr.karthik.cognizance19.models.UserSPPResponseModel;
 import com.mdgiitr.karthik.cognizance19.network.service.ApiService;
@@ -115,6 +116,10 @@ public class ApiClient {
 
     public Observable<SignupResponse> fbGoogleLogin(FbGoogleLoginModel loginModel) {
         return apiService.signupFbGoogle(loginModel).subscribeOn(Schedulers.io());
+    }
+
+    public Observable<RegEventsResponse> fetchRegisteredEvents(String token) {
+        return apiService.getRegisteredEvents("Token " + token).subscribeOn(Schedulers.io());
     }
 
 }

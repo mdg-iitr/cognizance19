@@ -74,7 +74,7 @@
     <string name="exhibitions">EXHIBITIONS</string>
     <string name="panel_discussion">Panel Discussion</string>
     <string name="dept_name">Dept. Name</string>
-    
+
     <string name="facebook_app_id">376446209576624</string>
     <string name="fb_login_protocol_scheme">fb376446209576624</string>
 
@@ -86,6 +86,7 @@
     <string name="pincode">Pincode</string>
     <string name="year">Year</string>
     <string name="branch">Branch</string>
+    <string name="submit_abstract">Submit abstract</string>
 
     <string-array name="Select_City">
         <item>Select City</item>
