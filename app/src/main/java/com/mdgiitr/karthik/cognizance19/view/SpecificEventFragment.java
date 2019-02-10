@@ -1,10 +1,10 @@
 package com.mdgiitr.karthik.cognizance19.view;
 
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.Fragment;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,28 +14,22 @@ import android.widget.Button;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.models.ContactModel;
 import com.mdgiitr.karthik.cognizance19.models.EventResponse;
 import com.mdgiitr.karthik.cognizance19.models.EventSpecificModel;
 import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
-import com.mdgiitr.karthik.cognizance19.network.client.DownloadClient;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import okhttp3.ResponseBody;
+
+import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
 public class SpecificEventFragment extends Fragment {
     private static final int MEGABYTE = 1024 * 1024;
@@ -45,10 +39,9 @@ public class SpecificEventFragment extends Fragment {
     private int position = 0;
     private TextView introduction, regProcedure, rules, contactDetails;
     private Button probStatement;
-    private ImageView introductionSplit, regProcedureSplit, rulesSplit, probStatementSplit, contactDetailsSplit;
+    private ImageView introductionSplit, regProcedureSplit, rulesSplit, probStatementSplit, contactDetailsSplit, backIcon;
     private String eventId = "";
     private ApiClient apiClient;
-    private DownloadClient downloadClient;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,7 +50,6 @@ public class SpecificEventFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_specific_event, container, false);
 
         apiClient = new ApiClient();
-        downloadClient = new DownloadClient();
 
         introduction = view.findViewById(R.id.specific_event_introduction);
         regProcedure = view.findViewById(R.id.specific_event_registration_procedure);
@@ -69,6 +61,7 @@ public class SpecificEventFragment extends Fragment {
         rulesSplit = view.findViewById(R.id.specific_event_rules_split);
         probStatementSplit = view.findViewById(R.id.specific_event_problem_statement_split);
         contactDetailsSplit = view.findViewById(R.id.specific_event_contact_details_split);
+        backIcon = view.findViewById(R.id.back_arrow);
 
         introductionSplit.setOnClickListener(v -> {
             if (introduction.getVisibility() == View.GONE) {
@@ -138,8 +131,11 @@ public class SpecificEventFragment extends Fragment {
         switcher.setOutAnimation(fadeOut);
 
         start();
-        eventId = "174";
+
+        eventId = Integer.toString(getArguments().getInt("id"));
         getDetailsfromDb(eventId);
+
+        backIcon.setOnClickListener(v -> navController.navigateUp());
 
         return view;
     }
@@ -215,61 +211,16 @@ public class SpecificEventFragment extends Fragment {
         contactDetails.setText(Html.fromHtml(contacts));
 
         probStatement.setOnClickListener(v -> {
-            Log.d("TAGTGATAG", eventSpecificModel.getProblemStatement());
-            String temp = eventSpecificModel.getProblemStatement().replace("https://drive.google.com/", "").replace("%2F", "/").replace("%3F", "?");
-            saveDownloadedFile(downloadClient.downloadFile( "download"));
+            String url = eventSpecificModel.getProblemStatement();
+            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+            builder.setToolbarColor(getContext().getResources().getColor(R.color.fragment_bg));
+            builder.setStartAnimations(getContext(), R.anim.slide_in_right, R.anim.slide_out_left);
+            builder.setExitAnimations(getContext(), R.anim.slide_in_left, R.anim.slide_out_right);
+            CustomTabsIntent customTabsIntent = builder.build();
+            customTabsIntent.launchUrl(getContext(), Uri.parse(url));
         });
 
     }
 
-    private void saveDownloadedFile(Observable<ResponseBody> observable) {
-
-        observable
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ResponseBody>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(ResponseBody responseBody) {
-                        InputStream inputStream = responseBody.byteStream();
-                        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-                        File folder = new File(extStorageDirectory + "/Download");
-                        File pdfFile = new File(folder, "problem_statement.pdf");
-                        try {
-                            pdfFile.createNewFile();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            FileOutputStream fileOutputStream = new FileOutputStream(pdfFile);
-                            byte[] buffer = new byte[MEGABYTE];
-                            int bufferLength = 0;
-                            while ((bufferLength = inputStream.read(buffer)) > 0) {
-                                fileOutputStream.write(buffer, 0, bufferLength);
-                            }
-                            fileOutputStream.close();
-                            Toast.makeText(getActivity(), "Downloaded!", Toast.LENGTH_SHORT).show();
-                        } catch (Exception e) {
-                            Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
-                            e.printStackTrace();
-                        }
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
-    }
 
 }

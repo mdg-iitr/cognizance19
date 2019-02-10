@@ -38,9 +38,7 @@ public class CenterstageAdapter extends RecyclerView.Adapter<CenterstageAdapter.
         Centerstage centerstageModel = list.get(position);
 
         holder.category.setText(centerstageModel.getName());
-        List<Event> centerstageEventModelList = centerstageModel.getEvents();
-        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
-        holder.recyclerView.setAdapter(new CenterstageEventAdapter(context,centerstageEventModelList));
+        holder.recyclerView.setAdapter(new CenterstageEventAdapter(context,centerstageModel.getEvents()));
     }
 
     @Override
@@ -56,6 +54,8 @@ public class CenterstageAdapter extends RecyclerView.Adapter<CenterstageAdapter.
             super(itemView);
             category = itemView.findViewById(R.id.centerstage_category);
             recyclerView = itemView.findViewById(R.id.centerstage_category_recyclerview);
+            recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
+
         }
     }
 }

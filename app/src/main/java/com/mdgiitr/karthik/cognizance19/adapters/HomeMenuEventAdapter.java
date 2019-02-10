@@ -1,6 +1,7 @@
 package com.mdgiitr.karthik.cognizance19.adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,8 @@ import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.models.HomeMenuEventModel;
 
 import java.util.List;
+
+import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
 public class HomeMenuEventAdapter extends RecyclerView.Adapter<HomeMenuEventAdapter.HomeMenuEventViewHolder> {
     Context context;
@@ -47,6 +50,15 @@ public class HomeMenuEventAdapter extends RecyclerView.Adapter<HomeMenuEventAdap
                 .apply(options)
                 .into(holder.eventPic);
         holder.eventName.setText(model.getEvent());
+        holder.eventCard.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            if (model.getEvent().equals("Center Stage")) {
+                bundle.putInt("event_frag_id", 0);
+            } else {
+                bundle.putInt("event_frag_id", 1);
+            }
+            navController.navigate(R.id.action_homeMenuFragment_to_centerStageAndDepartmentalFragment, bundle);
+        });
 
     }
 
