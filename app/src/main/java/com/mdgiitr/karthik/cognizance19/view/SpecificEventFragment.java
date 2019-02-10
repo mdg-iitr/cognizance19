@@ -29,6 +29,8 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
+import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
+
 public class SpecificEventFragment extends Fragment {
     private static final int MEGABYTE = 1024 * 1024;
     private ImageSwitcher switcher;
@@ -37,7 +39,7 @@ public class SpecificEventFragment extends Fragment {
     private int position = 0;
     private TextView introduction, regProcedure, rules, contactDetails;
     private Button probStatement;
-    private ImageView introductionSplit, regProcedureSplit, rulesSplit, probStatementSplit, contactDetailsSplit;
+    private ImageView introductionSplit, regProcedureSplit, rulesSplit, probStatementSplit, contactDetailsSplit, backIcon;
     private String eventId = "";
     private ApiClient apiClient;
 
@@ -59,6 +61,7 @@ public class SpecificEventFragment extends Fragment {
         rulesSplit = view.findViewById(R.id.specific_event_rules_split);
         probStatementSplit = view.findViewById(R.id.specific_event_problem_statement_split);
         contactDetailsSplit = view.findViewById(R.id.specific_event_contact_details_split);
+        backIcon = view.findViewById(R.id.back_arrow);
 
         introductionSplit.setOnClickListener(v -> {
             if (introduction.getVisibility() == View.GONE) {
@@ -128,8 +131,11 @@ public class SpecificEventFragment extends Fragment {
         switcher.setOutAnimation(fadeOut);
 
         start();
-        eventId = "174";
+
+        eventId = Integer.toString(getArguments().getInt("id"));
         getDetailsfromDb(eventId);
+
+        backIcon.setOnClickListener(v -> navController.navigateUp());
 
         return view;
     }
