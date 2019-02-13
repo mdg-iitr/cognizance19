@@ -1,6 +1,8 @@
 package com.mdgiitr.karthik.cognizance19.view;
 
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -16,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.mdgiitr.karthik.cognizance19.R;
+import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
 import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
 import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
 
@@ -27,6 +30,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import okhttp3.ResponseBody;
+import retrofit2.HttpException;
 
 import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
@@ -34,9 +38,11 @@ public class CompleteYourProfileFragment extends Fragment {
 
     private EditText nameEditText, roomNoEditText, contactNoEditText, branchEditText, pincodeEditText;
     private Spinner yearSpinner, genderSpinner;
+    private Dialog referralDialog;
     private AutoCompleteTextView stateAutoCompleteTextView, cityAutoCompleteTextView, collegeAutoCompleteTextView;
     private ImageView backIcon;
-    private Button continueButton;
+    private Button continueButton, nextButton, cancelButton;
+    private EditText referralEditText;
     private String name = "",
             state = "",
             city = "",
@@ -227,7 +233,59 @@ public class CompleteYourProfileFragment extends Fragment {
 
         continueButton.setOnClickListener(v -> updateDetails());
 
+        referralDialog = new Dialog(getContext());
+        referralDialog.setContentView(R.layout.referal_dialog);
+        referralDialog.setCancelable(false);
+        nextButton = referralDialog.findViewById(R.id.next_action);
+        cancelButton = referralDialog.findViewById(R.id.cancel_action);
+        referralEditText = referralDialog.findViewById(R.id.referral_editText);
+        cancelButton.setOnClickListener(v -> referralDialog.dismiss());
+        nextButton.setOnClickListener(v -> {
+            if (referralEditText.getText() != null)
+                addReferralCode(referralEditText.getText().toString());
+        });
+        referralDialog.show();
+
         return view;
+    }
+
+    private void addReferralCode(String referralCode) {
+
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("Please wait...");
+        progressDialog.show();
+
+        if (!referralCode.trim().isEmpty()) {
+
+            apiClient.useReferralCode(preferenceHelper.getToken(), referralCode)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<GeneralResponse>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(GeneralResponse generalResponse) {
+                            Toast.makeText(getContext(), generalResponse.message, Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            progressDialog.dismiss();
+                            handleReferralError(e);
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+
+        }
+
     }
 
     private void updateDetails() {
@@ -287,6 +345,18 @@ public class CompleteYourProfileFragment extends Fragment {
 
                     }
                 });
+
+    }
+
+    private void handleReferralError(Throwable throwable) {
+
+        try {
+            if (((HttpException) throwable).code() == 400) {
+                Toast.makeText(getContext(), "Already used referral code.", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            Log.d("REFERRAL_ERROR", e.toString());
+        }
 
     }
 
