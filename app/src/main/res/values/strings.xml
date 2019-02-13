@@ -87,6 +87,7 @@
     <string name="year">Year</string>
     <string name="branch">Branch</string>
     <string name="submit_abstract">Submit abstract</string>
+    <string name="enter_referral_code">Enter Referral Code</string>
 
     <string-array name="Select_City">
         <item>Select City</item>

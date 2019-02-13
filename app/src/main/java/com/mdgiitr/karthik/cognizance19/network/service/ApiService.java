@@ -49,6 +49,14 @@ public interface ApiService {
     @POST("users/password/update")
     Observable<GeneralResponse> updatePassword(@Header("Authorization") String token, @Field("currentPassword") String currentPassword, @Field("newPassword1") String newPassword1, @Field("newPassword2") String newPassword2);
 
+    @FormUrlEncoded
+    @POST("users/registrationReferalCode")
+    Observable<GeneralResponse> useReferralCode(@Header("Authorization") String token, @Field("referalCode") String code);
+
+    @FormUrlEncoded
+    @POST("users/event/{id}/register")
+    Observable<GeneralResponse> registerForEvent(@Header("Authorization") String token, @Path("id") String id, @Field("teamMembers") String teamMembers);
+
     @GET("users")
     Observable<UserSPPResponseModel> getUserDetails(@Header("Authorization") String token);
 

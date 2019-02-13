@@ -13,6 +13,7 @@ import com.mdgiitr.karthik.cognizance19.models.UserSPPResponseModel;
 import com.mdgiitr.karthik.cognizance19.network.service.ApiService;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
@@ -120,6 +121,23 @@ public class ApiClient {
 
     public Observable<RegEventsResponse> fetchRegisteredEvents(String token) {
         return apiService.getRegisteredEvents("Token " + token).subscribeOn(Schedulers.io());
+    }
+
+    public Observable<GeneralResponse> useReferralCode(String token, String code) {
+        return apiService.useReferralCode("Token " + token, code).subscribeOn(Schedulers.io());
+    }
+
+    public Observable<GeneralResponse> registerForEvent(String token, String eventId, ArrayList<String> teamMembers) {
+
+        String members = "";
+        for (String s : teamMembers) {
+            if (!s.trim().isEmpty())
+                members = members + s + ",";
+        }
+        if (!members.isEmpty())
+            members = members.substring(0, members.length() - 1);
+        return apiService.registerForEvent("Token " + token, eventId, members).subscribeOn(Schedulers.io());
+
     }
 
 }
