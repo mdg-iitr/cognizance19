@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,7 +59,12 @@ public class EventCenterStageAndDepartmentalFragment extends Fragment {
                 break;
         }
 
-        backIcon.setOnClickListener(v -> navController.navigateUp());
+        backIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigateUp();
+            }
+        });
 
         return view;
     }
