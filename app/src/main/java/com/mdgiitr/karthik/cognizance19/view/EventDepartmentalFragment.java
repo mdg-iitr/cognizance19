@@ -3,6 +3,7 @@ package com.mdgiitr.karthik.cognizance19.view;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,7 +35,7 @@ public class EventDepartmentalFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_event_departmental_fragment, container, false);
         progressDialog = new ProgressDialog(getContext());
-
+        test();
         apiClient = new ApiClient();
 
         recyclerView = view.findViewById(R.id.departmental_recyclerview);
@@ -75,5 +76,14 @@ public class EventDepartmentalFragment extends Fragment {
 
         return view;
     }
+
+    private void test(){
+        Fragment departmentEvent = new DepartmentEvent();
+        FragmentTransaction fragmentTransaction = getChildFragmentManager()
+                .beginTransaction()
+                .add(R.id.base, departmentEvent);
+                fragmentTransaction.commit();
+    }
+
 
 }
