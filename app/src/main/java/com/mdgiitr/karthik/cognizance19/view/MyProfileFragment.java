@@ -2,14 +2,20 @@ package com.mdgiitr.karthik.cognizance19.view;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +30,8 @@ import com.mdgiitr.karthik.cognizance19.models.UserSPPResponseModel;
 import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
 import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 
 import androidx.navigation.NavOptions;
@@ -32,6 +40,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import retrofit2.HttpException;
 
+import static android.app.Activity.RESULT_OK;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.REGISTRATION_TYPE_PARTICIPANT;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.REGISTRATION_TYPE_SPP;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
@@ -47,6 +56,9 @@ public class MyProfileFragment extends Fragment {
     private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
     private HashMap<Integer, Fragment> map;
+    private boolean updateVisible  = false;
+    private LinearLayout updateProfile;
+    private int PROFILE_PIC_REQUEST = 100;
 
     public MyProfileFragment() {
         // Required empty public constructor
@@ -77,6 +89,9 @@ public class MyProfileFragment extends Fragment {
         mobileNoView = view.findViewById(R.id.mobileNoTextView);
         tabLayout = view.findViewById(R.id.my_profile_tabs);
         viewPager = view.findViewById(R.id.my_profile_view_pager);
+        updateProfile = view.findViewById(R.id.updateProfilePicLinearLayout);
+
+        updateProfile.setVisibility(View.GONE);
 
         map = new HashMap<>();
         viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), map);
@@ -93,11 +108,56 @@ public class MyProfileFragment extends Fragment {
 
         popupMenu = new PopupMenu(getActivity(), menuImageView);
 
+        userProfilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(updateVisible){
+                    updateVisible = false;
+                    updateProfile.setVisibility(View.GONE);
+                }
+                else{
+                    updateProfile.setVisibility(View.VISIBLE);
+                    updateVisible = true;
+                }
+            }
+        });
+
+        updateProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(updateVisible){
+                    startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), PROFILE_PIC_REQUEST);
+                }
+            }
+        });
+
         backIcon.setOnClickListener(v -> navController.navigateUp());
 
         populateViewsFromDB();
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PROFILE_PIC_REQUEST && resultCode == RESULT_OK) {
+            Uri selectedImage = data.getData();
+            Bitmap bitmap;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImage);
+                if (bitmap != null) {
+                    userProfilePic.setImageBitmap(bitmap);
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            updateVisible = false;
+            updateProfile.setVisibility(View.GONE);
+        }
     }
 
     private void setUpTabs() {

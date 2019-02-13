@@ -69,6 +69,10 @@ public class HomeMenuFragment extends Fragment {
         eventModel1.setEvent("Departmental");
         eventList.add(eventModel1);
 
+        HomeMenuEventModel eventModel2 = new HomeMenuEventModel();
+        eventModel2.setEvent("Online");
+        eventList.add(eventModel2);
+
         eventAdapter.notifyDataSetChanged();
 
         eventRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));

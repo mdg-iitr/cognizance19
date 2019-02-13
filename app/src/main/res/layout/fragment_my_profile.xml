@@ -136,6 +136,7 @@
 
 
             <LinearLayout
+                android:id="@+id/updateProfilePicLinearLayout"
                 android:layout_width="142dp"
                 android:layout_height="46dp"
                 android:layout_centerHorizontal="true"

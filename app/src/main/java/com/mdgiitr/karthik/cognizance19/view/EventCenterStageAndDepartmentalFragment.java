@@ -70,7 +70,7 @@ public class EventCenterStageAndDepartmentalFragment extends Fragment {
     }
 
     private void setUpTabs() {
-        tabLayout.getTabAt(0).setText("Center Stage");
+        tabLayout.getTabAt(0).setText("Centerstage");
         tabLayout.getTabAt(1).setText("Departmental");
 
         ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
