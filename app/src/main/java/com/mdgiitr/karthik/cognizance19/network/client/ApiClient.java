@@ -3,6 +3,7 @@ package com.mdgiitr.karthik.cognizance19.network.client;
 import com.google.gson.Gson;
 import com.mdgiitr.karthik.cognizance19.models.CenterstageOrDepartmentalEventsResponse;
 import com.mdgiitr.karthik.cognizance19.models.EventResponse;
+import com.mdgiitr.karthik.cognizance19.models.FbGoogleLoginModel;
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
 import com.mdgiitr.karthik.cognizance19.models.HomeMenuWorkshopResponse;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
@@ -12,6 +13,7 @@ import com.mdgiitr.karthik.cognizance19.models.UserSPPResponseModel;
 import com.mdgiitr.karthik.cognizance19.network.service.ApiService;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
@@ -109,8 +111,33 @@ public class ApiClient {
         return apiService.getSpecificEventDetails(id).subscribeOn(Schedulers.io());
     }
 
-    public Observable<RegEventsResponse> fetchRegisteredEvents(String token){
+    public Observable<ResponseBody> updateUserDetails(String token, String state, String college, String address, String city, String gender, String year, String branch, String pincode, String mobile) {
+        return apiService.updateUserDetails("Token " + token, state, college, address, city, gender, year, branch, pincode, mobile).subscribeOn(Schedulers.io());
+    }
+
+    public Observable<SignupResponse> fbGoogleLogin(FbGoogleLoginModel loginModel) {
+        return apiService.signupFbGoogle(loginModel).subscribeOn(Schedulers.io());
+    }
+
+    public Observable<RegEventsResponse> fetchRegisteredEvents(String token) {
         return apiService.getRegisteredEvents("Token " + token).subscribeOn(Schedulers.io());
+    }
+
+    public Observable<GeneralResponse> useReferralCode(String token, String code) {
+        return apiService.useReferralCode("Token " + token, code).subscribeOn(Schedulers.io());
+    }
+
+    public Observable<GeneralResponse> registerForEvent(String token, String eventId, ArrayList<String> teamMembers) {
+
+        String members = "";
+        for (String s : teamMembers) {
+            if (!s.trim().isEmpty())
+                members = members + s + ",";
+        }
+        if (!members.isEmpty())
+            members = members.substring(0, members.length() - 1);
+        return apiService.registerForEvent("Token " + token, eventId, members).subscribeOn(Schedulers.io());
+
     }
 
 }

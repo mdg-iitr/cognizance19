@@ -9,13 +9,13 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.adapters.ViewPagerAdapter;
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
@@ -100,7 +100,7 @@ public class MyProfileFragment extends Fragment {
         return view;
     }
 
-    private void setUpTabs(){
+    private void setUpTabs() {
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_registered_24dp);
         tabLayout.getTabAt(0).setText("Reg Events");
 
@@ -190,8 +190,12 @@ public class MyProfileFragment extends Fragment {
         } else {
             cogniIDView.setVisibility(View.GONE);
         }
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .error(R.drawable.home_menu_gray_card);
         Glide.with(this)
                 .load(userDetailsSPPResponseModel.getImageUrl())
+                .apply(options)
                 .into(userProfilePic);
 
         if (userDetailsSPPResponseModel.getRole().equals("cogni_user")) {

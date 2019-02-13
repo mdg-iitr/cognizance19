@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mdgiitr.karthik.cognizance19.R;
@@ -15,11 +16,14 @@ import com.mdgiitr.karthik.cognizance19.adapters.ViewPagerAdapter;
 
 import java.util.HashMap;
 
+import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
+
 public class EventCenterStageAndDepartmentalFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
     private HashMap<Integer, Fragment> map;
+    private ImageView backIcon;
 
     @SuppressLint("UseSparseArrays")
     @Override
@@ -30,6 +34,8 @@ public class EventCenterStageAndDepartmentalFragment extends Fragment {
 
         tabLayout = view.findViewById(R.id.center_stage_departmental_tabs);
         viewPager = view.findViewById(R.id.center_stage_departmental_view_pager);
+
+        backIcon = view.findViewById(R.id.back_arrow);
 
         map = new HashMap<>();
         viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), map);
@@ -42,6 +48,17 @@ public class EventCenterStageAndDepartmentalFragment extends Fragment {
 
         tabLayout.setupWithViewPager(viewPager);
         setUpTabs();
+
+        switch (getArguments().getInt("event_frag_id")) {
+            case 0:
+                viewPager.setCurrentItem(0);
+                break;
+            case 1:
+                viewPager.setCurrentItem(1);
+                break;
+        }
+
+        backIcon.setOnClickListener(v -> navController.navigateUp());
 
         return view;
     }

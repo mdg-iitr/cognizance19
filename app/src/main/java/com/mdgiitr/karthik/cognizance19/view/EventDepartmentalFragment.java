@@ -78,12 +78,16 @@ public class EventDepartmentalFragment extends Fragment {
     }
 
     private void test(){
-        Fragment departmentEvent = new DepartmentEvent();
         FragmentTransaction fragmentTransaction = getChildFragmentManager()
                 .beginTransaction()
-                .add(R.id.base, departmentEvent);
+                .add(R.id.base, new DepartmentEvent());
                 fragmentTransaction.commit();
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        recyclerView.smoothScrollToPosition(0);
+    }
 }

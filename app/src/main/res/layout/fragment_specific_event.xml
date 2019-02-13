@@ -20,8 +20,8 @@
 
             <ImageView
                 android:id="@+id/back_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/ic_keyboard_arrow_left_gray_24dp" />
@@ -30,7 +30,7 @@
                 android:id="@+id/specific_event_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Power Drift"
+                android:layout_marginTop="8dp"
                 android:textAlignment="center"
                 android:textColor="#ff343434"
                 android:textSize="24sp"
@@ -62,13 +62,14 @@
             android:layout_marginTop="15dp" />
 
         <Button
+            android:id="@+id/register_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="17dp"
             android:layout_marginTop="14dp"
             android:layout_marginEnd="17dp"
             android:background="@drawable/blue_register_and_pay_button"
-            android:text="@string/register_and_pay"
+            android:text="@string/register"
             android:textColor="#ffffffff"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -85,6 +86,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/specific_evnt_intro_brick"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="23dp"
@@ -113,8 +115,10 @@
                 android:layout_marginStart="23dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="17dp"
+                android:linksClickable="true"
                 android:text="@string/dummy_data"
                 android:textColor="#ff343434"
+                android:textIsSelectable="true"
                 android:textSize="15sp"
                 android:visibility="gone" />
 
@@ -128,6 +132,7 @@
 
 
             <LinearLayout
+                android:id="@+id/specific_evnt_reg_pro_brick"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="23dp"
@@ -156,8 +161,10 @@
                 android:layout_marginStart="23dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="17dp"
+                android:linksClickable="true"
                 android:text="@string/dummy_data"
                 android:textColor="#ff343434"
+                android:textIsSelectable="true"
                 android:textSize="15sp"
                 android:visibility="gone" />
 
@@ -171,6 +178,7 @@
 
 
             <LinearLayout
+                android:id="@+id/specific_evnt_rules_brick"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="23dp"
@@ -199,8 +207,10 @@
                 android:layout_marginStart="23dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="17dp"
+                android:linksClickable="true"
                 android:text="@string/dummy_data"
                 android:textColor="#ff343434"
+                android:textIsSelectable="true"
                 android:textSize="15sp"
                 android:visibility="gone" />
 
@@ -214,6 +224,7 @@
 
 
             <LinearLayout
+                android:id="@+id/specific_evnt_prob_brick"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="23dp"
@@ -243,7 +254,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="46dp"
                 android:background="@color/bg_blue"
-                android:text="@string/download_problem_statement"
+                android:text="@string/view_problem_statement"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textColor="@android:color/white"
                 android:textSize="15sp"
@@ -260,6 +271,7 @@
 
 
             <LinearLayout
+                android:id="@+id/specific_evnt_contact_brick"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="23dp"
@@ -289,8 +301,10 @@
                 android:layout_marginStart="23dp"
                 android:layout_marginEnd="17dp"
                 android:layout_marginBottom="16dp"
+                android:linksClickable="true"
                 android:text="@string/dummy_data"
                 android:textColor="#ff343434"
+                android:textIsSelectable="true"
                 android:textSize="15sp"
                 android:visibility="gone" />
 

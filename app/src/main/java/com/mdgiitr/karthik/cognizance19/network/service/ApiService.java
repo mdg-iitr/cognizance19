@@ -2,6 +2,7 @@ package com.mdgiitr.karthik.cognizance19.network.service;
 
 import com.mdgiitr.karthik.cognizance19.models.CenterstageOrDepartmentalEventsResponse;
 import com.mdgiitr.karthik.cognizance19.models.EventResponse;
+import com.mdgiitr.karthik.cognizance19.models.FbGoogleLoginModel;
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
 import com.mdgiitr.karthik.cognizance19.models.HomeMenuWorkshopResponse;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
@@ -12,6 +13,7 @@ import com.mdgiitr.karthik.cognizance19.models.UserSPPResponseModel;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -20,7 +22,6 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
-import retrofit2.http.Streaming;
 
 public interface ApiService {
 
@@ -29,6 +30,9 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("session/users/signup/{role}")
     Observable<SignupResponse> signUp(@Field("email") String email, @Field("type") String type, @Path("role") String role, @Field("password") String password, @Field("name") String name);
+
+    @POST("session/users/oauth/cogni_user")
+    Observable<SignupResponse> signupFbGoogle(@Body FbGoogleLoginModel loginModel);
 
     @FormUrlEncoded
     @POST("session/users/login")
@@ -45,8 +49,29 @@ public interface ApiService {
     @POST("users/password/update")
     Observable<GeneralResponse> updatePassword(@Header("Authorization") String token, @Field("currentPassword") String currentPassword, @Field("newPassword1") String newPassword1, @Field("newPassword2") String newPassword2);
 
+    @FormUrlEncoded
+    @POST("users/registrationReferalCode")
+    Observable<GeneralResponse> useReferralCode(@Header("Authorization") String token, @Field("referalCode") String code);
+
+    @FormUrlEncoded
+    @POST("users/event/{id}/register")
+    Observable<GeneralResponse> registerForEvent(@Header("Authorization") String token, @Path("id") String id, @Field("teamMembers") String teamMembers);
+
     @GET("users")
     Observable<UserSPPResponseModel> getUserDetails(@Header("Authorization") String token);
+
+    @FormUrlEncoded
+    @POST("users")
+    Observable<ResponseBody> updateUserDetails(@Header("Authorization") String token,
+                                               @Field("state") String state,
+                                               @Field("college") String college,
+                                               @Field("address") String address,
+                                               @Field("city") String city,
+                                               @Field("gender") String gender,
+                                               @Field("year") String year,
+                                               @Field("branch") String branch,
+                                               @Field("pincode") String pincode,
+                                               @Field("mobile") String mobile);
 
     @POST("users/spp/upload/excel")
     Observable<ResponseBody> uploadExcel(@Header("Authorization") String token, @Part MultipartBody.Part file);

@@ -11,15 +11,8 @@ import android.view.ViewGroup;
 
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.adapters.CenterstageAdapter;
-import com.mdgiitr.karthik.cognizance19.adapters.FinfestAdapter;
-import com.mdgiitr.karthik.cognizance19.models.Centerstage;
 import com.mdgiitr.karthik.cognizance19.models.CenterstageOrDepartmentalEventsResponse;
-import com.mdgiitr.karthik.cognizance19.models.FinfestEventModel;
-import com.mdgiitr.karthik.cognizance19.models.FinfestModel;
 import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -77,5 +70,11 @@ public class EventCenterStageFragment extends Fragment {
                 });
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        recyclerView.smoothScrollToPosition(0);
     }
 }

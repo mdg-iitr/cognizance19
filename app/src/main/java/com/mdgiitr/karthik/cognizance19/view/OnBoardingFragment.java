@@ -43,14 +43,14 @@ public class OnBoardingFragment extends Fragment {
         completeProfileCardView = view.findViewById(R.id.complete_you_profile_cardView);
 
         completeProfileCardView.setOnClickListener((View v) -> {
-            navController.navigate(R.id.action_onBoardingFragment_to_completeYourProfileFragment);
+//            navController.navigate(R.id.action_onBoardingFragment_to_completeYourProfileFragment);
         });
 
         smallImageView = view.findViewById(R.id.small_profile_image);
 
-        smallImageView.setOnClickListener(v -> navController.navigate(R.id.action_onBoardingFragment_to_myProfileFragment));
+//        smallImageView.setOnClickListener(v -> navController.navigate(R.id.action_onBoardingFragment_to_myProfileFragment));
 
-        contButton.setOnClickListener(v -> navController.navigate(R.id.action_onBoardingFragment_to_homeMenuFragment));
+//        contButton.setOnClickListener(v -> navController.navigate(R.id.action_onBoardingFragment_to_homeMenuFragment));
 
         return view;
     }
