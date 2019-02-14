@@ -97,7 +97,7 @@ public class EditProfileFragment extends Fragment {
     private void updateDetails() {
 
         ProgressDialog progressDialog = new ProgressDialog(getContext());
-        progressDialog.setTitle("Updating. Please Wait...");
+        progressDialog.setMessage("Updating. Please Wait...");
         progressDialog.setCancelable(false);
         progressDialog.show();
 
