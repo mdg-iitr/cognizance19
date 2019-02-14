@@ -141,12 +141,16 @@ public class ApiClient {
 
     }
 
-    public Observable<TeamResponse> fetchTeam(String token, String eventID){
+    public Observable<TeamResponse> fetchTeam(String token, String eventID) {
         return apiService.getTeam("Token " + token, eventID).subscribeOn(Schedulers.io());
     }
 
-    public Observable<GeneralResponse> unregister(String token, String eventID){
+    public Observable<GeneralResponse> unregister(String token, String eventID) {
         return apiService.unregister("Token " + token, eventID).subscribeOn(Schedulers.io());
+    }
+
+    public Observable<GeneralResponse> updateDetails(String token, String name, String city, String address, String pincode, String mobile) {
+        return apiService.updateUserDetails("Token " + token, name, city, address, pincode, mobile).subscribeOn(Schedulers.io());
     }
 
 }

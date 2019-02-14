@@ -14,6 +14,8 @@ import com.mdgiitr.karthik.cognizance19.adapters.ViewPagerAdapter;
 
 import java.util.HashMap;
 
+import static com.mdgiitr.karthik.cognizance19.MainActivity.bottomNavigationView;
+
 public class UserLoginFragment extends Fragment {
 
     private static ViewPager viewPager;
@@ -55,7 +57,7 @@ public class UserLoginFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
         setUpTabs();
         setTab(getArguments().getInt("fr_open"));
-
+        bottomNavigationView.setVisibility(View.GONE);
         return view;
     }
 

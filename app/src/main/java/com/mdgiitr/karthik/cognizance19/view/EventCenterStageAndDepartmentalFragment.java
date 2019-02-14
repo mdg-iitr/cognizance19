@@ -17,6 +17,7 @@ import com.mdgiitr.karthik.cognizance19.adapters.ViewPagerAdapter;
 
 import java.util.HashMap;
 
+import static com.mdgiitr.karthik.cognizance19.MainActivity.bottomNavigationView;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
 public class EventCenterStageAndDepartmentalFragment extends Fragment {
@@ -66,6 +67,7 @@ public class EventCenterStageAndDepartmentalFragment extends Fragment {
             }
         });
 
+        bottomNavigationView.setVisibility(View.VISIBLE);
         return view;
     }
 

@@ -26,6 +26,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.mdgiitr.karthik.cognizance19.MainActivity.bottomNavigationView;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
 public class HomeMenuFragment extends Fragment {
@@ -123,6 +124,8 @@ public class HomeMenuFragment extends Fragment {
         guestRecyclerView.setAdapter(guestAdapter);
 
         smallImageView.setOnClickListener(v -> navController.navigate(R.id.action_homeMenuFragment_to_myProfileFragment));
+
+        bottomNavigationView.setVisibility(View.VISIBLE);
 
         return view;
     }
