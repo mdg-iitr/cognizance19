@@ -42,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
                         bundle.putInt("event_frag_id", 0);
                         navController.navigate(R.id.centerStageAndDepartmentalFragment, bundle);
                         return true;
+                    case R.id.workshops:
+                        navController.navigate(R.id.workshopFragment);
+                        return true;
                 }
 
                 return false;

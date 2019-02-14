@@ -64,37 +64,6 @@ public class HomeMenuFragment extends Fragment {
         populateWhatsNewList();
         populatePanelDiscussionList();
 
-
-//        apiClient.fetchWorkshops()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<WorkshopResponse>() {
-//
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(WorkshopResponse homeMenuWorkshopResponse) {
-//                        Log.d("workshop", homeMenuWorkshopResponse.getMessage());
-//                        workshopAdapter = new WorkshopAdapter(getContext(), homeMenuWorkshopResponse.getWorkshopsModelList());
-//                        workshopRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-//                        workshopRecyclerView.setAdapter(workshopAdapter);
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        Log.d("workshop", "Error occured while fetching workshop: " + e);
-//                        e.printStackTrace();
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//                    }
-//                });
-
-
         techtainmentURL.add("a");
         techtainmentURL.add("b");
         techtainmentURL.add("c");

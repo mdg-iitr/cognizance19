@@ -18,6 +18,8 @@ import com.mdgiitr.karthik.cognizance19.adapters.ViewPagerAdapter;
 import java.util.HashMap;
 
 import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
+import static com.mdgiitr.karthik.cognizance19.MainActivity.bottomNavigationView;
+
 
 public class WorkshopFragment extends Fragment {
     private TabLayout tabLayout;
@@ -56,6 +58,7 @@ public class WorkshopFragment extends Fragment {
             }
         });
 
+        bottomNavigationView.setVisibility(View.VISIBLE);
         return view;
     }
 
