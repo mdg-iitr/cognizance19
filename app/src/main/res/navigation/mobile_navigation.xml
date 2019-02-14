@@ -4,13 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@id/landingFragment2">
-
-    <fragment
-        android:id="@+id/SpotlightFragment"
-        android:name="com.mdgiitr.karthik.cognizance19.view.SpotlightsFragment"
-        android:label="fragment_spotlight"
-        tools:layout="@layout/fragment_spotlight" />
-
+    
     <fragment
         android:id="@+id/centerStageAndDepartmentalFragment"
         android:name="com.mdgiitr.karthik.cognizance19.view.EventCenterStageAndDepartmentalFragment"
@@ -19,10 +13,7 @@
         <action
             android:id="@+id/action_centerStageAndDepartmentalFragment_to_speceficEventFragment"
             app:destination="@id/speceficEventFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+              />
     </fragment>
 
     <fragment
@@ -45,17 +36,11 @@
         <action
             android:id="@+id/action_landingFragment2_to_userLoginFragment"
             app:destination="@id/userLoginFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+              />
         <action
             android:id="@+id/action_landingFragment2_to_homeMenuFragment2"
             app:destination="@id/homeMenuFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+              />
     </fragment>
     <fragment
         android:id="@+id/userLoginFragment"
@@ -65,24 +50,15 @@
         <action
             android:id="@+id/action_userLoginFragment_to_forgotPasswordFragment"
             app:destination="@id/forgotPasswordFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+              />
         <action
             android:id="@+id/action_userLoginFragment_to_homeMenuFragment"
             app:destination="@id/homeMenuFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+              />
         <action
             android:id="@+id/action_userLoginFragment_to_completeYourProfileFragment"
             app:destination="@id/completeYourProfileFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+              />
     </fragment>
     <fragment
         android:id="@+id/completeYourProfileFragment"
@@ -92,10 +68,7 @@
         <action
             android:id="@+id/action_completeYourProfileFragment_to_homeMenuFragment"
             app:destination="@id/homeMenuFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+              />
     </fragment>
     <fragment
         android:id="@+id/myProfileFragment"
@@ -105,31 +78,19 @@
         <action
             android:id="@+id/action_myProfileFragment_to_landingFragment2"
             app:destination="@id/landingFragment2"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+              />
         <action
             android:id="@+id/action_myProfileFragment_to_changePasswordFragment"
             app:destination="@id/changePasswordFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+              />
         <action
             android:id="@+id/action_myProfileFragment_to_dashboardSPPFragment"
             app:destination="@id/dashboardSPPFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+              />
         <action
             android:id="@+id/action_myProfileFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+              />
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
@@ -139,10 +100,7 @@
         <action
             android:id="@+id/action_forgotPasswordFragment_to_changePasswordFragment"
             app:destination="@id/changePasswordFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+              />
     </fragment>
     <fragment
         android:id="@+id/changePasswordFragment"
@@ -157,24 +115,15 @@
         <action
             android:id="@+id/action_homeMenuFragment_to_myProfileFragment"
             app:destination="@id/myProfileFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+              />
         <action
             android:id="@+id/action_homeMenuFragment_to_centerStageAndDepartmentalFragment"
             app:destination="@id/centerStageAndDepartmentalFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+              />
         <action
             android:id="@+id/action_homeMenuFragment_to_speceficEventFragment"
             app:destination="@id/speceficEventFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+              />
     </fragment>
     <fragment
         android:id="@+id/dashboardSPPFragment"
