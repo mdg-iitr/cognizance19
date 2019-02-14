@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gray"
+    android:orientation="vertical"
+    tools:context=".view.EditProfileFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/back_arrow_complete_your_profile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_keyboard_arrow_left_gray_24dp" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:baselineAligned="false"
+                android:text="@string/edit_your_profile"
+                android:textAlignment="center"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textColor="@color/complete_your_profile_color" />
+
+            <EditText
+                android:id="@+id/full_name_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/edit_text_bg"
+                android:baselineAligned="false"
+                android:hint="@string/Full_Name"
+                android:inputType="textPersonName"
+                android:paddingStart="15dp"
+                android:paddingTop="9dp"
+                android:paddingBottom="16dp" />
+
+            <EditText
+                android:id="@+id/select_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/edit_text_bg"
+                android:entries="@array/Select_City"
+                android:hint="@string/Select_City"
+                android:paddingStart="15dp"
+                android:paddingTop="9dp"
+                android:paddingBottom="16dp" />
+
+            <EditText
+                android:id="@+id/room_no_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/edit_text_bg"
+                android:baselineAligned="false"
+                android:hint="@string/Room_No_Hostel"
+                android:lines="1"
+                android:paddingStart="15dp"
+                android:paddingTop="9dp"
+                android:paddingBottom="16dp" />
+
+            <EditText
+                android:id="@+id/pincode_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/edit_text_bg"
+                android:baselineAligned="false"
+                android:hint="@string/pincode"
+                android:inputType="number"
+                android:lines="1"
+                android:maxLength="6"
+                android:paddingStart="15dp"
+                android:paddingTop="9dp"
+                android:paddingBottom="16dp" />
+
+            <EditText
+                android:id="@+id/contact_no_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/edit_text_bg"
+                android:baselineAligned="false"
+                android:hint="@string/Contact_No"
+                android:inputType="phone"
+                android:paddingStart="15dp"
+                android:paddingTop="9dp"
+                android:paddingBottom="16dp" />
+
+            <Button
+                android:id="@+id/update_Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="48dp"
+                android:layout_marginEnd="28dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/blue_button_bg"
+                android:baselineAligned="false"
+                android:text="@string/update"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
+

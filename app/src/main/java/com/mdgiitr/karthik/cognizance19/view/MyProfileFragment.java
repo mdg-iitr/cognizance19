@@ -40,7 +40,6 @@ import androidx.navigation.NavOptions;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import okhttp3.ResponseBody;
 import retrofit2.HttpException;
 
 import static android.app.Activity.RESULT_OK;
@@ -51,7 +50,7 @@ import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 public class MyProfileFragment extends Fragment {
 
     private PopupMenu popupMenu;
-    private ImageView menuImageView, backIcon, userProfilePic;
+    private ImageView menuImageView, backIcon, userProfilePic, editProfileIcon;
     private TextView nameView, emailView, cogniIDView, mobileNoView;
     private ApiClient apiClient;
     private PreferenceHelper preferenceHelper;
@@ -59,7 +58,7 @@ public class MyProfileFragment extends Fragment {
     private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
     private HashMap<Integer, Fragment> map;
-    private boolean updateVisible  = false;
+    private boolean updateVisible = false;
     private LinearLayout updateProfile;
     private int PROFILE_PIC_REQUEST = 100;
     private File profilePicFile;
@@ -94,6 +93,7 @@ public class MyProfileFragment extends Fragment {
         tabLayout = view.findViewById(R.id.my_profile_tabs);
         viewPager = view.findViewById(R.id.my_profile_view_pager);
         updateProfile = view.findViewById(R.id.updateProfilePicLinearLayout);
+        editProfileIcon = view.findViewById(R.id.edit_profile_icon);
 
         updateProfile.setVisibility(View.GONE);
 
@@ -115,11 +115,10 @@ public class MyProfileFragment extends Fragment {
         userProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(updateVisible){
+                if (updateVisible) {
                     updateVisible = false;
                     updateProfile.setVisibility(View.GONE);
-                }
-                else{
+                } else {
                     updateProfile.setVisibility(View.VISIBLE);
                     updateVisible = true;
                 }
@@ -129,7 +128,7 @@ public class MyProfileFragment extends Fragment {
         updateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(updateVisible){
+                if (updateVisible) {
                     startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), PROFILE_PIC_REQUEST);
                 }
             }
@@ -138,6 +137,8 @@ public class MyProfileFragment extends Fragment {
         backIcon.setOnClickListener(v -> navController.navigateUp());
 
         populateViewsFromDB();
+
+        editProfileIcon.setClickable(false);
 
         return view;
     }
@@ -188,7 +189,7 @@ public class MyProfileFragment extends Fragment {
 
                         @Override
                         public void onNext(GeneralResponse responseBody) {
-                            Toast.makeText(getContext(),responseBody.message, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), responseBody.message, Toast.LENGTH_LONG).show();
                             userProfilePic.setImageBitmap(bitmap);
                             progressDialog.dismiss();
                         }
@@ -197,9 +198,12 @@ public class MyProfileFragment extends Fragment {
                         public void onError(Throwable e) {
                             progressDialog.dismiss();
                             Log.d("TAGTAGTAG", e.toString());
-                            if(e.toString().trim().equals("retrofit2.adapter.rxjava2.HttpException: HTTP 413")) Toast.makeText(getContext(), "File size exceeded 50KB",Toast.LENGTH_LONG).show();
-                            else if(e.toString().trim().equals("retrofit2.adapter.rxjava2.HttpException: HTTP 400")) Toast.makeText(getContext(), "Unexpected file",Toast.LENGTH_LONG).show();
-                            else Toast.makeText(getContext(), "Couldn't update. Please try again!",Toast.LENGTH_LONG).show();
+                            if (e.toString().trim().equals("retrofit2.adapter.rxjava2.HttpException: HTTP 413"))
+                                Toast.makeText(getContext(), "File size exceeded 50KB", Toast.LENGTH_LONG).show();
+                            else if (e.toString().trim().equals("retrofit2.adapter.rxjava2.HttpException: HTTP 400"))
+                                Toast.makeText(getContext(), "Unexpected file", Toast.LENGTH_LONG).show();
+                            else
+                                Toast.makeText(getContext(), "Couldn't update. Please try again!", Toast.LENGTH_LONG).show();
                         }
 
                         @Override
@@ -281,6 +285,13 @@ public class MyProfileFragment extends Fragment {
     }
 
     private void populateViews(UserDetailsSPPResponseModel userDetailsSPPResponseModel) {
+
+        editProfileIcon.setClickable(true);
+        editProfileIcon.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("profile", userDetailsSPPResponseModel);
+            navController.navigate(R.id.action_myProfileFragment_to_editProfileFragment, bundle);
+        });
 
         if (userDetailsSPPResponseModel.getName() != null) {
             nameView.setText(userDetailsSPPResponseModel.getName().toString());

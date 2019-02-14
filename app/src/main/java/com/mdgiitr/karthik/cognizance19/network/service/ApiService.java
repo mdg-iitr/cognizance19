@@ -58,6 +58,10 @@ public interface ApiService {
     @POST("users/event/{id}/register")
     Observable<GeneralResponse> registerForEvent(@Header("Authorization") String token, @Path("id") String id, @Field("teamMembers") String teamMembers);
 
+    @FormUrlEncoded
+    @POST("users/settings")
+    Observable<GeneralResponse> updateUserDetails(@Header("Authorization") String token, @Field("name") String name, @Field("city") String city, @Field("address") String address, @Field("pincode") String pincode, @Field("mobile") String mobile);
+
     @GET("users")
     Observable<UserSPPResponseModel> getUserDetails(@Header("Authorization") String token);
 

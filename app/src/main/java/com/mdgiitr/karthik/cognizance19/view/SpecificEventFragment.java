@@ -39,6 +39,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import retrofit2.HttpException;
 
+import static com.mdgiitr.karthik.cognizance19.MainActivity.bottomNavigationView;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
 public class SpecificEventFragment extends Fragment {
@@ -112,6 +113,7 @@ public class SpecificEventFragment extends Fragment {
 
         backIcon.setOnClickListener(v -> navController.navigateUp());
 
+        bottomNavigationView.setVisibility(View.GONE);
         return view;
     }
 
@@ -275,7 +277,8 @@ public class SpecificEventFragment extends Fragment {
                     .load(eventSpecificModel.getCoverImage().toString())
                     .apply(options)
                     .into(switcher);
-        else switcher.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.home_menu_gray_card ));
+        else
+            switcher.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.home_menu_gray_card));
         probStatement.setOnClickListener(v -> {
             String url = eventSpecificModel.getProblemStatement();
             if (url != null && !url.isEmpty()) {
