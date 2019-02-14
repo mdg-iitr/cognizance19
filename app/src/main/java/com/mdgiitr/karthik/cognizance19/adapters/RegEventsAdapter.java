@@ -58,13 +58,12 @@ public class RegEventsAdapter extends RecyclerView.Adapter<RegEventsAdapter.RegE
         popupMenu.getMenuInflater().inflate(R.menu.reg_event_menu, popupMenu.getMenu());
         holder.moreButton.setOnClickListener((View v) -> popupMenu.show());
         popupMenu.setOnMenuItemClickListener(item -> {
-            RegEventsModel regEventsModel = list.get(position);
             if (item.getItemId() == R.id.unregister) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(context);
                 alert.setTitle("Unregister");
-                alert.setMessage("Unregister for " + regEventsModel.getName() + "?");
+                alert.setMessage("Unregister for " + model.getName() + "?");
                 alert.setPositiveButton("Unregister", (dialog, which) -> {
-                    apiClient.unregister(preferenceHelper.getToken(),Integer.toString(regEventsModel.getId()))
+                    apiClient.unregister(preferenceHelper.getToken(),Integer.toString(model.getId()))
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(new Observer<GeneralResponse>() {
