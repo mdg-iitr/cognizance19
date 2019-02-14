@@ -14,6 +14,7 @@ import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 
+import static com.mdgiitr.karthik.cognizance19.MainActivity.bottomNavigationView;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
 
@@ -54,6 +55,7 @@ public class LandingFragment extends Fragment {
 
         checkUserLoggedIn();
 
+        bottomNavigationView.setVisibility(View.GONE);
         return view;
     }
 
