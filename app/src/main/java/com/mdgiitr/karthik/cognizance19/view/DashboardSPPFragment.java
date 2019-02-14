@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mdgiitr.karthik.cognizance19.R;
+import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
 import com.mdgiitr.karthik.cognizance19.models.UserDetailsSPPResponseModel;
 import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
 import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
@@ -173,15 +174,15 @@ public class DashboardSPPFragment extends Fragment {
             progressDialog.show();
             apiClient.updateUserImage(preferenceHelper.getToken(), file)
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<ResponseBody>() {
+                    .subscribe(new Observer<GeneralResponse>() {
                         @Override
                         public void onSubscribe(Disposable d) {
 
                         }
 
                         @Override
-                        public void onNext(ResponseBody responseBody) {
-                            Log.d("TAGTAGTAG", responseBody.toString());
+                        public void onNext(GeneralResponse responseBody) {
+                            Log.d("TAGTAGTAG", responseBody.message);
                             progressDialog.dismiss();
                         }
 

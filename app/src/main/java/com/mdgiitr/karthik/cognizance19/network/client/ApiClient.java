@@ -65,7 +65,7 @@ public class ApiClient {
 
     }
 
-    public Observable<ResponseBody> updateUserImage(String token, File file) {
+    public Observable<GeneralResponse> updateUserImage(String token, File file) {
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);

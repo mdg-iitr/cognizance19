@@ -41,7 +41,7 @@ public interface ApiService {
 
     @Multipart
     @POST("users/upload/image")
-    Observable<ResponseBody> updateImage(@Header("Authorization") String token, @Part MultipartBody.Part file);
+    Observable<GeneralResponse> updateImage(@Header("Authorization") String token, @Part MultipartBody.Part file);
 
     @GET("session/users/logout")
     Observable<GeneralResponse> userLogout(@Header("Authorization") String token);

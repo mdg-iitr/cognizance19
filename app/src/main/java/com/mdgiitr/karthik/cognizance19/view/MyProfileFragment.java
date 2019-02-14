@@ -3,6 +3,7 @@ package com.mdgiitr.karthik.cognizance19.view;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import com.mdgiitr.karthik.cognizance19.models.UserSPPResponseModel;
 import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
 import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
@@ -38,6 +40,7 @@ import androidx.navigation.NavOptions;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import okhttp3.ResponseBody;
 import retrofit2.HttpException;
 
 import static android.app.Activity.RESULT_OK;
@@ -59,6 +62,7 @@ public class MyProfileFragment extends Fragment {
     private boolean updateVisible  = false;
     private LinearLayout updateProfile;
     private int PROFILE_PIC_REQUEST = 100;
+    private File profilePicFile;
 
     public MyProfileFragment() {
         // Required empty public constructor
@@ -148,7 +152,15 @@ public class MyProfileFragment extends Fragment {
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImage);
                 if (bitmap != null) {
-                    userProfilePic.setImageBitmap(bitmap);
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                    Cursor cursor = getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                    cursor.moveToFirst();
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String picturePath = cursor.getString(columnIndex);
+                    cursor.close();
+                    profilePicFile = new File(picturePath);
+                    uploadImage(profilePicFile, bitmap);
+
                 }
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -158,6 +170,46 @@ public class MyProfileFragment extends Fragment {
             updateVisible = false;
             updateProfile.setVisibility(View.GONE);
         }
+    }
+
+    private void uploadImage(File file, Bitmap bitmap) {
+
+        ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Uploading. Please Wait...");
+        if (file != null) {
+            progressDialog.show();
+            apiClient.updateUserImage(preferenceHelper.getToken(), file)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<GeneralResponse>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(GeneralResponse responseBody) {
+                            Toast.makeText(getContext(),responseBody.message, Toast.LENGTH_LONG).show();
+                            userProfilePic.setImageBitmap(bitmap);
+                            progressDialog.dismiss();
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            progressDialog.dismiss();
+                            Log.d("TAGTAGTAG", e.toString());
+                            if(e.toString().trim().equals("retrofit2.adapter.rxjava2.HttpException: HTTP 413")) Toast.makeText(getContext(), "File size exceeded 50KB",Toast.LENGTH_LONG).show();
+                            else if(e.toString().trim().equals("retrofit2.adapter.rxjava2.HttpException: HTTP 400")) Toast.makeText(getContext(), "Unexpected file",Toast.LENGTH_LONG).show();
+                            else Toast.makeText(getContext(), "Couldn't update. Please try again!",Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+
+        }
+
     }
 
     private void setUpTabs() {
@@ -254,7 +306,7 @@ public class MyProfileFragment extends Fragment {
                 .centerCrop()
                 .error(R.drawable.home_menu_gray_card);
         Glide.with(this)
-                .load(userDetailsSPPResponseModel.getImageUrl())
+                .load("https://bucket.cognizance.org.in/bucket/" + userDetailsSPPResponseModel.getImageUrl())
                 .apply(options)
                 .into(userProfilePic);
 
