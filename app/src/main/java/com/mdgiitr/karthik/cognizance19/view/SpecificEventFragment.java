@@ -14,14 +14,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.adapters.EventRegisterIDsAdapter;
 import com.mdgiitr.karthik.cognizance19.models.ContactModel;
@@ -34,8 +33,6 @@ import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -45,10 +42,8 @@ import retrofit2.HttpException;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
 public class SpecificEventFragment extends Fragment {
-    private ImageSwitcher switcher;
-    private Timer timer = null;
-    private int[] gallery = {R.drawable.dark_blue_bg, R.drawable.ic_launcher_background, R.drawable.blue_button_bg, R.drawable.gray_round_card};
-    private int position = 0, teamLimit = 0;
+    private ImageView switcher;
+    private int teamLimit = 0;
     private TextView introduction, regProcedure, rules, contactDetails, specificEventName;
     private Button probStatement, registerButton, cancelButton, registerEventButton;
     private ImageView introductionSplit, regProcedureSplit, rulesSplit, probStatementSplit, contactDetailsSplit, backIcon;
@@ -89,6 +84,7 @@ public class SpecificEventFragment extends Fragment {
         contactBrick = view.findViewById(R.id.specific_evnt_contact_brick);
         registerButton = view.findViewById(R.id.register_button);
         specificEventName = view.findViewById(R.id.specific_event_name);
+        switcher = view.findViewById(R.id.specific_event_image_switcher);
         backIcon = view.findViewById(R.id.back_arrow);
 
         registerButton.setEnabled(false);
@@ -104,25 +100,6 @@ public class SpecificEventFragment extends Fragment {
         rulesBrick.setOnClickListener(v -> rulesSplit());
         problemBrick.setOnClickListener(v -> problemSplit());
         contactBrick.setOnClickListener(v -> contactSplit());
-
-        switcher = view.findViewById(R.id.specific_event_image_switcher);
-        switcher.setFactory(() -> {
-            ImageView imageView = new ImageView(getContext());
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            ViewGroup.LayoutParams params = new ImageSwitcher.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            imageView.setLayoutParams(params);
-            return imageView;
-        });
-
-        Animation fadeIn = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_right);
-        fadeIn.setDuration(2000);
-        Animation fadeOut = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_left);
-        fadeOut.setDuration(2000);
-        switcher.setInAnimation(fadeIn);
-        switcher.setOutAnimation(fadeOut);
-
-        start();
 
         eventId = Integer.toString(getArguments().getInt("id"));
         getDetailsfromDb(eventId);
@@ -141,7 +118,6 @@ public class SpecificEventFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        stop();
     }
 
     private void registerSplit() {
@@ -192,29 +168,6 @@ public class SpecificEventFragment extends Fragment {
             contactDetails.setVisibility(View.GONE);
             contactDetailsSplit.setImageResource(R.drawable.ic_add_black_24dp);
         }
-    }
-
-    public void start() {
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-
-            public void run() {
-                // avoid exception: "Only the original thread that created a view hierarchy can touch its views"
-                getActivity().runOnUiThread(() -> {
-                    switcher.setImageResource(gallery[position]);
-                    position++;
-                    if (position == 4) {
-                        position = 0;
-                    }
-                });
-            }
-
-        }, 0, 6000);
-
-    }
-
-    public void stop() {
-        timer.cancel();
     }
 
     private void registerForEvent() {
@@ -314,15 +267,27 @@ public class SpecificEventFragment extends Fragment {
             contacts = contacts.concat("<strong>Phone No : </strong>" + contactModel.getPhoneNo() + "</p>");
         }
         contactDetails.setText(Html.fromHtml(contacts));
-
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .error(R.drawable.home_menu_gray_card);
+        if (eventSpecificModel.getCoverImage() != null)
+            Glide.with(getContext())
+                    .load(eventSpecificModel.getCoverImage().toString())
+                    .apply(options)
+                    .into(switcher);
+        else switcher.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.home_menu_gray_card ));
         probStatement.setOnClickListener(v -> {
             String url = eventSpecificModel.getProblemStatement();
-            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-            builder.setToolbarColor(getContext().getResources().getColor(R.color.fragment_bg));
-            builder.setStartAnimations(getContext(), R.anim.slide_in_right, R.anim.slide_out_left);
-            builder.setExitAnimations(getContext(), R.anim.slide_in_left, R.anim.slide_out_right);
-            CustomTabsIntent customTabsIntent = builder.build();
-            customTabsIntent.launchUrl(getContext(), Uri.parse(url));
+            if (url != null && !url.isEmpty()) {
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                builder.setToolbarColor(getContext().getResources().getColor(R.color.fragment_bg));
+                builder.setStartAnimations(getContext(), R.anim.slide_in_right, R.anim.slide_out_left);
+                builder.setExitAnimations(getContext(), R.anim.slide_in_left, R.anim.slide_out_right);
+                CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(getContext(), Uri.parse(url));
+            } else {
+                Toast.makeText(getContext(), "Not available", Toast.LENGTH_SHORT).show();
+            }
         });
 
         teamLimit = Integer.parseInt(eventSpecificModel.getTeamLimit());

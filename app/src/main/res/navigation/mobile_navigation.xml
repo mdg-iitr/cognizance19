@@ -119,7 +119,18 @@
              />
         <action
             android:id="@+id/action_homeMenuFragment_to_centerStageAndDepartmentalFragment"
-            app:destination="@id/centerStageAndDepartmentalFragment"/>
+            app:destination="@id/centerStageAndDepartmentalFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_homeMenuFragment_to_speceficEventFragment"
+            app:destination="@id/speceficEventFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/dashboardSPPFragment"
