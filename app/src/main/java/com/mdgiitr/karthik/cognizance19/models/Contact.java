@@ -3,7 +3,7 @@ package com.mdgiitr.karthik.cognizance19.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ContactModel {
+public class Contact {
 
     @SerializedName("name")
     @Expose

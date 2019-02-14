@@ -4,7 +4,7 @@ import com.mdgiitr.karthik.cognizance19.models.CenterstageOrDepartmentalEventsRe
 import com.mdgiitr.karthik.cognizance19.models.EventResponse;
 import com.mdgiitr.karthik.cognizance19.models.FbGoogleLoginModel;
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
-import com.mdgiitr.karthik.cognizance19.models.HomeMenuWorkshopResponse;
+import com.mdgiitr.karthik.cognizance19.models.WorkshopResponse;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
 import com.mdgiitr.karthik.cognizance19.models.RegEventsResponse;
 import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
@@ -81,8 +81,8 @@ public interface ApiService {
     @POST("users/spp/upload/excel")
     Observable<ResponseBody> uploadExcel(@Header("Authorization") String token, @Part MultipartBody.Part file);
 
-    @GET("android/workshops")
-    Observable<HomeMenuWorkshopResponse> fetchWorkshops();
+    @GET("workshops")
+    Observable<WorkshopResponse> fetchWorkshops();
 
     @GET("android/events")
     Observable<CenterstageOrDepartmentalEventsResponse> fetchEvents();

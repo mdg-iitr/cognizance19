@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +11,12 @@ import android.view.ViewGroup;
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.adapters.HomeMenuEventAdapter;
 import com.mdgiitr.karthik.cognizance19.adapters.HomeMenuTechtainmentAdapter;
-import com.mdgiitr.karthik.cognizance19.adapters.WorkshopAdapter;
 import com.mdgiitr.karthik.cognizance19.models.HomeMenuEventModel;
-import com.mdgiitr.karthik.cognizance19.models.HomeMenuWorkshopResponse;
-import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 import static com.mdgiitr.karthik.cognizance19.MainActivity.bottomNavigationView;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
@@ -76,7 +68,7 @@ public class HomeMenuFragment extends Fragment {
 //        apiClient.fetchWorkshops()
 //                .subscribeOn(Schedulers.io())
 //                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<HomeMenuWorkshopResponse>() {
+//                .subscribe(new Observer<WorkshopResponse>() {
 //
 //                    @Override
 //                    public void onSubscribe(Disposable d) {
@@ -84,7 +76,7 @@ public class HomeMenuFragment extends Fragment {
 //                    }
 //
 //                    @Override
-//                    public void onNext(HomeMenuWorkshopResponse homeMenuWorkshopResponse) {
+//                    public void onNext(WorkshopResponse homeMenuWorkshopResponse) {
 //                        Log.d("workshop", homeMenuWorkshopResponse.getMessage());
 //                        workshopAdapter = new WorkshopAdapter(getContext(), homeMenuWorkshopResponse.getWorkshopsModelList());
 //                        workshopRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));

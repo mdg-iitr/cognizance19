@@ -23,7 +23,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.adapters.EventRegisterIDsAdapter;
-import com.mdgiitr.karthik.cognizance19.models.ContactModel;
+import com.mdgiitr.karthik.cognizance19.models.Contact;
 import com.mdgiitr.karthik.cognizance19.models.EventResponse;
 import com.mdgiitr.karthik.cognizance19.models.EventSpecificModel;
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
@@ -262,11 +262,11 @@ public class SpecificEventFragment extends Fragment {
         introduction.setText(Html.fromHtml(eventSpecificModel.getDescription()));
         regProcedure.setText(Html.fromHtml(eventSpecificModel.getProcedure()));
         rules.setText(Html.fromHtml(eventSpecificModel.getRules()));
-        List<ContactModel> contactList = eventSpecificModel.getContact();
+        List<Contact> contactList = eventSpecificModel.getContact();
         String contacts = "";
-        for (ContactModel contactModel : contactList) {
-            contacts = contacts.concat("<p><strong>Name : </strong>" + contactModel.getName() + "<br/>");
-            contacts = contacts.concat("<strong>Phone No : </strong>" + contactModel.getPhoneNo() + "</p>");
+        for (Contact contact : contactList) {
+            contacts = contacts.concat("<p><strong>Name : </strong>" + contact.getName() + "<br/>");
+            contacts = contacts.concat("<strong>Phone No : </strong>" + contact.getPhoneNo() + "</p>");
         }
         contactDetails.setText(Html.fromHtml(contacts));
         RequestOptions options = new RequestOptions()

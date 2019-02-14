@@ -121,9 +121,9 @@
             app:destination="@id/centerStageAndDepartmentalFragment"
               />
         <action
-            android:id="@+id/action_homeMenuFragment_to_speceficEventFragment"
-            app:destination="@id/speceficEventFragment"
-              />
+            android:id="@+id/action_homeMenuFragment_to_workshopFragment"
+            app:destination="@id/workshopFragment"
+            />
     </fragment>
     <fragment
         android:id="@+id/dashboardSPPFragment"
@@ -135,4 +135,9 @@
         android:name="com.mdgiitr.karthik.cognizance19.view.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/workshopFragment"
+        android:name="com.mdgiitr.karthik.cognizance19.view.WorkshopFragment"
+        android:label="fragment_workshop"
+        tools:layout="@layout/fragment_workshop" />
 </navigation>

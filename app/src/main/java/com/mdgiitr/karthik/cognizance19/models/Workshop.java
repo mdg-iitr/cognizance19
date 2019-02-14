@@ -5,8 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class EventSpecificModel {
-
+public class Workshop {
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -24,7 +23,7 @@ public class EventSpecificModel {
     private String tagline;
     @SerializedName("abstract")
     @Expose
-    private Boolean _abstract;
+    private Object _abstract;
     @SerializedName("type")
     @Expose
     private String type;
@@ -45,7 +44,7 @@ public class EventSpecificModel {
     private String cost;
     @SerializedName("schedule")
     @Expose
-    private Object schedule;
+    private List<Schedule> schedule = null;
     @SerializedName("venue")
     @Expose
     private String venue;
@@ -54,16 +53,16 @@ public class EventSpecificModel {
     private List<Contact> contact = null;
     @SerializedName("thumbnail")
     @Expose
-    private Object thumbnail;
+    private String thumbnail;
     @SerializedName("trending")
     @Expose
     private Boolean trending;
     @SerializedName("tags")
     @Expose
-    private Object tags;
+    private String tags;
     @SerializedName("organizers")
     @Expose
-    private Object organizers;
+    private String organizers;
     @SerializedName("registrationClosed")
     @Expose
     private Boolean registrationClosed;
@@ -72,10 +71,10 @@ public class EventSpecificModel {
     private Boolean deleted;
     @SerializedName("sponsors")
     @Expose
-    private String sponsors;
+    private Object sponsors;
     @SerializedName("coverImage")
     @Expose
-    private Object coverImage;
+    private String coverImage;
     @SerializedName("priority")
     @Expose
     private Object priority;
@@ -87,7 +86,7 @@ public class EventSpecificModel {
     private String updatedAt;
     @SerializedName("CentralId")
     @Expose
-    private Integer centralId;
+    private Object centralId;
     @SerializedName("DepartmentId")
     @Expose
     private Object departmentId;
@@ -132,11 +131,11 @@ public class EventSpecificModel {
         this.tagline = tagline;
     }
 
-    public Boolean getAbstract() {
+    public Object getAbstract() {
         return _abstract;
     }
 
-    public void setAbstract(Boolean _abstract) {
+    public void setAbstract(Object _abstract) {
         this._abstract = _abstract;
     }
 
@@ -188,11 +187,11 @@ public class EventSpecificModel {
         this.cost = cost;
     }
 
-    public Object getSchedule() {
+    public List<Schedule> getSchedule() {
         return schedule;
     }
 
-    public void setSchedule(Object schedule) {
+    public void setSchedule(List<Schedule> schedule) {
         this.schedule = schedule;
     }
 
@@ -212,11 +211,11 @@ public class EventSpecificModel {
         this.contact = contact;
     }
 
-    public Object getThumbnail() {
+    public String getThumbnail() {
         return thumbnail;
     }
 
-    public void setThumbnail(Object thumbnail) {
+    public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
     }
 
@@ -228,19 +227,19 @@ public class EventSpecificModel {
         this.trending = trending;
     }
 
-    public Object getTags() {
+    public String getTags() {
         return tags;
     }
 
-    public void setTags(Object tags) {
+    public void setTags(String tags) {
         this.tags = tags;
     }
 
-    public Object getOrganizers() {
+    public String getOrganizers() {
         return organizers;
     }
 
-    public void setOrganizers(Object organizers) {
+    public void setOrganizers(String organizers) {
         this.organizers = organizers;
     }
 
@@ -260,19 +259,19 @@ public class EventSpecificModel {
         this.deleted = deleted;
     }
 
-    public String getSponsors() {
+    public Object getSponsors() {
         return sponsors;
     }
 
-    public void setSponsors(String sponsors) {
+    public void setSponsors(Object sponsors) {
         this.sponsors = sponsors;
     }
 
-    public Object getCoverImage() {
+    public String getCoverImage() {
         return coverImage;
     }
 
-    public void setCoverImage(Object coverImage) {
+    public void setCoverImage(String coverImage) {
         this.coverImage = coverImage;
     }
 
@@ -300,11 +299,11 @@ public class EventSpecificModel {
         this.updatedAt = updatedAt;
     }
 
-    public Integer getCentralId() {
+    public Object getCentralId() {
         return centralId;
     }
 
-    public void setCentralId(Integer centralId) {
+    public void setCentralId(Object centralId) {
         this.centralId = centralId;
     }
 
@@ -315,5 +314,4 @@ public class EventSpecificModel {
     public void setDepartmentId(Object departmentId) {
         this.departmentId = departmentId;
     }
-
 }

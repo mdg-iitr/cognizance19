@@ -5,7 +5,7 @@ import com.mdgiitr.karthik.cognizance19.models.CenterstageOrDepartmentalEventsRe
 import com.mdgiitr.karthik.cognizance19.models.EventResponse;
 import com.mdgiitr.karthik.cognizance19.models.FbGoogleLoginModel;
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
-import com.mdgiitr.karthik.cognizance19.models.HomeMenuWorkshopResponse;
+import com.mdgiitr.karthik.cognizance19.models.WorkshopResponse;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
 import com.mdgiitr.karthik.cognizance19.models.RegEventsResponse;
 import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
@@ -100,7 +100,7 @@ public class ApiClient {
         return apiService.uploadExcel("Token " + token, body).subscribeOn(Schedulers.io());
     }
 
-    public Observable<HomeMenuWorkshopResponse> fetchWorkshops() {
+    public Observable<WorkshopResponse> fetchWorkshops() {
         return apiService.fetchWorkshops().subscribeOn(Schedulers.io());
     }
 

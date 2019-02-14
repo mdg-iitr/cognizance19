@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.models.Event;
+import com.mdgiitr.karthik.cognizance19.models.Workshop;
 
 import java.util.List;
 
@@ -22,9 +23,9 @@ import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
 public class WorkshopAdapter extends RecyclerView.Adapter<WorkshopAdapter.HomeMenuWorkshopViewHolder> {
     private Context context;
-    private List<Event> list;
+    private List<Workshop> list;
 
-    public WorkshopAdapter(Context context, List<Event> list) {
+    public WorkshopAdapter(Context context, List<Workshop> list) {
         this.context = context;
         this.list = list;
     }
@@ -38,21 +39,22 @@ public class WorkshopAdapter extends RecyclerView.Adapter<WorkshopAdapter.HomeMe
 
     @Override
     public void onBindViewHolder(@NonNull HomeMenuWorkshopViewHolder holder, int position) {
-        Event model = list.get(position);
+        Workshop model = list.get(position);
 
         RequestOptions options = new RequestOptions()
                 .centerCrop()
                 .error(R.drawable.home_menu_gray_card);
         Glide.with(context)
-                .load(model.getImageURL())
+                .load(model.getThumbnail())
                 .apply(options)
                 .into(holder.workshopPic);
 
         holder.workshopName.setText(model.getName());
+        holder.workshopTagline.setText(model.getTagline());
         holder.workshopCard.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putInt("id", model.getID());
-            navController.navigate(R.id.action_homeMenuFragment_to_speceficEventFragment,bundle);
+            bundle.putInt("id", model.getId());
+//            navController.navigate(R.id.action_homeMenuFragment_to_speceficEventFragment,bundle);
         });
     }
 
