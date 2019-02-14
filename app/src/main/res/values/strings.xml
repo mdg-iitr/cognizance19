@@ -88,6 +88,8 @@
     <string name="branch">Branch</string>
     <string name="submit_abstract">Submit abstract</string>
     <string name="enter_referral_code">Enter Referral Code</string>
+    <string name="attractions">Attractions</string>
+    <string name="what_s_new">What\'s New</string>
 
     <string-array name="Select_City">
         <item>Select City</item>

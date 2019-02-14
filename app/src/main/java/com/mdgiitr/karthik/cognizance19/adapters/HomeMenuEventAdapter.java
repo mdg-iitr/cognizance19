@@ -23,18 +23,26 @@ import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 public class HomeMenuEventAdapter extends RecyclerView.Adapter<HomeMenuEventAdapter.HomeMenuEventViewHolder> {
     Context context;
     List<HomeMenuEventModel> myList;
+    int flag;
 
-    public HomeMenuEventAdapter(Context context, List<HomeMenuEventModel> myList) {
+    public HomeMenuEventAdapter(Context context, List<HomeMenuEventModel> myList, int flag) {
         this.context = context;
         this.myList = myList;
+        this.flag = flag;
     }
 
     @NonNull
     @Override
     public HomeMenuEventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item_home_menu_event, parent, false);
-
+        View itemView;
+        if(flag==0) {
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.list_item_home_menu_event, parent, false);
+        }
+        else {
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.list_item_home_menu_attraction, parent, false);
+        }
         return new HomeMenuEventViewHolder(itemView);
     }
 
@@ -52,12 +60,14 @@ public class HomeMenuEventAdapter extends RecyclerView.Adapter<HomeMenuEventAdap
         holder.eventName.setText(model.getEvent());
         holder.eventCard.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            if (model.getEvent().equals("Center Stage")) {
+            if (model.getEvent().equals("Centerstage")) {
                 bundle.putInt("event_frag_id", 0);
-            } else {
+                navController.navigate(R.id.action_homeMenuFragment_to_centerStageAndDepartmentalFragment, bundle);
+            } else if (model.getEvent().equals("Departmental")) {
                 bundle.putInt("event_frag_id", 1);
+                navController.navigate(R.id.action_homeMenuFragment_to_centerStageAndDepartmentalFragment, bundle);
             }
-            navController.navigate(R.id.action_homeMenuFragment_to_centerStageAndDepartmentalFragment, bundle);
+
         });
 
     }

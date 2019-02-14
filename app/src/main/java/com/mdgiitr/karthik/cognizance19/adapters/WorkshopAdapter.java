@@ -20,11 +20,11 @@ import java.util.List;
 
 import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
-public class HomeMenuWorkshopAdapter extends RecyclerView.Adapter<HomeMenuWorkshopAdapter.HomeMenuWorkshopViewHolder> {
+public class WorkshopAdapter extends RecyclerView.Adapter<WorkshopAdapter.HomeMenuWorkshopViewHolder> {
     private Context context;
     private List<Event> list;
 
-    public HomeMenuWorkshopAdapter(Context context, List<Event> list) {
+    public WorkshopAdapter(Context context, List<Event> list) {
         this.context = context;
         this.list = list;
     }
@@ -32,7 +32,7 @@ public class HomeMenuWorkshopAdapter extends RecyclerView.Adapter<HomeMenuWorksh
     @NonNull
     @Override
     public HomeMenuWorkshopViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_home_menu_workshop, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_workshop, parent, false);
         return new HomeMenuWorkshopViewHolder(view);
     }
 
