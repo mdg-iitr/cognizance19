@@ -72,7 +72,7 @@ public class RegEventsFragment extends Fragment {
                                 regEventsList.add(regEventsResponse.getEvents().get(i));
                             }
                         }
-                        adapter = new RegEventsAdapter(getContext(), regEventsList);
+                        adapter = new RegEventsAdapter(getActivity(),getContext(), regEventsList);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                         recyclerView.setAdapter(adapter);
                     }

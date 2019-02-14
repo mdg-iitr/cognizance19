@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/workshopCard"
-    android:layout_width="wrap_content"
+    android:id="@+id/event_card"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="15dp"
-    android:layout_marginBottom="5dp">
+    android:layout_marginBottom="22dp"
+    android:layout_marginStart="28dp"
+    android:layout_marginEnd="28dp">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/home_menu_gray_card"
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/home_menu_workshop_image"
-            android:layout_width="300dp"
-            android:layout_height="106dp" />
+            android:id="@+id/departmental_event_image"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:src="@drawable/gray_card" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,25 +26,24 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/home_menu_workshop_name"
+                android:id="@+id/departmental_event_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="4dp"
-                android:layout_marginEnd="2dp"
+                android:layout_marginEnd="4dp"
                 android:textAlignment="center"
                 android:textColor="#ff646464"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/home_menu_workshop_tagline"
+                android:id="@+id/departmental_event_tagline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="2dp"
-                android:layout_marginBottom="5dp"
-                android:text="Workshop tagline"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
                 android:textAlignment="center"
                 android:textColor="#ffa0a0a0"
                 android:textSize="15sp" />

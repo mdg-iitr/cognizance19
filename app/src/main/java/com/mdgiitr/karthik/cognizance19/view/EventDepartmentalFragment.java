@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.adapters.DepartmentalAdapter;
@@ -32,10 +33,10 @@ public class EventDepartmentalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_event_departmental_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_event_departmental, container, false);
         progressDialog = new ProgressDialog(getContext());
-
         apiClient = new ApiClient();
+
 
         recyclerView = view.findViewById(R.id.departmental_recyclerview);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), NO_OF_COLUMNS));
@@ -55,7 +56,7 @@ public class EventDepartmentalFragment extends Fragment {
 
                     @Override
                     public void onNext(CenterstageOrDepartmentalEventsResponse response) {
-                        departmentalAdapter = new DepartmentalAdapter(getContext(), response.getDepartmental(), SCREEN_WIDTH);
+                        departmentalAdapter = new DepartmentalAdapter(getContext(), response.getDepartmental(), SCREEN_WIDTH, getFragmentManager());
                         recyclerView.setAdapter(departmentalAdapter);
                         progressDialog.dismiss();
                     }
@@ -75,6 +76,8 @@ public class EventDepartmentalFragment extends Fragment {
 
         return view;
     }
+
+
 
     @Override
     public void onResume() {

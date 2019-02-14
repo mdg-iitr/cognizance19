@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/FullScreen"
     tools:context=".view.LandingFragment">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/landing_bg"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:src="@drawable/landing_bg" />
 
     <ImageView
         android:id="@+id/logo"
@@ -62,8 +63,8 @@
         android:layout_marginTop="57dp"
         android:layout_marginEnd="48dp"
         android:background="@drawable/edit_text_bg"
-        android:textColor="@color/grayText"
-        android:text="@string/login"/>
+        android:text="@string/login"
+        android:textColor="@color/grayText" />
 
     <TextView
         android:id="@+id/or_title"

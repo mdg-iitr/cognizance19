@@ -61,7 +61,7 @@ public class RegWorkshopsFragment extends Fragment {
                                 regWorkshopList.add(regEventsResponse.getEvents().get(i));
                             }
                         }
-                        adapter = new RegEventsAdapter(getContext(), regWorkshopList);
+                        adapter = new RegEventsAdapter(getActivity(), getContext(), regWorkshopList);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                         recyclerView.setAdapter(adapter);
                     }
