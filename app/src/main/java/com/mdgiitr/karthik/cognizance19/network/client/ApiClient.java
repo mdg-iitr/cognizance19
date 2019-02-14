@@ -9,6 +9,7 @@ import com.mdgiitr.karthik.cognizance19.models.HomeMenuWorkshopResponse;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
 import com.mdgiitr.karthik.cognizance19.models.RegEventsResponse;
 import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
+import com.mdgiitr.karthik.cognizance19.models.TeamResponse;
 import com.mdgiitr.karthik.cognizance19.models.UserSPPResponseModel;
 import com.mdgiitr.karthik.cognizance19.network.service.ApiService;
 
@@ -138,6 +139,14 @@ public class ApiClient {
             members = members.substring(0, members.length() - 1);
         return apiService.registerForEvent("Token " + token, eventId, members).subscribeOn(Schedulers.io());
 
+    }
+
+    public Observable<TeamResponse> fetchTeam(String token, String eventID){
+        return apiService.getTeam("Token " + token, eventID).subscribeOn(Schedulers.io());
+    }
+
+    public Observable<GeneralResponse> unregister(String token, String eventID){
+        return apiService.unregister("Token " + token, eventID).subscribeOn(Schedulers.io());
     }
 
 }

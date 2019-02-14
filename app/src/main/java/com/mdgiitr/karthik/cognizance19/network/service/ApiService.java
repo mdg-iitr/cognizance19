@@ -8,6 +8,7 @@ import com.mdgiitr.karthik.cognizance19.models.HomeMenuWorkshopResponse;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
 import com.mdgiitr.karthik.cognizance19.models.RegEventsResponse;
 import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
+import com.mdgiitr.karthik.cognizance19.models.TeamResponse;
 import com.mdgiitr.karthik.cognizance19.models.UserSPPResponseModel;
 
 import io.reactivex.Observable;
@@ -87,6 +88,12 @@ public interface ApiService {
 
     @GET("users/events/registered")
     Observable<RegEventsResponse> getRegisteredEvents(@Header("Authorization") String token);
+
+    @GET("users/event/{id}/team")
+    Observable<TeamResponse> getTeam(@Header("Authorization") String token, @Path("id") String id);
+
+    @GET("users/event/{id}/unregister")
+    Observable<GeneralResponse> unregister(@Header("Authorization") String token, @Path("id") String id);
 
 
 }
