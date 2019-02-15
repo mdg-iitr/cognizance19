@@ -70,6 +70,7 @@ public class WorkshopFragment extends Fragment {
 
         RequestOptions options = new RequestOptions()
                 .centerCrop()
+                .placeholder(R.drawable.com_facebook_profile_picture_blank_square)
                 .error(R.drawable.com_facebook_profile_picture_blank_square);
         Glide.with(this)
                 .load(preferenceHelper.getProfilePicURL())

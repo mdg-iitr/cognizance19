@@ -119,6 +119,7 @@ public class SpecificWorkshopFragment extends Fragment {
 
         RequestOptions options = new RequestOptions()
                 .centerCrop()
+                .placeholder(R.drawable.com_facebook_profile_picture_blank_square)
                 .error(R.drawable.com_facebook_profile_picture_blank_square);
         Glide.with(this)
                 .load(preferenceHelper.getProfilePicURL())
@@ -293,6 +294,7 @@ public class SpecificWorkshopFragment extends Fragment {
         contactDetails.setText(Html.fromHtml(contacts));
         RequestOptions options = new RequestOptions()
                 .centerCrop()
+                .placeholder(R.drawable.home_menu_gray_card)
                 .error(R.drawable.home_menu_gray_card);
         if (eventSpecificModel.getCoverImage() != null)
             Glide.with(getContext())
