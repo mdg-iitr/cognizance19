@@ -126,25 +126,19 @@ public class MyProfileFragment extends Fragment {
 
         popupMenu = new PopupMenu(getActivity(), menuImageView);
 
-        userProfilePic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (updateVisible) {
-                    updateVisible = false;
-                    updateProfile.setVisibility(View.GONE);
-                } else {
-                    updateProfile.setVisibility(View.VISIBLE);
-                    updateVisible = true;
-                }
+        userProfilePic.setOnClickListener(v -> {
+            if (updateVisible) {
+                updateVisible = false;
+                updateProfile.setVisibility(View.GONE);
+            } else {
+                updateProfile.setVisibility(View.VISIBLE);
+                updateVisible = true;
             }
         });
 
-        updateProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (updateVisible) {
-                    startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), PROFILE_PIC_REQUEST);
-                }
+        updateProfile.setOnClickListener(v -> {
+            if (updateVisible) {
+                startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI), PROFILE_PIC_REQUEST);
             }
         });
 
@@ -425,6 +419,8 @@ public class MyProfileFragment extends Fragment {
     }
 
     private void populateViews(UserDetailsSPPResponseModel userDetailsSPPResponseModel) {
+
+        preferenceHelper.setCogniId(userDetailsSPPResponseModel.getCogniId());
 
         editProfileIcon.setClickable(true);
         editProfileIcon.setOnClickListener(v -> {

@@ -5,12 +5,12 @@ import com.mdgiitr.karthik.cognizance19.models.CenterstageOrDepartmentalEventsRe
 import com.mdgiitr.karthik.cognizance19.models.EventResponse;
 import com.mdgiitr.karthik.cognizance19.models.FbGoogleLoginModel;
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
-import com.mdgiitr.karthik.cognizance19.models.WorkshopResponse;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
 import com.mdgiitr.karthik.cognizance19.models.RegEventsResponse;
 import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
 import com.mdgiitr.karthik.cognizance19.models.TeamResponse;
 import com.mdgiitr.karthik.cognizance19.models.UserSPPResponseModel;
+import com.mdgiitr.karthik.cognizance19.models.WorkshopResponse;
 import com.mdgiitr.karthik.cognizance19.network.service.ApiService;
 
 import java.io.File;
@@ -151,6 +151,14 @@ public class ApiClient {
 
     public Observable<GeneralResponse> updateDetails(String token, String name, String city, String address, String pincode, String mobile) {
         return apiService.updateUserDetails("Token " + token, name, city, address, pincode, mobile).subscribeOn(Schedulers.io());
+    }
+
+    public Observable<ResponseBody> addMember(String token, String eventId, String teamId, String cogniId) {
+        return apiService.addMember("Token " + token, eventId, teamId, cogniId).subscribeOn(Schedulers.io());
+    }
+
+    public Observable<ResponseBody> removeMember(String token, String eventId, String teamId, String cogniId) {
+        return apiService.removeMember("Token " + token, eventId, teamId, cogniId).subscribeOn(Schedulers.io());
     }
 
 }

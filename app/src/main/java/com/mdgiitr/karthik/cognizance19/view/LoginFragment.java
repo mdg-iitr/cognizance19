@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mdgiitr.karthik.cognizance19.EmailPasswordValidator;
+import com.mdgiitr.karthik.cognizance19.utils.EmailPasswordValidator;
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
 import com.mdgiitr.karthik.cognizance19.models.UserSPPResponseModel;
