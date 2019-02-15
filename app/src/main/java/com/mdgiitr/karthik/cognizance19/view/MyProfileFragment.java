@@ -62,6 +62,7 @@ public class MyProfileFragment extends Fragment {
     private LinearLayout updateProfile;
     private int PROFILE_PIC_REQUEST = 100;
     private File profilePicFile;
+    private ProgressDialog progressDialog;
 
     public MyProfileFragment() {
         // Required empty public constructor
@@ -80,7 +81,7 @@ public class MyProfileFragment extends Fragment {
         setHasOptionsMenu(true);
 
         preferenceHelper = new PreferenceHelper(getActivity());
-
+        progressDialog = new ProgressDialog(getContext());
         apiClient = new ApiClient();
 
         menuImageView = view.findViewById(R.id.menu_icon);
@@ -257,7 +258,9 @@ public class MyProfileFragment extends Fragment {
     }
 
     private void populateViewsFromDB() {
-
+        progressDialog.setMessage("Fetching details...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         apiClient.getUserDetails(preferenceHelper.getToken())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<UserSPPResponseModel>() {
@@ -269,11 +272,13 @@ public class MyProfileFragment extends Fragment {
                     @Override
                     public void onNext(UserSPPResponseModel userResponseModel) {
                         populateViews(userResponseModel.getDetails());
+                        progressDialog.dismiss();
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         handleUserDetailsErrorResponse(e);
+                        progressDialog.dismiss();
                     }
 
                     @Override
@@ -320,6 +325,8 @@ public class MyProfileFragment extends Fragment {
                 .load("https://bucket.cognizance.org.in/bucket/" + userDetailsSPPResponseModel.getImageUrl())
                 .apply(options)
                 .into(userProfilePic);
+
+        preferenceHelper.setProfilePicURL("https://bucket.cognizance.org.in/bucket/" + userDetailsSPPResponseModel.getImageUrl());
 
         if (userDetailsSPPResponseModel.getRole().equals("cogni_user")) {
             preferenceHelper.setUserType(REGISTRATION_TYPE_PARTICIPANT);

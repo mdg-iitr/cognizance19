@@ -46,4 +46,12 @@ public class PreferenceHelper {
     public void setUserType(int i) {
         prefs.edit().putInt("user_type", i).apply();
     }
+
+    public void setProfilePicURL(String url){
+        prefs.edit().putString("profilePicURL", url).apply();
+    }
+
+    public String getProfilePicURL(){
+        return prefs.getString("profilePicURL","");
+    }
 }

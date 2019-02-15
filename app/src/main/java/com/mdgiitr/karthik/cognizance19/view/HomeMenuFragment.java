@@ -8,10 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.adapters.HomeMenuEventAdapter;
 import com.mdgiitr.karthik.cognizance19.adapters.HomeMenuTechtainmentAdapter;
 import com.mdgiitr.karthik.cognizance19.models.HomeMenuEventModel;
+import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,7 @@ public class HomeMenuFragment extends Fragment {
     private List<String> techtainmentURL, guestURL;
     private HomeMenuEventAdapter eventAdapter, attractionAdapter, whatsNewAdapter, panelAdapter;
     private HomeMenuTechtainmentAdapter techtainmentAdapter, guestAdapter;
+    private PreferenceHelper preferenceHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +47,8 @@ public class HomeMenuFragment extends Fragment {
         techtainmentRecyclerView = view.findViewById(R.id.home_menu_techtainment_recyclerview);
         guestRecyclerView = view.findViewById(R.id.home_menu_guest_recyclerview);
         smallImageView = view.findViewById(R.id.small_profile_image);
+
+        preferenceHelper = new PreferenceHelper(getActivity());
 
         eventList = new ArrayList<>();
         attractionList = new ArrayList<>();
@@ -81,6 +87,13 @@ public class HomeMenuFragment extends Fragment {
         guestRecyclerView.setAdapter(guestAdapter);
 
         smallImageView.setOnClickListener(v -> navController.navigate(R.id.action_homeMenuFragment_to_myProfileFragment));
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .error(R.drawable.com_facebook_profile_picture_blank_square);
+        Glide.with(this)
+                .load(preferenceHelper.getProfilePicURL())
+                .apply(options)
+                .into(smallImageView);
 
         bottomNavigationView.setVisibility(View.VISIBLE);
         return view;
