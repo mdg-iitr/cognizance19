@@ -63,7 +63,8 @@ public class RegEventsModel {
     }
 
     public Boolean get_abstract() {
-        return _abstract;
+        if(_abstract == null) return false;
+        else return _abstract;
     }
 
     public void set_abstract(Boolean _abstract) {

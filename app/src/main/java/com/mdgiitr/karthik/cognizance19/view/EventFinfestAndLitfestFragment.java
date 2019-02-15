@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -30,6 +32,7 @@ public class EventFinfestAndLitfestFragment extends Fragment {
     private HashMap<Integer, Fragment> map;
     private CircleImageView smallImageView;
     private PreferenceHelper preferenceHelper;
+    private ImageView backIcon;
 
     @SuppressLint("UseSparseArrays")
     @Override
@@ -41,6 +44,7 @@ public class EventFinfestAndLitfestFragment extends Fragment {
         tabLayout = view.findViewById(R.id.finfest_litfest_tabs);
         viewPager = view.findViewById(R.id.finfest_litfest_view_pager);
         smallImageView = view.findViewById(R.id.small_profile_image);
+        backIcon = view.findViewById(R.id.back_arrow);
 
         preferenceHelper = new PreferenceHelper(getActivity());
 
@@ -64,6 +68,28 @@ public class EventFinfestAndLitfestFragment extends Fragment {
                 viewPager.setCurrentItem(1);
                 break;
         }
+
+        backIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomNavigationView.setSelectedItemId(R.id.home);
+                navController.navigateUp();
+            }
+        });
+
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if( keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+                    bottomNavigationView.setSelectedItemId(R.id.home);
+                    navController.navigateUp();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         bottomNavigationView.setVisibility(View.VISIBLE);
 

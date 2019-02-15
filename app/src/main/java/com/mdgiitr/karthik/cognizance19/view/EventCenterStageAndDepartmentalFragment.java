@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,7 +80,24 @@ public class EventCenterStageAndDepartmentalFragment extends Fragment {
                     getChildFragmentManager().popBackStack("departmental", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                     DEPARTMENT_FLAG = 1;
                 }
-                else navController.navigateUp();
+                else {
+                    bottomNavigationView.setSelectedItemId(R.id.home);
+                    navController.navigateUp();
+                }
+            }
+        });
+
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if( keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+                    bottomNavigationView.setSelectedItemId(R.id.home);
+                    navController.navigateUp();
+                    return true;
+                }
+                return false;
             }
         });
 

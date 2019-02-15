@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,22 @@ public class WorkshopFragment extends Fragment {
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                bottomNavigationView.setSelectedItemId(R.id.home);
                 navController.navigateUp();
+            }
+        });
+
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if( keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+                    bottomNavigationView.setSelectedItemId(R.id.home);
+                    navController.navigateUp();
+                    return true;
+                }
+                return false;
             }
         });
 

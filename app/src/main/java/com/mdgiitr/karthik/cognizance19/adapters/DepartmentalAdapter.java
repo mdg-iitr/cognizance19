@@ -47,6 +47,7 @@ public class DepartmentalAdapter extends RecyclerView.Adapter<DepartmentalAdapte
     @Override
     public void onBindViewHolder(@NonNull DepartmentalViewHolder holder, int position) {
         Departmental departmentalModel = list.get(position);
+        holder.deptNameView.setText(departmentalModel.getName());
         holder.linearLayout.setOnClickListener(v -> {
             FragmentTransaction fragmentTransaction = manager.beginTransaction();
             Bundle bundle = new Bundle();
