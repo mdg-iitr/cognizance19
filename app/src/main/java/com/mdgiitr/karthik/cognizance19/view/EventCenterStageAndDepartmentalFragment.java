@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -24,6 +25,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.mdgiitr.karthik.cognizance19.MainActivity.bottomNavigationView;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
+import static com.mdgiitr.karthik.cognizance19.MainActivity.DEPARTMENT_FLAG;
 
 public class EventCenterStageAndDepartmentalFragment extends Fragment {
     private TabLayout tabLayout;
@@ -73,7 +75,11 @@ public class EventCenterStageAndDepartmentalFragment extends Fragment {
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigateUp();
+                if(DEPARTMENT_FLAG == 2){
+                    getChildFragmentManager().popBackStack("departmental", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                    DEPARTMENT_FLAG = 1;
+                }
+                else navController.navigateUp();
             }
         });
 

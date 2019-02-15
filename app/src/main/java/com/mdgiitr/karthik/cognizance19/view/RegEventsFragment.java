@@ -1,6 +1,7 @@
 package com.mdgiitr.karthik.cognizance19.view;
 
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,6 +33,9 @@ public class RegEventsFragment extends Fragment {
     private PreferenceHelper preferenceHelper;
     private ApiClient apiClient;
     private List<RegEventsModel> regEventsList;
+    private boolean isDataFetched = false, isViewCreated = false;
+    private RegEventsResponse cachedResponse;
+    private ProgressDialog progressDialog;
 
     public RegEventsFragment() {
         // Required empty public constructor
@@ -40,6 +44,10 @@ public class RegEventsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        preferenceHelper = new PreferenceHelper(getActivity());
+        apiClient = new ApiClient();
+        progressDialog = new ProgressDialog(getContext());
+        populateViewsFromDB();
     }
 
     @Override
@@ -49,9 +57,18 @@ public class RegEventsFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.reg_events_recyclerview);
 
-        preferenceHelper = new PreferenceHelper(getActivity());
-        apiClient = new ApiClient();
+        isViewCreated = true;
+        if(isDataFetched){
+            populateViews(cachedResponse);
+        }
 
+        return view;
+    }
+
+    private void populateViewsFromDB(){
+        progressDialog.setMessage("Fetching registered events...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         apiClient.fetchRegisteredEvents(preferenceHelper.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -63,21 +80,19 @@ public class RegEventsFragment extends Fragment {
 
                     @Override
                     public void onNext(RegEventsResponse regEventsResponse) {
-                        int size = regEventsResponse.getEvents().size();
-                        regEventsList = new ArrayList<>();
-                        for (int i = 0; i < size; i++) {
-                            if (!regEventsResponse.getEvents().get(i).getType().equals("workshop")) {
-                                regEventsList.add(regEventsResponse.getEvents().get(i));
-                            }
+                        isDataFetched = true;
+                        cachedResponse = regEventsResponse;
+                        if(isViewCreated){
+                            populateViews(regEventsResponse);
                         }
-                        adapter = new RegEventsAdapter(getActivity(), getContext(), regEventsList);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        recyclerView.setAdapter(adapter);
+
+                        progressDialog.dismiss();
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         Toast.makeText(getContext(), "Error in fetching Registered Events.", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     }
 
                     @Override
@@ -85,7 +100,19 @@ public class RegEventsFragment extends Fragment {
 
                     }
                 });
-        return view;
+    }
+
+    private void populateViews(RegEventsResponse regEventsResponse){
+        int size = regEventsResponse.getEvents().size();
+        regEventsList = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            if (!regEventsResponse.getEvents().get(i).getType().equals("workshop")) {
+                regEventsList.add(regEventsResponse.getEvents().get(i));
+            }
+        }
+        adapter = new RegEventsAdapter(getActivity(),getContext(), regEventsList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
     }
 
 

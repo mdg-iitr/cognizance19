@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     public static int EVENT_FRAG = 0;
     public static NavController navController;
     public static BottomNavigationView bottomNavigationView;
+    public static int DEPARTMENT_FLAG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

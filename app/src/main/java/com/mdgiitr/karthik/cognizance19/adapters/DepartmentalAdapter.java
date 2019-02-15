@@ -57,6 +57,7 @@ public class DepartmentalAdapter extends RecyclerView.Adapter<DepartmentalAdapte
             fragmentTransaction.replace(R.id.base, departmentalSpecificFragment)
                     .addToBackStack("departmental")
                     .commit();
+
         });
     }
 

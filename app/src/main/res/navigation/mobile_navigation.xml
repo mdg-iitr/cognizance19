@@ -162,7 +162,12 @@
         android:id="@+id/editProfileFragment"
         android:name="com.mdgiitr.karthik.cognizance19.view.EditProfileFragment"
         android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile" />
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_editProfile_to_myProfile"
+            app:destination="@id/myProfileFragment"
+            />
+    </fragment>
     <fragment
         android:id="@+id/workshopFragment"
         android:name="com.mdgiitr.karthik.cognizance19.view.WorkshopFragment"

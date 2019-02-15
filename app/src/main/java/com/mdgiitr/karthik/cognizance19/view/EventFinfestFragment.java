@@ -2,6 +2,7 @@ package com.mdgiitr.karthik.cognizance19.view;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,6 +31,16 @@ public class EventFinfestFragment extends Fragment {
     private List<Event> list;
     private ApiClient apiClient;
     private ProgressDialog progressDialog;
+    private boolean isViewCreated = false, isDataFetched = false;
+    private CenterstageOrDepartmentalEventsResponse cachedResponse;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        apiClient = new ApiClient();
+        progressDialog = new ProgressDialog(getContext());
+        populateViewFromDB();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,8 +49,15 @@ public class EventFinfestFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_event_finfest, container, false);
 
         recyclerView = view.findViewById(R.id.finfest_recyclerview);
-        apiClient = new ApiClient();
-        progressDialog = new ProgressDialog(getContext());
+
+        isViewCreated = true;
+        if(isDataFetched){
+            populateViews(cachedResponse);
+        }
+        return view;
+    }
+
+    private void populateViewFromDB(){
 
         progressDialog.setMessage("Fetching events...");
         progressDialog.setCancelable(false);
@@ -55,19 +73,11 @@ public class EventFinfestFragment extends Fragment {
 
                     @Override
                     public void onNext(CenterstageOrDepartmentalEventsResponse response) {
-                        List<Centerstage> allEventList = response.getCenterstage();
-                        list = new ArrayList<>();
-                        adapter = new FinfestAdapter(getContext(),list);
-                        for (int i=0; i<allEventList.size();i++){
-                            Centerstage centerstage = allEventList.get(i);
-                            if(centerstage.getName().trim().equals("Fin Fest")){
-                                list.addAll(centerstage.getEvents());
-                                adapter.notifyDataSetChanged();
-                                break;
-                            }
+                        isDataFetched = true;
+                        cachedResponse = response;
+                        if(isViewCreated){
+                            populateViews(response);
                         }
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        recyclerView.setAdapter(adapter);
                         progressDialog.dismiss();
                     }
 
@@ -83,7 +93,26 @@ public class EventFinfestFragment extends Fragment {
 
                     }
                 });
+    }
 
-        return view;
+    private void populateViews(CenterstageOrDepartmentalEventsResponse response){
+        List<Centerstage> allEventList = response.getCenterstage();
+        list = new ArrayList<>();
+        adapter = new FinfestAdapter(getContext(),list);
+        for (int i=0; i<allEventList.size();i++){
+            Centerstage centerstage = allEventList.get(i);
+            if(centerstage.getName().trim().equals("Fin Fest")){
+                list.addAll(centerstage.getEvents());
+                adapter.notifyDataSetChanged();
+                break;
+            }
+        }
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        recyclerView.smoothScrollToPosition(0);
     }
 }

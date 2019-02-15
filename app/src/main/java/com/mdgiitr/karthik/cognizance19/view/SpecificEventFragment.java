@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -45,6 +46,7 @@ import static com.mdgiitr.karthik.cognizance19.MainActivity.bottomNavigationView
 import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
 public class SpecificEventFragment extends Fragment {
+    private static String eventId = "";
     private ImageView switcher;
     private int teamLimit = 0;
     private TextView introduction, regProcedure, rules, contactDetails, specificEventName;
@@ -55,20 +57,28 @@ public class SpecificEventFragment extends Fragment {
     private EventRegisterIDsAdapter eventRegisterIDsAdapter;
     private Dialog registerDialog;
     private ProgressDialog progressDialog;
-    private String eventId = "";
     private ApiClient apiClient;
     private CircleImageView smallImageView;
     private PreferenceHelper preferenceHelper;
+    private boolean isDataFetched = false, isViewCreated = false;
+    private EventResponse cachedResponse;
+    private ProgressDialog fetchDialog;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        preferenceHelper = new PreferenceHelper(getActivity());
+        apiClient = new ApiClient();
+        fetchDialog = new ProgressDialog(getContext());
+        eventId = Integer.toString(getArguments().getInt("id"));
+        getDetailsfromDb(eventId);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_specific_event, container, false);
-
-        preferenceHelper = new PreferenceHelper(getActivity());
-
-        apiClient = new ApiClient();
 
         introduction = view.findViewById(R.id.specific_event_introduction);
         regProcedure = view.findViewById(R.id.specific_event_registration_procedure);
@@ -91,8 +101,6 @@ public class SpecificEventFragment extends Fragment {
         backIcon = view.findViewById(R.id.back_arrow);
         smallImageView = view.findViewById(R.id.small_profile_image);
 
-        registerButton.setEnabled(false);
-
         registerDialog = new Dialog(getContext());
         registerDialog.setContentView(R.layout.dialog_event_register);
         registerEventButton = registerDialog.findViewById(R.id.register_event_button);
@@ -105,8 +113,6 @@ public class SpecificEventFragment extends Fragment {
         problemBrick.setOnClickListener(v -> problemSplit());
         contactBrick.setOnClickListener(v -> contactSplit());
 
-        eventId = Integer.toString(getArguments().getInt("id"));
-        getDetailsfromDb(eventId);
 
         registerButton.setOnClickListener(v -> registerForEventDialog());
 
@@ -127,6 +133,11 @@ public class SpecificEventFragment extends Fragment {
                 .apply(options)
                 .into(smallImageView);
         bottomNavigationView.setVisibility(View.GONE);
+
+        isViewCreated = true;
+        if (isDataFetched) {
+            populateViews(cachedResponse.getEvent());
+        }
         return view;
     }
 
@@ -242,7 +253,9 @@ public class SpecificEventFragment extends Fragment {
     }
 
     private void getDetailsfromDb(String id) {
-
+        fetchDialog.setMessage("Fetching event details...");
+        fetchDialog.setCancelable(false);
+        fetchDialog.show();
         apiClient.fetchSpecificEventDetails(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<EventResponse>() {
@@ -253,12 +266,15 @@ public class SpecificEventFragment extends Fragment {
 
                     @Override
                     public void onNext(EventResponse eventResponse) {
-                        populateViews(eventResponse.getEvent());
+                        isDataFetched = true;
+                        cachedResponse = eventResponse;
+                        if (isViewCreated) populateViews(eventResponse.getEvent());
+                        fetchDialog.dismiss();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        fetchDialog.dismiss();
                     }
 
                     @Override
@@ -314,7 +330,6 @@ public class SpecificEventFragment extends Fragment {
         });
 
         teamLimit = Integer.parseInt(eventSpecificModel.getTeamLimit());
-        registerButton.setEnabled(true);
 
     }
 

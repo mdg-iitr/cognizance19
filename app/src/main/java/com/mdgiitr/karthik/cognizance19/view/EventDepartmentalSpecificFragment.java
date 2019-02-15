@@ -19,6 +19,8 @@ import com.mdgiitr.karthik.cognizance19.models.Event;
 
 import java.util.List;
 
+import static com.mdgiitr.karthik.cognizance19.MainActivity.DEPARTMENT_FLAG;
+
 public class EventDepartmentalSpecificFragment extends Fragment {
     private TextView textView;
     private DepartmentalEventAdapter adapter;
@@ -28,6 +30,7 @@ public class EventDepartmentalSpecificFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_event_departmental_list, container, false);
+        DEPARTMENT_FLAG = 2;
 
         textView = view.findViewById(R.id.dept_nameTextView);
         recyclerView = view.findViewById(R.id.events_recyclerView);
@@ -46,6 +49,7 @@ public class EventDepartmentalSpecificFragment extends Fragment {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if( keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
                     getFragmentManager().popBackStack("departmental", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                    DEPARTMENT_FLAG = 1;
                     return true;
                 }
                 return false;

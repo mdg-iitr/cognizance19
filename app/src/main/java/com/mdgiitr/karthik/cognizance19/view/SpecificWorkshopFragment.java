@@ -3,6 +3,7 @@ package com.mdgiitr.karthik.cognizance19.view;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -59,16 +60,25 @@ public class SpecificWorkshopFragment extends Fragment {
     private ApiClient apiClient;
     private PreferenceHelper preferenceHelper;
     private CircleImageView smallImageView;
+    private boolean isDataFetched = false, isViewCreated = false;
+    private EventResponse cachedResponse;
+    private ProgressDialog fetchDialog;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        preferenceHelper = new PreferenceHelper(getActivity());
+        apiClient = new ApiClient();
+        fetchDialog = new ProgressDialog(getContext());
+        eventId = Integer.toString(getArguments().getInt("id"));
+        getDetailsfromDb(eventId);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_specific_workshop, container, false);
-
-        preferenceHelper = new PreferenceHelper(getActivity());
-
-        apiClient = new ApiClient();
 
         introduction = view.findViewById(R.id.specific_event_introduction);
         regProcedure = view.findViewById(R.id.specific_event_registration_procedure);
@@ -91,7 +101,6 @@ public class SpecificWorkshopFragment extends Fragment {
         backIcon = view.findViewById(R.id.back_arrow);
         smallImageView = view.findViewById(R.id.small_profile_image);
 
-        registerButton.setEnabled(false);
 
         registerDialog = new Dialog(getContext());
         registerDialog.setContentView(R.layout.dialog_event_register);
@@ -128,6 +137,11 @@ public class SpecificWorkshopFragment extends Fragment {
         smallImageView.setOnClickListener(v -> navController.navigate(R.id.action_speceficWorkshopFragment_to_myProfileFragment));
 
         bottomNavigationView.setVisibility(View.GONE);
+
+        isViewCreated = true;
+        if (isDataFetched) {
+            populateViews(cachedResponse.getEvent());
+        }
 
         return view;
     }
@@ -244,7 +258,9 @@ public class SpecificWorkshopFragment extends Fragment {
     }
 
     private void getDetailsfromDb(String id) {
-
+        fetchDialog.setMessage("Fetching workshop details...");
+        fetchDialog.setCancelable(false);
+        fetchDialog.show();
         apiClient.fetchSpecificEventDetails(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<EventResponse>() {
@@ -255,12 +271,15 @@ public class SpecificWorkshopFragment extends Fragment {
 
                     @Override
                     public void onNext(EventResponse eventResponse) {
-                        populateViews(eventResponse.getEvent());
+                        isDataFetched = true;
+                        cachedResponse = eventResponse;
+                        if (isViewCreated) populateViews(eventResponse.getEvent());
+                        fetchDialog.dismiss();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        fetchDialog.dismiss();
                     }
 
                     @Override
@@ -306,7 +325,6 @@ public class SpecificWorkshopFragment extends Fragment {
             switcher.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.home_menu_gray_card));
 
         teamLimit = Integer.parseInt(eventSpecificModel.getTeamLimit());
-        registerButton.setEnabled(true);
 
     }
 
