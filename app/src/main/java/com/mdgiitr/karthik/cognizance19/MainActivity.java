@@ -33,23 +33,26 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                NavOptions navOptions = new NavOptions.Builder()
+                        .setPopUpTo(R.id.homeMenuFragment,false)
+                        .build();
 
                 switch (menuItem.getItemId()) {
                     case R.id.home:
-                        navController.navigate(R.id.homeMenuFragment);
+                        navController.navigate(R.id.homeMenuFragment,null, navOptions);
                         return true;
                     case R.id.events:
                         Bundle bundle = new Bundle();
                         bundle.putInt("event_frag_id", 0);
-                        navController.navigate(R.id.centerStageAndDepartmentalFragment, bundle);
+                        navController.navigate(R.id.centerStageAndDepartmentalFragment,bundle,navOptions);
                         return true;
                     case R.id.workshops:
-                        navController.navigate(R.id.workshopFragment);
+                        navController.navigate(R.id.workshopFragment,null,navOptions);
                         return true;
                     case R.id.whatsNew:
                         Bundle bundle1 = new Bundle();
                         bundle1.putInt("event_frag_id", 0);
-                        navController.navigate(R.id.finfestAndLitfestFragment, bundle1);
+                        navController.navigate(R.id.finfestAndLitfestFragment, bundle1, navOptions);
                         return true;
                 }
 
