@@ -2,10 +2,7 @@ package com.mdgiitr.karthik.cognizance19.view;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -61,6 +58,7 @@ public class SpecificWorkshopFragment extends Fragment {
     private ApiClient apiClient;
     private PreferenceHelper preferenceHelper;
     private CircleImageView smallImageView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -124,6 +122,8 @@ public class SpecificWorkshopFragment extends Fragment {
                 .load(preferenceHelper.getProfilePicURL())
                 .apply(options)
                 .into(smallImageView);
+
+        smallImageView.setOnClickListener(v -> navController.navigate(R.id.action_speceficWorkshopFragment_to_myProfileFragment));
 
         bottomNavigationView.setVisibility(View.GONE);
 
@@ -281,7 +281,7 @@ public class SpecificWorkshopFragment extends Fragment {
         rules.setText(Html.fromHtml(eventSpecificModel.getRules()));
         rules.setMovementMethod(LinkMovementMethod.getInstance());
         rules.setLinksClickable(true);
-        benefits.setText(Html.fromHtml(eventSpecificModel.getPrize(),null, new HTMLTagHandler()));
+        benefits.setText(Html.fromHtml(eventSpecificModel.getPrize(), null, new HTMLTagHandler()));
         benefits.setMovementMethod(LinkMovementMethod.getInstance());
         benefits.setLinksClickable(true);
         List<Contact> contactList = eventSpecificModel.getContact();
