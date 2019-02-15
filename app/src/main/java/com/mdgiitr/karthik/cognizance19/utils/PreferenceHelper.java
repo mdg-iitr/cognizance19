@@ -46,4 +46,12 @@ public class PreferenceHelper {
     public void setUserType(int i) {
         prefs.edit().putInt("user_type", i).apply();
     }
+
+    public String getCogniId() {
+        return prefs.getString("cogni_id", "");
+    }
+
+    public void setCogniId(String id) {
+        prefs.edit().putString("cogni_id", id).apply();
+    }
 }

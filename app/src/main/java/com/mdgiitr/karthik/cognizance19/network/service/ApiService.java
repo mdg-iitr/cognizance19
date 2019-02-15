@@ -4,12 +4,12 @@ import com.mdgiitr.karthik.cognizance19.models.CenterstageOrDepartmentalEventsRe
 import com.mdgiitr.karthik.cognizance19.models.EventResponse;
 import com.mdgiitr.karthik.cognizance19.models.FbGoogleLoginModel;
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
-import com.mdgiitr.karthik.cognizance19.models.WorkshopResponse;
 import com.mdgiitr.karthik.cognizance19.models.LoginResponse;
 import com.mdgiitr.karthik.cognizance19.models.RegEventsResponse;
 import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
 import com.mdgiitr.karthik.cognizance19.models.TeamResponse;
 import com.mdgiitr.karthik.cognizance19.models.UserSPPResponseModel;
+import com.mdgiitr.karthik.cognizance19.models.WorkshopResponse;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -80,6 +80,14 @@ public interface ApiService {
 
     @POST("users/spp/upload/excel")
     Observable<ResponseBody> uploadExcel(@Header("Authorization") String token, @Part MultipartBody.Part file);
+
+    @FormUrlEncoded
+    @POST("users/event/{id}/team/{teamID}/add_member")
+    Observable<ResponseBody> addMember(@Header("Authorization") String token, @Path("id") String id, @Path("teamID") String teamID, @Field("memberCogniId") String memberCogniId);
+
+    @FormUrlEncoded
+    @POST("users/event/{id}/team/{teamID}/remove_member")
+    Observable<ResponseBody> removeMember(@Header("Authorization") String token, @Path("id") String id, @Path("teamID") String teamID, @Field("memberCogniId") String memberCogniId);
 
     @GET("workshops")
     Observable<WorkshopResponse> fetchWorkshops();
