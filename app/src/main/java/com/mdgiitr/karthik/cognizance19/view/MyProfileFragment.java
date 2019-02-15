@@ -466,8 +466,8 @@ public class MyProfileFragment extends Fragment {
         }
         RequestOptions options = new RequestOptions()
                 .centerCrop()
-                .placeholder(R.drawable.home_menu_gray_card)
-                .error(R.drawable.home_menu_gray_card);
+                .placeholder(R.drawable.com_facebook_profile_picture_blank_square)
+                .error(R.drawable.com_facebook_profile_picture_blank_square);
         Glide.with(this)
                 .load("https://bucket.cognizance.org.in/bucket/" + userDetailsSPPResponseModel.getImageUrl())
                 .apply(options)
