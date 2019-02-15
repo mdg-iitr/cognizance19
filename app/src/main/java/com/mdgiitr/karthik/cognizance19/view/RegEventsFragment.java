@@ -15,8 +15,6 @@ import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.adapters.RegEventsAdapter;
 import com.mdgiitr.karthik.cognizance19.models.RegEventsModel;
 import com.mdgiitr.karthik.cognizance19.models.RegEventsResponse;
-import com.mdgiitr.karthik.cognizance19.models.Schedule;
-import com.mdgiitr.karthik.cognizance19.models.UserSPPResponseModel;
 import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
 import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
 
@@ -30,8 +28,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class RegEventsFragment extends Fragment {
 
+    public static RegEventsAdapter adapter;
     private RecyclerView recyclerView;
-    private RegEventsAdapter adapter;
     private PreferenceHelper preferenceHelper;
     private ApiClient apiClient;
     private List<RegEventsModel> regEventsList;
@@ -87,6 +85,7 @@ public class RegEventsFragment extends Fragment {
                         if(isViewCreated){
                             populateViews(regEventsResponse);
                         }
+
                         progressDialog.dismiss();
                     }
 

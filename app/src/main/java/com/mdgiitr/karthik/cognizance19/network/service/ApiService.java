@@ -89,6 +89,10 @@ public interface ApiService {
     @POST("users/event/{id}/team/{teamID}/remove_member")
     Observable<ResponseBody> removeMember(@Header("Authorization") String token, @Path("id") String id, @Path("teamID") String teamID, @Field("memberCogniId") String memberCogniId);
 
+    @Multipart
+    @POST("users/event/{id}/abstract")
+    Observable<ResponseBody> submitAbstract(@Header("Authorization") String token, @Path("id") String id, @Part MultipartBody.Part file);
+
     @GET("workshops")
     Observable<WorkshopResponse> fetchWorkshops();
 
@@ -106,6 +110,5 @@ public interface ApiService {
 
     @GET("users/event/{id}/unregister")
     Observable<GeneralResponse> unregister(@Header("Authorization") String token, @Path("id") String id);
-
 
 }

@@ -2,7 +2,6 @@ package com.mdgiitr.karthik.cognizance19.adapters;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -18,7 +17,6 @@ import com.mdgiitr.karthik.cognizance19.models.Departmental;
 import com.mdgiitr.karthik.cognizance19.view.EventDepartmentalSpecificFragment;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -49,23 +47,17 @@ public class DepartmentalAdapter extends RecyclerView.Adapter<DepartmentalAdapte
     @Override
     public void onBindViewHolder(@NonNull DepartmentalViewHolder holder, int position) {
         Departmental departmentalModel = list.get(position);
-        holder.deptIcon.getLayoutParams().height = (screenWidth / 2) - 100;
-        holder.deptIcon.getLayoutParams().width = (screenWidth / 2) - 100;
-        holder.deptNameView.setText(departmentalModel.getName());
-        holder.deptIcon.requestLayout();
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                Bundle bundle = new Bundle();
-                bundle.putString("deptName",departmentalModel.getName());
-                bundle.putSerializable("eventList", (Serializable) departmentalModel.getEvents());
-                EventDepartmentalSpecificFragment departmentalSpecificFragment = new EventDepartmentalSpecificFragment();
-                departmentalSpecificFragment.setArguments(bundle);
-                        fragmentTransaction.add(R.id.base, departmentalSpecificFragment)
-                                            .addToBackStack("departmental")
-                                            .commit();
-            }
+        holder.linearLayout.setOnClickListener(v -> {
+            FragmentTransaction fragmentTransaction = manager.beginTransaction();
+            Bundle bundle = new Bundle();
+            bundle.putString("deptName", departmentalModel.getName());
+            bundle.putSerializable("eventList", (Serializable) departmentalModel.getEvents());
+            EventDepartmentalSpecificFragment departmentalSpecificFragment = new EventDepartmentalSpecificFragment();
+            departmentalSpecificFragment.setArguments(bundle);
+            fragmentTransaction.replace(R.id.base, departmentalSpecificFragment)
+                    .addToBackStack("departmental")
+                    .commit();
+
         });
     }
 
