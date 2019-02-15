@@ -19,6 +19,7 @@ import com.mdgiitr.karthik.cognizance19.models.UserDetailsSPPResponseModel;
 import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
 import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
 
+import androidx.navigation.NavOptions;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -124,7 +125,10 @@ public class EditProfileFragment extends Fragment {
                     public void onNext(GeneralResponse generalResponse) {
                         progressDialog.dismiss();
                         Toast.makeText(getContext(), generalResponse.message, Toast.LENGTH_SHORT).show();
-                        navController.navigateUp();
+                        NavOptions navOptions = new NavOptions.Builder()
+                                .setPopUpTo(R.id.myProfileFragment,true)
+                                .build();
+                        navController.navigate(R.id.action_editProfile_to_myProfile,null,navOptions);
                     }
 
                     @Override

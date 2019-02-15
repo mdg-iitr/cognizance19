@@ -151,7 +151,6 @@ public class MyProfileFragment extends Fragment {
             populateViews(cachedResponse);
         }
 
-        editProfileIcon.setClickable(false);
 
         return view;
     }
@@ -437,7 +436,6 @@ public class MyProfileFragment extends Fragment {
 
         preferenceHelper.setCogniId(userDetailsSPPResponseModel.getCogniId());
 
-        editProfileIcon.setClickable(true);
         editProfileIcon.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putParcelable("profile", userDetailsSPPResponseModel);
