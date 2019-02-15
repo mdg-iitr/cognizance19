@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#ffefefef"
+    android:clickable="true"
     tools:context=".view.EventDepartmentalSpecificFragment">
 
     <TextView

@@ -89,15 +89,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textColor="#ff95989a"
-                    android:textSize="20sp" />
+                    android:textColor="#ff343434"
+                    android:textStyle="bold"
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/cogni_id_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textColor="#ff95989a"
+                    android:textColor="#ff343434"
                     android:textSize="16sp" />
 
                 <TextView
@@ -106,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:textAlignment="center"
-                    android:textColor="#ff95989a"
+                    android:textColor="#ff343434"
                     android:textSize="16sp" />
 
                 <TextView
@@ -115,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textAlignment="center"
-                    android:textColor="#ff95989a"
+                    android:textColor="#ff343434"
                     android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>

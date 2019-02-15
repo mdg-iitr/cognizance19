@@ -17,9 +17,4 @@
         android:id="@+id/whatsNew"
         android:icon="@drawable/fake_profile"
         android:title="@string/what_s_new"/>
-    <item
-        android:id="@+id/more"
-        android:icon="@drawable/fake_profile"
-        android:title="@string/more"/>
-
 </menu>

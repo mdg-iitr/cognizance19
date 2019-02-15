@@ -64,6 +64,10 @@ public class MyProfileFragment extends Fragment {
     private File profilePicFile;
     private ProgressDialog progressDialog;
 
+    private boolean dataFetched = false;
+    private UserDetailsSPPResponseModel cachedResponse;
+    private boolean isViewCreated = false;
+
     public MyProfileFragment() {
         // Required empty public constructor
     }
@@ -71,6 +75,10 @@ public class MyProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        preferenceHelper = new PreferenceHelper(getActivity());
+        progressDialog = new ProgressDialog(getContext());
+        apiClient = new ApiClient();
+        populateViewsFromDB();
     }
 
     @Override
@@ -80,9 +88,9 @@ public class MyProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
         setHasOptionsMenu(true);
 
-        preferenceHelper = new PreferenceHelper(getActivity());
-        progressDialog = new ProgressDialog(getContext());
-        apiClient = new ApiClient();
+//        preferenceHelper = new PreferenceHelper(getActivity());
+//        progressDialog = new ProgressDialog(getContext());
+//        apiClient = new ApiClient();
 
         menuImageView = view.findViewById(R.id.menu_icon);
         backIcon = view.findViewById(R.id.back_arrow_complete_your_profile);
@@ -137,7 +145,11 @@ public class MyProfileFragment extends Fragment {
 
         backIcon.setOnClickListener(v -> navController.navigateUp());
 
-        populateViewsFromDB();
+        isViewCreated = true;
+
+        if (dataFetched) {
+            populateViews(cachedResponse);
+        }
 
         editProfileIcon.setClickable(false);
 
@@ -160,6 +172,7 @@ public class MyProfileFragment extends Fragment {
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     String picturePath = cursor.getString(columnIndex);
                     cursor.close();
+                    Log.d("Image", picturePath);
                     profilePicFile = new File(picturePath);
                     uploadImage(profilePicFile, bitmap);
 
@@ -271,7 +284,10 @@ public class MyProfileFragment extends Fragment {
 
                     @Override
                     public void onNext(UserSPPResponseModel userResponseModel) {
-                        populateViews(userResponseModel.getDetails());
+                        dataFetched = true;
+                        cachedResponse = userResponseModel.getDetails();
+                        if (isViewCreated)
+                            populateViews(userResponseModel.getDetails());
                         progressDialog.dismiss();
                     }
 
