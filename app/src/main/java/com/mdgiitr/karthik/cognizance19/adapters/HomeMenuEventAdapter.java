@@ -18,6 +18,8 @@ import com.mdgiitr.karthik.cognizance19.models.HomeMenuEventModel;
 
 import java.util.List;
 
+import static com.mdgiitr.karthik.cognizance19.MainActivity.EVENT_FRAG;
+import static com.mdgiitr.karthik.cognizance19.MainActivity.bottomNavigationView;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
 public class HomeMenuEventAdapter extends RecyclerView.Adapter<HomeMenuEventAdapter.HomeMenuEventViewHolder> {
@@ -62,19 +64,19 @@ public class HomeMenuEventAdapter extends RecyclerView.Adapter<HomeMenuEventAdap
         holder.eventCard.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             if (model.getEvent().equals("Centerstage")) {
-                bundle.putInt("event_frag_id", 0);
-                navController.navigate(R.id.action_homeMenuFragment_to_centerStageAndDepartmentalFragment, bundle);
+                EVENT_FRAG = 0;
+                bottomNavigationView.setSelectedItemId(R.id.events);
             } else if (model.getEvent().equals("Departmental")) {
-                bundle.putInt("event_frag_id", 1);
-                navController.navigate(R.id.action_homeMenuFragment_to_centerStageAndDepartmentalFragment, bundle);
+                EVENT_FRAG = 1;
+                bottomNavigationView.setSelectedItemId(R.id.events);
             } else if (model.getEvent().equals("Workshops")) {
-                navController.navigate(R.id.action_homeMenuFragment_to_workshopFragment);
+                bottomNavigationView.setSelectedItemId(R.id.workshops);
             } else if (model.getEvent().equals("FinFest")) {
-                bundle.putInt("event_frag_id", 0);
-                navController.navigate(R.id.action_homeMenuFragment_to_whatsnewFragment, bundle);
+                EVENT_FRAG = 0;
+                bottomNavigationView.setSelectedItemId(R.id.whatsNew);
             } else if (model.getEvent().equals("Lit.A.F")) {
-                bundle.putInt("event_frag_id", 1);
-                navController.navigate(R.id.action_homeMenuFragment_to_whatsnewFragment, bundle);
+                EVENT_FRAG = 1;
+                bottomNavigationView.setSelectedItemId(R.id.whatsNew);
             }
 
         });

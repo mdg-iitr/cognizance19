@@ -2,7 +2,6 @@ package com.mdgiitr.karthik.cognizance19.adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

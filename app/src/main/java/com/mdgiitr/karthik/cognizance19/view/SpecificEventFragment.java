@@ -116,6 +116,8 @@ public class SpecificEventFragment extends Fragment {
 
         backIcon.setOnClickListener(v -> navController.navigateUp());
 
+        smallImageView.setOnClickListener(v -> navController.navigate(R.id.action_speceficEventFragment_to_myProfileFragment));
+
         RequestOptions options = new RequestOptions()
                 .centerCrop()
                 .placeholder(R.drawable.com_facebook_profile_picture_blank_square)
