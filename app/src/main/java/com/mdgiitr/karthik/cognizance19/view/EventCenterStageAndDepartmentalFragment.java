@@ -40,7 +40,7 @@ public class EventCenterStageAndDepartmentalFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_event_center_stage_and_departmental, container, false);
-
+        
         tabLayout = view.findViewById(R.id.center_stage_departmental_tabs);
         viewPager = view.findViewById(R.id.center_stage_departmental_view_pager);
         smallImageView = view.findViewById(R.id.small_profile_image);

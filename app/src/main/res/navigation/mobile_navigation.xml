@@ -36,13 +36,21 @@
         android:id="@+id/speceficEventFragment"
         android:name="com.mdgiitr.karthik.cognizance19.view.SpecificEventFragment"
         android:label="fragment_specefic_event"
-        tools:layout="@layout/fragment_specific_event" />
+        tools:layout="@layout/fragment_specific_event" >
+        <action
+            android:id="@+id/action_speceficEventFragment_to_myProfileFragment"
+            app:destination="@id/myProfileFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/speceficWorkshopFragment"
         android:name="com.mdgiitr.karthik.cognizance19.view.SpecificWorkshopFragment"
         android:label="fragment_specefic_workshop"
-        tools:layout="@layout/fragment_specific_workshop" />
+        tools:layout="@layout/fragment_specific_workshop" >
+        <action
+            android:id="@+id/action_speceficWorkshopFragment_to_myProfileFragment"
+            app:destination="@id/myProfileFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/landingFragment2"

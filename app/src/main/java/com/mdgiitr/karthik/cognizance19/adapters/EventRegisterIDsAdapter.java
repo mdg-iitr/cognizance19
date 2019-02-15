@@ -34,7 +34,7 @@ public class EventRegisterIDsAdapter extends RecyclerView.Adapter<EventRegisterI
     @Override
     public void onBindViewHolder(@NonNull EventRegisterIDsAdapter.EventRegisterViewHolder holder, final int i) {
 
-        holder.idEditText.setHint("Member " + (i + 1) + " ID");
+        holder.idEditText.setHint("Member " + (i + 2) + " ID");
         holder.idEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

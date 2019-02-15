@@ -2,11 +2,8 @@ package com.mdgiitr.karthik.cognizance19.view;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,6 +21,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.adapters.EventRegisterIDsAdapter;
 import com.mdgiitr.karthik.cognizance19.models.Contact;
@@ -75,6 +73,7 @@ public class SpecificWorkshopFragment extends Fragment {
         eventId = Integer.toString(getArguments().getInt("id"));
         getDetailsfromDb(eventId);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -134,6 +133,8 @@ public class SpecificWorkshopFragment extends Fragment {
                 .load(preferenceHelper.getProfilePicURL())
                 .apply(options)
                 .into(smallImageView);
+
+        smallImageView.setOnClickListener(v -> navController.navigate(R.id.action_speceficWorkshopFragment_to_myProfileFragment));
 
         bottomNavigationView.setVisibility(View.GONE);
 
@@ -301,7 +302,7 @@ public class SpecificWorkshopFragment extends Fragment {
         rules.setText(Html.fromHtml(eventSpecificModel.getRules()));
         rules.setMovementMethod(LinkMovementMethod.getInstance());
         rules.setLinksClickable(true);
-        benefits.setText(Html.fromHtml(eventSpecificModel.getPrize(),null, new HTMLTagHandler()));
+        benefits.setText(Html.fromHtml(eventSpecificModel.getPrize(), null, new HTMLTagHandler()));
         benefits.setMovementMethod(LinkMovementMethod.getInstance());
         benefits.setLinksClickable(true);
         List<Contact> contactList = eventSpecificModel.getContact();
@@ -331,7 +332,10 @@ public class SpecificWorkshopFragment extends Fragment {
 
         try {
             if (((HttpException) throwable).code() == 400) {
-                Toast.makeText(getContext(), "Already Registered", Toast.LENGTH_SHORT).show();
+                Gson gson = new Gson();
+                String msg = ((HttpException) throwable).response().errorBody().string();
+                GeneralResponse generalResponse = gson.fromJson(msg, GeneralResponse.class);
+                Toast.makeText(getContext(), generalResponse.message, Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             Log.d("REGISTER_ERROR", e.toString());
