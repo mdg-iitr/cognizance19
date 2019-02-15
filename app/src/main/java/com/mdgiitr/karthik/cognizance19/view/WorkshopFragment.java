@@ -1,7 +1,5 @@
 package com.mdgiitr.karthik.cognizance19.view;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -22,8 +20,8 @@ import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.bottomNavigationView;
+import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
 
 public class WorkshopFragment extends Fragment {
@@ -77,6 +75,8 @@ public class WorkshopFragment extends Fragment {
                 .load(preferenceHelper.getProfilePicURL())
                 .apply(options)
                 .into(smallImageView);
+
+        smallImageView.setOnClickListener(v -> navController.navigate(R.id.action_workshopFragment_to_myProfileFragment));
 
         return view;
     }

@@ -86,6 +86,8 @@ public class EventCenterStageAndDepartmentalFragment extends Fragment {
                 .into(smallImageView);
 
         bottomNavigationView.setVisibility(View.VISIBLE);
+
+        smallImageView.setOnClickListener(v -> navController.navigate(R.id.action_centerStageAndDepartmentalFragment_to_myProfileFragment));
         return view;
     }
 
