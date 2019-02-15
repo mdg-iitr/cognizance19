@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -62,6 +63,11 @@ public class MyProfileFragment extends Fragment {
     private LinearLayout updateProfile;
     private int PROFILE_PIC_REQUEST = 100;
     private File profilePicFile;
+    private ProgressDialog progressDialog;
+
+    private boolean dataFetched = false;
+    private UserDetailsSPPResponseModel cachedResponse;
+    private boolean isViewCreated = false;
 
     public MyProfileFragment() {
         // Required empty public constructor
@@ -70,6 +76,10 @@ public class MyProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        preferenceHelper = new PreferenceHelper(getActivity());
+        progressDialog = new ProgressDialog(getContext());
+        apiClient = new ApiClient();
+        populateViewsFromDB();
     }
 
     @Override
@@ -79,9 +89,9 @@ public class MyProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
         setHasOptionsMenu(true);
 
-        preferenceHelper = new PreferenceHelper(getActivity());
-
-        apiClient = new ApiClient();
+//        preferenceHelper = new PreferenceHelper(getActivity());
+//        progressDialog = new ProgressDialog(getContext());
+//        apiClient = new ApiClient();
 
         menuImageView = view.findViewById(R.id.menu_icon);
         backIcon = view.findViewById(R.id.back_arrow_complete_your_profile);
@@ -108,7 +118,7 @@ public class MyProfileFragment extends Fragment {
         viewPager.setAdapter(viewPagerAdapter);
 
         tabLayout.setupWithViewPager(viewPager);
-        setUpTabs();
+        setUpTabs(tabLayout.getSelectedTabPosition());
 
         popupMenu = new PopupMenu(getActivity(), menuImageView);
 
@@ -130,7 +140,11 @@ public class MyProfileFragment extends Fragment {
 
         backIcon.setOnClickListener(v -> navController.navigateUp());
 
-        populateViewsFromDB();
+        isViewCreated = true;
+
+        if (dataFetched) {
+            populateViews(cachedResponse);
+        }
 
         editProfileIcon.setClickable(false);
 
@@ -153,6 +167,7 @@ public class MyProfileFragment extends Fragment {
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     String picturePath = cursor.getString(columnIndex);
                     cursor.close();
+                    Log.d("Image", picturePath);
                     profilePicFile = new File(picturePath);
                     uploadImage(profilePicFile, bitmap);
 
@@ -210,12 +225,69 @@ public class MyProfileFragment extends Fragment {
 
     }
 
-    private void setUpTabs() {
+    private void setUpTabs(int selectedTabPosition) {
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_registered_24dp);
         tabLayout.getTabAt(0).setText("Reg Events");
 
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_registered_24dp);
         tabLayout.getTabAt(1).setText("Reg Workshops");
+
+        ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
+        int tabsCount = vg.getChildCount();
+        for (int j = 0; j < tabsCount; j++) {
+            ViewGroup vgTab = (ViewGroup) vg.getChildAt(j);
+            int tabChildsCount = vgTab.getChildCount();
+            for (int i = 0; i < tabChildsCount; i++) {
+                View tabViewChild = vgTab.getChildAt(i);
+                if (tabViewChild instanceof TextView) {
+                    ((TextView) tabViewChild).setAllCaps(false);
+                    ((TextView) tabViewChild).setTextSize(15);
+                    ((TextView) tabViewChild).setTypeface(null, Typeface.NORMAL);
+                }
+            }
+        }
+
+        ViewGroup vgTab = (ViewGroup) vg.getChildAt(selectedTabPosition);
+        int tabChildsCount = vgTab.getChildCount();
+        for (int i = 0; i < tabChildsCount; i++) {
+            View tabViewChild = vgTab.getChildAt(i);
+            if (tabViewChild instanceof TextView) {
+                ((TextView) tabViewChild).setTypeface(null, Typeface.BOLD);
+            }
+        }
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
+                ViewGroup vgTab = (ViewGroup) vg.getChildAt(tab.getPosition());
+                int tabChildsCount = vgTab.getChildCount();
+                for (int i = 0; i < tabChildsCount; i++) {
+                    View tabViewChild = vgTab.getChildAt(i);
+                    if (tabViewChild instanceof TextView) {
+                        ((TextView) tabViewChild).setTypeface(null, Typeface.BOLD);
+                    }
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
+                ViewGroup vgTab = (ViewGroup) vg.getChildAt(tab.getPosition());
+                int tabChildsCount = vgTab.getChildCount();
+                for (int i = 0; i < tabChildsCount; i++) {
+                    View tabViewChild = vgTab.getChildAt(i);
+                    if (tabViewChild instanceof TextView) {
+                        ((TextView) tabViewChild).setTypeface(null, Typeface.NORMAL);
+                    }
+                }
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     private void userLogout() {
@@ -251,7 +323,9 @@ public class MyProfileFragment extends Fragment {
     }
 
     private void populateViewsFromDB() {
-
+        progressDialog.setMessage("Fetching details...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         apiClient.getUserDetails(preferenceHelper.getToken())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<UserSPPResponseModel>() {
@@ -262,12 +336,17 @@ public class MyProfileFragment extends Fragment {
 
                     @Override
                     public void onNext(UserSPPResponseModel userResponseModel) {
-                        populateViews(userResponseModel.getDetails());
+                        dataFetched = true;
+                        cachedResponse = userResponseModel.getDetails();
+                        if (isViewCreated)
+                            populateViews(userResponseModel.getDetails());
+                        progressDialog.dismiss();
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         handleUserDetailsErrorResponse(e);
+                        progressDialog.dismiss();
                     }
 
                     @Override
@@ -316,6 +395,8 @@ public class MyProfileFragment extends Fragment {
                 .load("https://bucket.cognizance.org.in/bucket/" + userDetailsSPPResponseModel.getImageUrl())
                 .apply(options)
                 .into(userProfilePic);
+
+        preferenceHelper.setProfilePicURL("https://bucket.cognizance.org.in/bucket/" + userDetailsSPPResponseModel.getImageUrl());
 
         if (userDetailsSPPResponseModel.getRole().equals("cogni_user")) {
             preferenceHelper.setUserType(REGISTRATION_TYPE_PARTICIPANT);

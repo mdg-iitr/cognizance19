@@ -12,10 +12,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.adapters.ViewPagerAdapter;
+import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
 
 import java.util.HashMap;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.bottomNavigationView;
@@ -27,6 +32,8 @@ public class WorkshopFragment extends Fragment {
     private ViewPagerAdapter viewPagerAdapter;
     private HashMap<Integer, Fragment> map;
     private ImageView backIcon;
+    private CircleImageView smallImageView;
+    private PreferenceHelper preferenceHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,6 +45,9 @@ public class WorkshopFragment extends Fragment {
         viewPager = view.findViewById(R.id.workshop_view_pager);
 
         backIcon = view.findViewById(R.id.back_arrow);
+        smallImageView = view.findViewById(R.id.small_profile_image);
+
+        preferenceHelper = new PreferenceHelper(getActivity());
 
         map = new HashMap<>();
         viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), map);
@@ -59,6 +69,15 @@ public class WorkshopFragment extends Fragment {
         });
 
         bottomNavigationView.setVisibility(View.VISIBLE);
+
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .error(R.drawable.com_facebook_profile_picture_blank_square);
+        Glide.with(this)
+                .load(preferenceHelper.getProfilePicURL())
+                .apply(options)
+                .into(smallImageView);
+
         return view;
     }
 

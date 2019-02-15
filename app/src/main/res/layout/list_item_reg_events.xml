@@ -17,7 +17,7 @@
         android:layout_weight="1"
         android:text="@string/events"
         android:textAlignment="viewStart"
-        android:textColor="#95989A"
+        android:textColor="#727272"
         android:textSize="20sp" />
 
     <ImageView

@@ -2,6 +2,7 @@ package com.mdgiitr.karthik.cognizance19.view;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.customtabs.CustomTabsIntent;
@@ -29,6 +30,7 @@ import com.mdgiitr.karthik.cognizance19.models.EventResponse;
 import com.mdgiitr.karthik.cognizance19.models.EventSpecificModel;
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
 import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
+import com.mdgiitr.karthik.cognizance19.utils.HTMLTagHandler;
 import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
 
 import java.util.ArrayList;
@@ -44,11 +46,11 @@ import retrofit2.HttpException;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.bottomNavigationView;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
-public class SpecificEventFragment extends Fragment {
+public class SpecificWorkshopFragment extends Fragment {
     private ImageView switcher;
     private int teamLimit = 0;
-    private TextView introduction, regProcedure, rules, contactDetails, specificEventName;
-    private Button probStatement, registerButton, cancelButton, registerEventButton;
+    private TextView introduction, regProcedure, rules, contactDetails, specificEventName, benefits;
+    private Button registerButton, cancelButton, registerEventButton;
     private ImageView introductionSplit, regProcedureSplit, rulesSplit, probStatementSplit, contactDetailsSplit, backIcon;
     private View introBrick, regProBrick, rulesBrick, problemBrick, contactBrick;
     private RecyclerView memberRecyclerView;
@@ -57,14 +59,13 @@ public class SpecificEventFragment extends Fragment {
     private ProgressDialog progressDialog;
     private String eventId = "";
     private ApiClient apiClient;
-    private CircleImageView smallImageView;
     private PreferenceHelper preferenceHelper;
-
+    private CircleImageView smallImageView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_specific_event, container, false);
+        View view = inflater.inflate(R.layout.fragment_specific_workshop, container, false);
 
         preferenceHelper = new PreferenceHelper(getActivity());
 
@@ -73,7 +74,7 @@ public class SpecificEventFragment extends Fragment {
         introduction = view.findViewById(R.id.specific_event_introduction);
         regProcedure = view.findViewById(R.id.specific_event_registration_procedure);
         rules = view.findViewById(R.id.specific_event_rules);
-        probStatement = view.findViewById(R.id.specific_event_problem_statement);
+        benefits = view.findViewById(R.id.specific_event_benefits);
         contactDetails = view.findViewById(R.id.specific_event_contact_details);
         introductionSplit = view.findViewById(R.id.specific_event_introduction_split);
         regProcedureSplit = view.findViewById(R.id.specific_event_registration_procedure_split);
@@ -123,7 +124,9 @@ public class SpecificEventFragment extends Fragment {
                 .load(preferenceHelper.getProfilePicURL())
                 .apply(options)
                 .into(smallImageView);
+
         bottomNavigationView.setVisibility(View.GONE);
+
         return view;
     }
 
@@ -163,11 +166,11 @@ public class SpecificEventFragment extends Fragment {
     }
 
     private void problemSplit() {
-        if (probStatement.getVisibility() == View.GONE) {
-            probStatement.setVisibility(View.VISIBLE);
+        if (benefits.getVisibility() == View.GONE) {
+            benefits.setVisibility(View.VISIBLE);
             probStatementSplit.setImageResource(R.drawable.ic_remove_black_24dp);
         } else {
-            probStatement.setVisibility(View.GONE);
+            benefits.setVisibility(View.GONE);
             probStatementSplit.setImageResource(R.drawable.ic_add_black_24dp);
         }
     }
@@ -278,6 +281,9 @@ public class SpecificEventFragment extends Fragment {
         rules.setText(Html.fromHtml(eventSpecificModel.getRules()));
         rules.setMovementMethod(LinkMovementMethod.getInstance());
         rules.setLinksClickable(true);
+        benefits.setText(Html.fromHtml(eventSpecificModel.getPrize(),null, new HTMLTagHandler()));
+        benefits.setMovementMethod(LinkMovementMethod.getInstance());
+        benefits.setLinksClickable(true);
         List<Contact> contactList = eventSpecificModel.getContact();
         String contacts = "";
         for (Contact contact : contactList) {
@@ -295,19 +301,6 @@ public class SpecificEventFragment extends Fragment {
                     .into(switcher);
         else
             switcher.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.home_menu_gray_card));
-        probStatement.setOnClickListener(v -> {
-            String url = eventSpecificModel.getProblemStatement();
-            if (url != null && !url.isEmpty()) {
-                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-                builder.setToolbarColor(getContext().getResources().getColor(R.color.fragment_bg));
-                builder.setStartAnimations(getContext(), R.anim.slide_in_right, R.anim.slide_out_left);
-                builder.setExitAnimations(getContext(), R.anim.slide_in_left, R.anim.slide_out_right);
-                CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(getContext(), Uri.parse(url));
-            } else {
-                Toast.makeText(getContext(), "Not available", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         teamLimit = Integer.parseInt(eventSpecificModel.getTeamLimit());
         registerButton.setEnabled(true);

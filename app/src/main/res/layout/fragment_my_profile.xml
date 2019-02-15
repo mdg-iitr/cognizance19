@@ -89,15 +89,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textColor="#ff95989a"
-                    android:textSize="20sp" />
+                    android:textColor="#ff343434"
+                    android:textStyle="bold"
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/cogni_id_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textColor="#ff95989a"
+                    android:textColor="#ff343434"
                     android:textSize="16sp" />
 
                 <TextView
@@ -106,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:textAlignment="center"
-                    android:textColor="#ff95989a"
+                    android:textColor="#ff343434"
                     android:textSize="16sp" />
 
                 <TextView
@@ -115,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textAlignment="center"
-                    android:textColor="#ff95989a"
+                    android:textColor="#ff343434"
                     android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
@@ -173,8 +174,8 @@
         app:tabGravity="fill"
         app:tabIndicatorHeight="0dp"
         app:tabMode="fixed"
-        app:tabSelectedTextColor="#727272"
-        app:tabTextColor="#95989A" />
+        app:tabSelectedTextColor="#343434"
+        app:tabTextColor="#929292" />
 
 
     <android.support.v4.view.ViewPager

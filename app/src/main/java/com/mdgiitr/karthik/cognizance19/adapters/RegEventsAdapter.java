@@ -41,7 +41,6 @@ public class RegEventsAdapter extends RecyclerView.Adapter<RegEventsAdapter.RegE
 
     Context context;
     private List<RegEventsModel> list;
-    private PopupMenu popupMenu;
     private ApiClient apiClient;
     private Dialog manageTeamDialog;
     private RecyclerView manageTeamRecyclerView;
@@ -71,7 +70,7 @@ public class RegEventsAdapter extends RecyclerView.Adapter<RegEventsAdapter.RegE
     public void onBindViewHolder(@NonNull RegEventsViewHolder holder, int position) {
         RegEventsModel model = list.get(position);
         holder.eventName.setText(model.getName());
-        popupMenu = new PopupMenu(context, holder.moreButton);
+        PopupMenu popupMenu = new PopupMenu(context, holder.moreButton);
         popupMenu.getMenuInflater().inflate(R.menu.reg_event_menu, popupMenu.getMenu());
         holder.moreButton.setOnClickListener((View v) -> popupMenu.show());
         popupMenu.setOnMenuItemClickListener(item -> {

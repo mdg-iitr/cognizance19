@@ -24,6 +24,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.models.GeneralResponse;
 import com.mdgiitr.karthik.cognizance19.models.UserDetailsSPPResponseModel;
@@ -32,6 +34,7 @@ import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
 
 import java.io.File;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -46,6 +49,7 @@ public class DashboardSPPFragment extends Fragment {
     private ImageButton splitExcelButton, imageButton;
     private Button uploadButton;
     private ImageView backIcon;
+    private CircleImageView smallImageView;
     private LinearLayout excelCard, imageCard;
     private TextView referalCodeTextView, usersReferredTextView, scoreTextView, progressText;
     private EditText imageEditText;
@@ -79,6 +83,7 @@ public class DashboardSPPFragment extends Fragment {
         scoreTextView = view.findViewById(R.id.referalScoreView);
         progressText = view.findViewById(R.id.progressText);
         backIcon = view.findViewById(R.id.back_arrow);
+        smallImageView = view.findViewById(R.id.small_profile_image);
 
         splitExcelButton.setOnClickListener(v -> {
             if (isExcelVisible) {
@@ -111,6 +116,15 @@ public class DashboardSPPFragment extends Fragment {
         backIcon.setOnClickListener(v -> navController.navigateUp());
 
         populateViews(getArguments().getParcelable("userDetails"));
+
+        smallImageView.setOnClickListener(v -> navController.navigateUp());
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .error(R.drawable.com_facebook_profile_picture_blank_square);
+        Glide.with(this)
+                .load(preferenceHelper.getProfilePicURL())
+                .apply(options)
+                .into(smallImageView);
 
         return view;
     }

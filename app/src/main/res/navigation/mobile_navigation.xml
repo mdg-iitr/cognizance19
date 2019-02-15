@@ -33,6 +33,12 @@
         tools:layout="@layout/fragment_specific_event" />
 
     <fragment
+        android:id="@+id/speceficWorkshopFragment"
+        android:name="com.mdgiitr.karthik.cognizance19.view.SpecificWorkshopFragment"
+        android:label="fragment_specefic_workshop"
+        tools:layout="@layout/fragment_specific_workshop" />
+
+    <fragment
         android:id="@+id/landingFragment2"
         android:name="com.mdgiitr.karthik.cognizance19.view.LandingFragment"
         android:label="fragment_landing"
@@ -149,8 +155,8 @@
         android:label="fragment_workshop"
         tools:layout="@layout/fragment_workshop" >
         <action
-            android:id="@+id/action_workshopFragment_to_specificEventFragment"
-            app:destination="@id/speceficEventFragment"
+            android:id="@+id/action_workshopFragment_to_specificWorkshopFragment"
+            app:destination="@id/speceficWorkshopFragment"
             />
     </fragment>
 </navigation>
