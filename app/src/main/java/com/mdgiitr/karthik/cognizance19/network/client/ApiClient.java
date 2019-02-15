@@ -161,4 +161,13 @@ public class ApiClient {
         return apiService.removeMember("Token " + token, eventId, teamId, cogniId).subscribeOn(Schedulers.io());
     }
 
+    public Observable<ResponseBody> uploadAbstract(String token, String eventId, File file) {
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+
+        return apiService.submitAbstract("Token " + token, eventId, body).subscribeOn(Schedulers.io());
+
+    }
+
 }

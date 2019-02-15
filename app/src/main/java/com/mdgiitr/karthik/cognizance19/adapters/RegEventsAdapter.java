@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -51,6 +52,7 @@ public class RegEventsAdapter extends RecyclerView.Adapter<RegEventsAdapter.RegE
     private EditText idEditText;
     private PreferenceHelper preferenceHelper;
     private Context activityContext;
+    private int PDF_RESULT_CODE = 1212;
 
     public RegEventsAdapter(Context activityContext, Context context, List<RegEventsModel> list) {
         this.context = context;
@@ -72,7 +74,11 @@ public class RegEventsAdapter extends RecyclerView.Adapter<RegEventsAdapter.RegE
         RegEventsModel model = list.get(position);
         holder.eventName.setText(model.getName());
         PopupMenu popupMenu = new PopupMenu(context, holder.moreButton);
-        popupMenu.getMenuInflater().inflate(R.menu.reg_event_menu, popupMenu.getMenu());
+        if (model.get_abstract()) {
+            popupMenu.getMenuInflater().inflate(R.menu.reg_event_menu_with_abstract, popupMenu.getMenu());
+        } else {
+            popupMenu.getMenuInflater().inflate(R.menu.reg_event_menu, popupMenu.getMenu());
+        }
         holder.moreButton.setOnClickListener((View v) -> popupMenu.show());
         popupMenu.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.unregister) {
@@ -131,6 +137,10 @@ public class RegEventsAdapter extends RecyclerView.Adapter<RegEventsAdapter.RegE
 
             } else if (item.getItemId() == R.id.submit_abstract) {
 
+//                Intent intent = new Intent();
+//                intent.setAction(Intent.ACTION_GET_CONTENT);
+//                intent.setType("application/pdf");
+//                ((Activity)(activityContext)).startActivityForResult(intent, PDF_RESULT_CODE);
             }
             return false;
         });
@@ -375,6 +385,10 @@ public class RegEventsAdapter extends RecyclerView.Adapter<RegEventsAdapter.RegE
             Toast.makeText(context, "Enter valid Cogni ID", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("MyAdapter", "onActivityResult");
     }
 
     class RegEventsViewHolder extends RecyclerView.ViewHolder {
