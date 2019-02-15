@@ -62,7 +62,7 @@ public class DepartmentalAdapter extends RecyclerView.Adapter<DepartmentalAdapte
                 bundle.putSerializable("eventList", (Serializable) departmentalModel.getEvents());
                 EventDepartmentalSpecificFragment departmentalSpecificFragment = new EventDepartmentalSpecificFragment();
                 departmentalSpecificFragment.setArguments(bundle);
-                        fragmentTransaction.replace(R.id.base, departmentalSpecificFragment)
+                        fragmentTransaction.add(R.id.base, departmentalSpecificFragment)
                                             .addToBackStack("departmental")
                                             .commit();
             }

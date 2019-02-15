@@ -21,6 +21,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.mdgiitr.karthik.cognizance19.MainActivity.SCREEN_WIDTH;
+import static com.mdgiitr.karthik.cognizance19.MainActivity.DEPARTMENT_FLAG;
 
 public class EventDepartmentalFragment extends Fragment {
     private final int NO_OF_COLUMNS = 2;
@@ -44,9 +45,9 @@ public class EventDepartmentalFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_event_departmental, container, false);
+        DEPARTMENT_FLAG = 1;
 
         recyclerView = view.findViewById(R.id.departmental_recyclerview);
-
         isViewCreated = true;
 
         if (isDataFetched) {

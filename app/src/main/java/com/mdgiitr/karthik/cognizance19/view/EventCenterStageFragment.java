@@ -24,6 +24,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.mdgiitr.karthik.cognizance19.MainActivity.DEPARTMENT_FLAG;
+
 public class EventCenterStageFragment extends Fragment {
     private RecyclerView recyclerView;
     private CenterstageAdapter adapter;
@@ -47,6 +49,7 @@ public class EventCenterStageFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_event_center_stage, container, false);
+        DEPARTMENT_FLAG = 0;
         recyclerView = view.findViewById(R.id.center_stage_recyclerview);
 
             isViewCreated = true;
