@@ -25,6 +25,7 @@
         android:background="?android:attr/windowBackground"
         android:foreground="?attr/selectableItemBackground"
         app:labelVisibilityMode="labeled"
-        app:menu="@menu/bottom_navigation_menu" />
+        app:menu="@menu/bottom_navigation_menu"
+        style="@style/BottomNavigationView"/>
 
 </RelativeLayout>

@@ -68,6 +68,12 @@ public class HomeMenuEventAdapter extends RecyclerView.Adapter<HomeMenuEventAdap
                 navController.navigate(R.id.action_homeMenuFragment_to_centerStageAndDepartmentalFragment, bundle);
             } else if (model.getEvent().equals("Workshops")) {
                 navController.navigate(R.id.action_homeMenuFragment_to_workshopFragment);
+            } else if (model.getEvent().equals("FinFest")) {
+                bundle.putInt("event_frag_id", 0);
+                navController.navigate(R.id.action_homeMenuFragment_to_whatsnewFragment, bundle);
+            } else if (model.getEvent().equals("Lit.A.F")) {
+                bundle.putInt("event_frag_id", 1);
+                navController.navigate(R.id.action_homeMenuFragment_to_whatsnewFragment, bundle);
             }
 
         });

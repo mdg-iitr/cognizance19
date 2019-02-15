@@ -8,6 +8,7 @@ import android.util.DisplayMetrics;
 import android.view.MenuItem;
 
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.workshops:
                         navController.navigate(R.id.workshopFragment);
+                        return true;
+                    case R.id.whatsNew:
+                        Bundle bundle1 = new Bundle();
+                        bundle1.putInt("event_frag_id", 0);
+                        navController.navigate(R.id.finfestAndLitfestFragment, bundle1);
                         return true;
                 }
 

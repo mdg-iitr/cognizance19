@@ -20,7 +20,11 @@
         android:id="@+id/finfestAndLitfestFragment"
         android:name="com.mdgiitr.karthik.cognizance19.view.EventFinfestAndLitfestFragment"
         android:label="fragment_finfest_and_litfest"
-        tools:layout="@layout/fragment_event_finfest_and_litfest" />
+        tools:layout="@layout/fragment_event_finfest_and_litfest" >
+        <action
+            android:id="@+id/action_whatsNewFragment_to_specificEventFragment"
+            app:destination="@id/speceficEventFragment"/>
+    </fragment>
 
     <fragment
         android:id="@+id/speceficEventFragment"
@@ -123,6 +127,10 @@
         <action
             android:id="@+id/action_homeMenuFragment_to_workshopFragment"
             app:destination="@id/workshopFragment"
+            />
+        <action
+            android:id="@+id/action_homeMenuFragment_to_whatsnewFragment"
+            app:destination="@id/finfestAndLitfestFragment"
             />
     </fragment>
     <fragment

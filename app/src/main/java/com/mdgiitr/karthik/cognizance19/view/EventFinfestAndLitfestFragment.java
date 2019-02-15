@@ -15,6 +15,8 @@ import com.mdgiitr.karthik.cognizance19.adapters.ViewPagerAdapter;
 
 import java.util.HashMap;
 
+import static com.mdgiitr.karthik.cognizance19.MainActivity.bottomNavigationView;
+
 public class EventFinfestAndLitfestFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -43,6 +45,16 @@ public class EventFinfestAndLitfestFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
         setUpTabs();
 
+        switch (getArguments().getInt("event_frag_id")) {
+            case 0:
+                viewPager.setCurrentItem(0);
+                break;
+            case 1:
+                viewPager.setCurrentItem(1);
+                break;
+        }
+
+        bottomNavigationView.setVisibility(View.VISIBLE);
         return view;
     }
 

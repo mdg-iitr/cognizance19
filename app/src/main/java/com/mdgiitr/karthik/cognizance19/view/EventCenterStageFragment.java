@@ -11,8 +11,12 @@ import android.view.ViewGroup;
 
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.adapters.CenterstageAdapter;
+import com.mdgiitr.karthik.cognizance19.models.Centerstage;
 import com.mdgiitr.karthik.cognizance19.models.CenterstageOrDepartmentalEventsResponse;
 import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -24,6 +28,7 @@ public class EventCenterStageFragment extends Fragment {
     private CenterstageAdapter adapter;
     private ApiClient apiClient;
     private ProgressDialog progressDialog;
+    private List<Centerstage> list;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,7 +55,16 @@ public class EventCenterStageFragment extends Fragment {
 
                     @Override
                     public void onNext(CenterstageOrDepartmentalEventsResponse response) {
-                        adapter = new CenterstageAdapter(getContext(), response.getCenterstage());
+                        list = new ArrayList<>();
+                        adapter = new CenterstageAdapter(getContext(),list);
+                        List<Centerstage> allEventList = response.getCenterstage();
+                        for (int i=0; i<allEventList.size();i++){
+                            Centerstage centerstage = allEventList.get(i);
+                            if(!centerstage.getName().equals("Fin Fest") && !centerstage.getName().equals("LIT.A.F.")){
+                                list.add(centerstage);
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
                         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                         recyclerView.setAdapter(adapter);
                         progressDialog.dismiss();

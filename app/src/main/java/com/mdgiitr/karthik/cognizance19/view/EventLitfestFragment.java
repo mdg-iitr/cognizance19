@@ -1,5 +1,6 @@
 package com.mdgiitr.karthik.cognizance19.view;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,16 +11,25 @@ import android.view.ViewGroup;
 
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.adapters.FinfestAdapter;
-import com.mdgiitr.karthik.cognizance19.models.FinfestEventModel;
-import com.mdgiitr.karthik.cognizance19.models.FinfestModel;
+import com.mdgiitr.karthik.cognizance19.models.Centerstage;
+import com.mdgiitr.karthik.cognizance19.models.CenterstageOrDepartmentalEventsResponse;
+import com.mdgiitr.karthik.cognizance19.models.Event;
+import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class EventLitfestFragment extends Fragment {
     private RecyclerView recyclerView;
     private FinfestAdapter adapter;
-    private List<FinfestModel> list;
+    private List<Event> list;
+    private ApiClient apiClient;
+    private ProgressDialog progressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,27 +38,52 @@ public class EventLitfestFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_event_litfest, container, false);
 
         recyclerView = view.findViewById(R.id.litfest_recyclerview);
-        list = new ArrayList<>();
-        adapter = new FinfestAdapter(getContext(),list);
+        apiClient = new ApiClient();
+        progressDialog = new ProgressDialog(getContext());
 
-        for (int i=1;i<=3;i++){
-            FinfestModel finfestModel = new FinfestModel();
-            finfestModel.setCategory("Category " + i);
-            List<FinfestEventModel> finfestEventModelList = new ArrayList<>();
-            for (int j=0;j<5;j++){
-                FinfestEventModel finfestEventModel = new FinfestEventModel();
-                finfestEventModel.setEventName("Power Drift");
-                finfestEventModel.setEventCategory("#robotics,race-car");
-                finfestEventModel.setEventFollowers("100 followers");
-                finfestEventModelList.add(finfestEventModel);
-            }
-            finfestModel.setEventList(finfestEventModelList);
-            list.add(finfestModel);
-        }
+        progressDialog.setMessage("Fetching events...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        apiClient.fetchEvents()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<CenterstageOrDepartmentalEventsResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-        adapter.notifyDataSetChanged();
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
+                    }
+
+                    @Override
+                    public void onNext(CenterstageOrDepartmentalEventsResponse response) {
+                        list = new ArrayList<>();
+                        adapter = new FinfestAdapter(getContext(),list);
+                        List<Centerstage> allEventList = response.getCenterstage();
+                        for (int i=0; i<allEventList.size();i++){
+                            Centerstage centerstage = allEventList.get(i);
+                            if(centerstage.getName().equals("LIT.A.F.")){
+                                list.addAll(centerstage.getEvents());
+                                adapter.notifyDataSetChanged();
+                                break;
+                            }
+                        }
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                        recyclerView.setAdapter(adapter);
+                        progressDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
 
         return view;
     }
