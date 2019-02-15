@@ -54,7 +54,7 @@ public class WorkshopAdapter extends RecyclerView.Adapter<WorkshopAdapter.HomeMe
         holder.workshopCard.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putInt("id", model.getId());
-            navController.navigate(R.id.action_workshopFragment_to_specificEventFragment,bundle);
+            navController.navigate(R.id.action_workshopFragment_to_specificWorkshopFragment,bundle);
         });
     }
 
