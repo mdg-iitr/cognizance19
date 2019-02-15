@@ -174,8 +174,8 @@
         app:tabGravity="fill"
         app:tabIndicatorHeight="0dp"
         app:tabMode="fixed"
-        app:tabSelectedTextColor="#727272"
-        app:tabTextColor="#95989A" />
+        app:tabSelectedTextColor="#343434"
+        app:tabTextColor="#929292" />
 
 
     <android.support.v4.view.ViewPager

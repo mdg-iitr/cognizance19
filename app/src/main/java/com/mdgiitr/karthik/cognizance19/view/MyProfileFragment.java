@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -117,7 +118,7 @@ public class MyProfileFragment extends Fragment {
         viewPager.setAdapter(viewPagerAdapter);
 
         tabLayout.setupWithViewPager(viewPager);
-        setUpTabs();
+        setUpTabs(tabLayout.getSelectedTabPosition());
 
         popupMenu = new PopupMenu(getActivity(), menuImageView);
 
@@ -230,12 +231,69 @@ public class MyProfileFragment extends Fragment {
 
     }
 
-    private void setUpTabs() {
+    private void setUpTabs(int selectedTabPosition) {
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_registered_24dp);
         tabLayout.getTabAt(0).setText("Reg Events");
 
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_registered_24dp);
         tabLayout.getTabAt(1).setText("Reg Workshops");
+
+        ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
+        int tabsCount = vg.getChildCount();
+        for (int j = 0; j < tabsCount; j++) {
+            ViewGroup vgTab = (ViewGroup) vg.getChildAt(j);
+            int tabChildsCount = vgTab.getChildCount();
+            for (int i = 0; i < tabChildsCount; i++) {
+                View tabViewChild = vgTab.getChildAt(i);
+                if (tabViewChild instanceof TextView) {
+                    ((TextView) tabViewChild).setAllCaps(false);
+                    ((TextView) tabViewChild).setTextSize(15);
+                    ((TextView) tabViewChild).setTypeface(null, Typeface.NORMAL);
+                }
+            }
+        }
+
+        ViewGroup vgTab = (ViewGroup) vg.getChildAt(selectedTabPosition);
+        int tabChildsCount = vgTab.getChildCount();
+        for (int i = 0; i < tabChildsCount; i++) {
+            View tabViewChild = vgTab.getChildAt(i);
+            if (tabViewChild instanceof TextView) {
+                ((TextView) tabViewChild).setTypeface(null, Typeface.BOLD);
+            }
+        }
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
+                ViewGroup vgTab = (ViewGroup) vg.getChildAt(tab.getPosition());
+                int tabChildsCount = vgTab.getChildCount();
+                for (int i = 0; i < tabChildsCount; i++) {
+                    View tabViewChild = vgTab.getChildAt(i);
+                    if (tabViewChild instanceof TextView) {
+                        ((TextView) tabViewChild).setTypeface(null, Typeface.BOLD);
+                    }
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
+                ViewGroup vgTab = (ViewGroup) vg.getChildAt(tab.getPosition());
+                int tabChildsCount = vgTab.getChildCount();
+                for (int i = 0; i < tabChildsCount; i++) {
+                    View tabViewChild = vgTab.getChildAt(i);
+                    if (tabViewChild instanceof TextView) {
+                        ((TextView) tabViewChild).setTypeface(null, Typeface.NORMAL);
+                    }
+                }
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     private void userLogout() {
