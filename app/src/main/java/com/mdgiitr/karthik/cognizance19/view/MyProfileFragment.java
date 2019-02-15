@@ -309,7 +309,7 @@ public class MyProfileFragment extends Fragment {
             emailView.setVisibility(View.GONE);
         }
         if (userDetailsSPPResponseModel.getId() != null) {
-            cogniIDView.setText(userDetailsSPPResponseModel.getCogniId());
+            cogniIDView.setText("Cogni ID : " + userDetailsSPPResponseModel.getCogniId());
         } else {
             cogniIDView.setVisibility(View.GONE);
         }
