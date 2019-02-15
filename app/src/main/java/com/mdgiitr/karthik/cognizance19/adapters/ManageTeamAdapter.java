@@ -2,7 +2,6 @@ package com.mdgiitr.karthik.cognizance19.adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -68,11 +67,7 @@ public class ManageTeamAdapter extends RecyclerView.Adapter<ManageTeamAdapter.Ma
         holder.delete.setOnClickListener(v -> {
             if (!isSelfDelete(members.get(i).getCogniId())) {
                 AlertDialog.Builder builder;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
-                } else {
-                    builder = new AlertDialog.Builder(context);
-                }
+                builder = new AlertDialog.Builder(context);
                 builder.setTitle("Delete Member")
                         .setMessage("Are you sure you want to delete this member?")
                         .setPositiveButton(android.R.string.yes, (dialog, which) -> {
@@ -81,7 +76,6 @@ public class ManageTeamAdapter extends RecyclerView.Adapter<ManageTeamAdapter.Ma
                         .setNegativeButton(android.R.string.no, (dialog, which) -> {
                             // do nothing
                         })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
             } else {
                 Toast.makeText(context, "You cannot remove yourself from team. Please unregister to do so.", Toast.LENGTH_SHORT).show();

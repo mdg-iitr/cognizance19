@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     public static int REGISTRATION_TYPE_PARTICIPANT = 0;
     public static int REGISTRATION_TYPE_SPP = 1;
     public static int SCREEN_WIDTH = 0;
+    public static int EVENT_FRAG = 0;
     public static NavController navController;
     public static BottomNavigationView bottomNavigationView;
 
@@ -34,24 +35,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 NavOptions navOptions = new NavOptions.Builder()
-                        .setPopUpTo(R.id.homeMenuFragment,false)
+                        .setPopUpTo(R.id.homeMenuFragment, false)
                         .build();
 
                 switch (menuItem.getItemId()) {
                     case R.id.home:
-                        navController.navigate(R.id.homeMenuFragment,null, navOptions);
+                        navController.navigate(R.id.homeMenuFragment, null, navOptions);
                         return true;
                     case R.id.events:
                         Bundle bundle = new Bundle();
-                        bundle.putInt("event_frag_id", 0);
-                        navController.navigate(R.id.centerStageAndDepartmentalFragment,bundle,navOptions);
+                        bundle.putInt("event_frag_id", EVENT_FRAG);
+                        navController.navigate(R.id.centerStageAndDepartmentalFragment, bundle, navOptions);
                         return true;
                     case R.id.workshops:
-                        navController.navigate(R.id.workshopFragment,null,navOptions);
+                        navController.navigate(R.id.workshopFragment, null, navOptions);
                         return true;
                     case R.id.whatsNew:
                         Bundle bundle1 = new Bundle();
-                        bundle1.putInt("event_frag_id", 0);
+                        bundle1.putInt("event_frag_id", EVENT_FRAG);
                         navController.navigate(R.id.finfestAndLitfestFragment, bundle1, navOptions);
                         return true;
                 }

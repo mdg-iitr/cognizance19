@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.adapters.EventRegisterIDsAdapter;
 import com.mdgiitr.karthik.cognizance19.models.Contact;
@@ -311,7 +312,10 @@ public class SpecificWorkshopFragment extends Fragment {
 
         try {
             if (((HttpException) throwable).code() == 400) {
-                Toast.makeText(getContext(), "Already Registered", Toast.LENGTH_SHORT).show();
+                Gson gson = new Gson();
+                String msg = ((HttpException) throwable).response().errorBody().string();
+                GeneralResponse generalResponse = gson.fromJson(msg, GeneralResponse.class);
+                Toast.makeText(getContext(), generalResponse.message, Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             Log.d("REGISTER_ERROR", e.toString());

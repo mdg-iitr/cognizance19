@@ -47,6 +47,7 @@ public class RegEventsAdapter extends RecyclerView.Adapter<RegEventsAdapter.RegE
     private ManageTeamAdapter manageTeamAdapter;
     private Button cancelButton, unregisterButton;
     private TextView addMemberView, cantAddMember;
+    private RegEventsModel currentModel;
     private EditText idEditText;
     private PreferenceHelper preferenceHelper;
     private Context activityContext;
@@ -146,6 +147,8 @@ public class RegEventsAdapter extends RecyclerView.Adapter<RegEventsAdapter.RegE
         progressDialog.setCancelable(false);
         progressDialog.setTitle("Fetching data. Please Wait...");
         progressDialog.show();
+
+        currentModel = model;
 
         apiClient.fetchTeam(preferenceHelper.getToken(), Integer.toString(model.getId()))
                 .observeOn(AndroidSchedulers.mainThread())
@@ -315,10 +318,46 @@ public class RegEventsAdapter extends RecyclerView.Adapter<RegEventsAdapter.RegE
 
                         @Override
                         public void onNext(ResponseBody responseBody) {
-
-                            manageTeamDialog.dismiss();
                             Toast.makeText(context, "Added member", Toast.LENGTH_SHORT).show();
+                            apiClient.fetchTeam(preferenceHelper.getToken(), Integer.toString(eventId))
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new Observer<TeamResponse>() {
+                                        @Override
+                                        public void onSubscribe(Disposable d) {
 
+                                        }
+
+                                        @Override
+                                        public void onNext(TeamResponse teamResponse) {
+                                            idEditText.setText("");
+                                            List<TeamMember> members = teamResponse.getTeam().getMembers();
+                                            boolean isTeamLeader = isRegisteredTeamLeader(members);
+                                            manageTeamAdapter = new ManageTeamAdapter(currentModel.getTeamLimit(), members, isTeamLeader, teamResponse.getTeam().getId(), currentModel.getId(), activityContext, context);
+                                            manageTeamRecyclerView.setItemAnimator(new DefaultItemAnimator());
+                                            manageTeamRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+                                            manageTeamRecyclerView.setAdapter(manageTeamAdapter);
+                                            if (members.size() < currentModel.getTeamLimit() && isTeamLeader) {
+                                                addMemberView.setVisibility(View.VISIBLE);
+                                                idEditText.setVisibility(View.VISIBLE);
+                                                cantAddMember.setVisibility(View.GONE);
+                                            } else {
+                                                addMemberView.setVisibility(View.GONE);
+                                                idEditText.setVisibility(View.GONE);
+                                                cantAddMember.setVisibility(View.VISIBLE);
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e) {
+
+                                        }
+
+                                        @Override
+                                        public void onComplete() {
+
+                                        }
+                                    });
                         }
 
                         @Override
