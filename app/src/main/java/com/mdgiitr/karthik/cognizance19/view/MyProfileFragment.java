@@ -302,10 +302,10 @@ public class MyProfileFragment extends Fragment {
 
 
     private void setUpTabs(int selectedTabPosition) {
-        tabLayout.getTabAt(0).setIcon(R.drawable.ic_registered_24dp);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_exhibition);
         tabLayout.getTabAt(0).setText("Reg Events");
 
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_registered_24dp);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_workshop);
         tabLayout.getTabAt(1).setText("Reg Workshops");
 
         ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
