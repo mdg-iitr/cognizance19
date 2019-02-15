@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -34,7 +35,9 @@ import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 
 import androidx.navigation.NavOptions;
@@ -44,6 +47,7 @@ import io.reactivex.disposables.Disposable;
 import retrofit2.HttpException;
 
 import static android.app.Activity.RESULT_OK;
+import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.REGISTRATION_TYPE_PARTICIPANT;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.REGISTRATION_TYPE_SPP;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
@@ -167,15 +171,15 @@ public class MyProfileFragment extends Fragment {
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImage);
                 if (bitmap != null) {
-                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                    Cursor cursor = getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-                    cursor.moveToFirst();
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String picturePath = cursor.getString(columnIndex);
-                    cursor.close();
-                    Log.d("Image", picturePath);
-                    profilePicFile = new File(picturePath);
-                    uploadImage(profilePicFile, bitmap);
+//                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+//                    Cursor cursor = getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+//                    cursor.moveToFirst();
+//                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+//                    String picturePath = cursor.getString(columnIndex);
+//                    cursor.close();
+//                    Log.d("Image", picturePath);
+//                    profilePicFile = new File(picturePath);
+                    uploadImage(getResizedImageFile(bitmap,selectedImage), bitmap);
 
                 }
             } catch (FileNotFoundException e) {
@@ -230,6 +234,63 @@ public class MyProfileFragment extends Fragment {
         }
 
     }
+
+    public File getResizedImageFile(Bitmap bmp, Uri uri) {
+        if (bmp == null) {
+            return null;
+        }
+        Bitmap bitmap;
+        bitmap = Bitmap.createScaledBitmap(bmp, bmp.getWidth() / 2, bmp.getHeight() / 2, false);
+        File file = null;
+        try {
+            file = createImageFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (bitmap != null && file != null) {
+            FileOutputStream out = null;
+            try {
+                out = new FileOutputStream(file);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, out);
+                return file;
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (out != null) {
+                        out.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        deleteFile(uri);
+        return null;
+    }
+
+    public void deleteFile(Uri fileUri) {
+        File file = new File(fileUri.toString());
+        file.delete();
+        if (file.exists()) {
+            try {
+                file.getCanonicalFile().delete();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (file.exists()) {
+                getApplicationContext().deleteFile(file.getName());
+            }
+        }
+    }
+
+    private File createImageFile() throws IOException {
+        String timeStamp = String.valueOf(new Date().getTime());
+        String imageFileName = "photo-" + timeStamp;
+        File storageDir = getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        return File.createTempFile(imageFileName, ".jpg", storageDir);
+    }
+
 
     private void setUpTabs(int selectedTabPosition) {
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_registered_24dp);

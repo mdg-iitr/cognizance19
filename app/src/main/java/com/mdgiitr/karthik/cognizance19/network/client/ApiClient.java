@@ -67,7 +67,7 @@ public class ApiClient {
 
     public Observable<GeneralResponse> updateUserImage(String token, File file) {
 
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
 
         return apiService.updateImage("Token " + token, body).subscribeOn(Schedulers.io());
