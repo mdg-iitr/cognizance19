@@ -14,6 +14,7 @@ import com.mdgiitr.karthik.cognizance19.adapters.CenterstageAdapter;
 import com.mdgiitr.karthik.cognizance19.models.Centerstage;
 import com.mdgiitr.karthik.cognizance19.models.CenterstageOrDepartmentalEventsResponse;
 import com.mdgiitr.karthik.cognizance19.network.client.ApiClient;
+import com.mdgiitr.karthik.cognizance19.utils.PreferenceHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,18 +30,35 @@ public class EventCenterStageFragment extends Fragment {
     private ApiClient apiClient;
     private ProgressDialog progressDialog;
     private List<Centerstage> list;
+    private boolean dataFetched = false;
+    private boolean isViewCreated = false;
+    private CenterstageOrDepartmentalEventsResponse cachedResponse;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        progressDialog = new ProgressDialog(getContext());
+        apiClient = new ApiClient();
+        populateViewsFromDB();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_event_center_stage, container, false);
-
-        apiClient = new ApiClient();
-        progressDialog = new ProgressDialog(getContext());
-
         recyclerView = view.findViewById(R.id.center_stage_recyclerview);
 
+            isViewCreated = true;
+
+            if (dataFetched) {
+                populateViews(cachedResponse);
+            }
+
+        return view;
+    }
+
+    private void populateViewsFromDB(){
         progressDialog.setMessage("Fetching events...");
         progressDialog.setCancelable(false);
         progressDialog.show();
@@ -55,18 +73,10 @@ public class EventCenterStageFragment extends Fragment {
 
                     @Override
                     public void onNext(CenterstageOrDepartmentalEventsResponse response) {
-                        list = new ArrayList<>();
-                        adapter = new CenterstageAdapter(getContext(),list);
-                        List<Centerstage> allEventList = response.getCenterstage();
-                        for (int i=0; i<allEventList.size();i++){
-                            Centerstage centerstage = allEventList.get(i);
-                            if(!centerstage.getName().equals("Fin Fest") && !centerstage.getName().equals("LIT.A.F.")){
-                                list.add(centerstage);
-                                adapter.notifyDataSetChanged();
-                            }
-                        }
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        recyclerView.setAdapter(adapter);
+                        dataFetched = true;
+                        cachedResponse = response;
+                        if (isViewCreated)
+                            populateViews(response);
                         progressDialog.dismiss();
                     }
 
@@ -74,7 +84,6 @@ public class EventCenterStageFragment extends Fragment {
                     public void onError(Throwable e) {
                         e.printStackTrace();
                         progressDialog.dismiss();
-
                     }
 
                     @Override
@@ -82,10 +91,22 @@ public class EventCenterStageFragment extends Fragment {
 
                     }
                 });
-
-        return view;
     }
 
+    private void populateViews(CenterstageOrDepartmentalEventsResponse response){
+        list = new ArrayList<>();
+        adapter = new CenterstageAdapter(getContext(),list);
+        List<Centerstage> allEventList = response.getCenterstage();
+        for (int i=0; i<allEventList.size();i++){
+            Centerstage centerstage = allEventList.get(i);
+            if(!centerstage.getName().equals("Fin Fest") && !centerstage.getName().equals("LIT.A.F.")){
+                list.add(centerstage);
+                adapter.notifyDataSetChanged();
+            }
+        }
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
+    }
     @Override
     public void onResume() {
         super.onResume();

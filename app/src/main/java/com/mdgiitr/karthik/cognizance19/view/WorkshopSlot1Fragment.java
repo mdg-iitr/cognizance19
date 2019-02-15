@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,6 +33,16 @@ public class WorkshopSlot1Fragment extends Fragment {
     private ApiClient apiClient;
     private ProgressDialog progressDialog;
     private List<Workshop> workshopList;
+    private boolean isDataFetched = false, isViewCreated = false;
+    private WorkshopResponse cachedResponse;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        apiClient = new ApiClient();
+        progressDialog = new ProgressDialog(getContext());
+        populateViewFromDB();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,11 +51,16 @@ public class WorkshopSlot1Fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_workshop_slot1, container, false);
 
         recyclerView = view.findViewById(R.id.workshop_slot1_recyclerview);
-        apiClient = new ApiClient();
-        progressDialog = new ProgressDialog(getContext());
-        workshopList = new ArrayList<>();
-        adapter = new WorkshopAdapter(getContext(),workshopList);
 
+        isViewCreated = true;
+        if(isDataFetched){
+            populateView(cachedResponse);
+        }
+
+        return view;
+    }
+
+    private void populateViewFromDB(){
         progressDialog.setMessage("Fetching workshops...");
         progressDialog.setCancelable(false);
         progressDialog.show();
@@ -60,16 +76,11 @@ public class WorkshopSlot1Fragment extends Fragment {
 
                     @Override
                     public void onNext(WorkshopResponse response) {
-                        List<Workshop> allWorkshopList = response.getWorkshops();
-                        for (int i=0; i<allWorkshopList.size(); i++){
-                            Workshop workshop = allWorkshopList.get(i);
-                            if(workshop.getTags().equals("1")){
-                                workshopList.add(workshop);
-                                adapter.notifyDataSetChanged();
-                            }
+                        isDataFetched = true;
+                        cachedResponse = response;
+                        if(isViewCreated){
+                            populateView(response);
                         }
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        recyclerView.setAdapter(adapter);
                         progressDialog.dismiss();
                     }
 
@@ -85,6 +96,25 @@ public class WorkshopSlot1Fragment extends Fragment {
                     }
                 });
 
-        return view;
+    }
+
+    private void populateView(WorkshopResponse response){
+        workshopList = new ArrayList<>();
+        adapter = new WorkshopAdapter(getContext(),workshopList);
+        List<Workshop> allWorkshopList = response.getWorkshops();
+        for (int i=0; i<allWorkshopList.size(); i++){
+            Workshop workshop = allWorkshopList.get(i);
+            if(workshop.getTags().equals("1")){
+                workshopList.add(workshop);
+                adapter.notifyDataSetChanged();
+            }
+        }
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        recyclerView.smoothScrollToPosition(0);
     }
 }
