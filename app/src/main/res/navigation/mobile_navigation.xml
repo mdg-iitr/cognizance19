@@ -14,6 +14,9 @@
             android:id="@+id/action_centerStageAndDepartmentalFragment_to_speceficEventFragment"
             app:destination="@id/speceficEventFragment"
               />
+        <action
+            android:id="@+id/action_centerStageAndDepartmentalFragment_to_myProfileFragment"
+            app:destination="@id/myProfileFragment" />
     </fragment>
 
     <fragment
@@ -24,6 +27,9 @@
         <action
             android:id="@+id/action_whatsNewFragment_to_specificEventFragment"
             app:destination="@id/speceficEventFragment"/>
+        <action
+            android:id="@+id/action_finfestAndLitfestFragment_to_myProfileFragment"
+            app:destination="@id/myProfileFragment" />
     </fragment>
 
     <fragment
@@ -158,5 +164,8 @@
             android:id="@+id/action_workshopFragment_to_specificWorkshopFragment"
             app:destination="@id/speceficWorkshopFragment"
             />
+        <action
+            android:id="@+id/action_workshopFragment_to_myProfileFragment"
+            app:destination="@id/myProfileFragment" />
     </fragment>
 </navigation>
