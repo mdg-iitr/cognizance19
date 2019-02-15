@@ -47,11 +47,22 @@ public class PreferenceHelper {
         prefs.edit().putInt("user_type", i).apply();
     }
 
-    public void setProfilePicURL(String url){
-        prefs.edit().putString("profilePicURL", url).apply();
+
+    public String getCogniId() {
+        return prefs.getString("cogni_id", "");
     }
 
-    public String getProfilePicURL(){
-        return prefs.getString("profilePicURL","");
+    public void setCogniId(String id) {
+        prefs.edit().putString("cogni_id", id).apply();
+    }
+
+    public String getProfilePicURL() {
+        return prefs.getString("profilePicURL", "");
+
+    }
+
+    public void setProfilePicURL(String url) {
+        prefs.edit().putString("profilePicURL", url).apply();
     }
 }
+

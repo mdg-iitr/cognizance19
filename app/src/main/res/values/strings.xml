@@ -91,6 +91,8 @@
     <string name="attractions">Attractions</string>
     <string name="what_s_new">What\'s New</string>
     <string name="edit_your_profile">Edit Your Profile</string>
+    <string name="add_member">+ Add Member</string>
+    <string name="only_the_team_leader_can_add_members">Only the team leader can add members</string>
     <string name="about">About</string>
     <string name="content">Content</string>
     <string name="benefits">Benefits</string>

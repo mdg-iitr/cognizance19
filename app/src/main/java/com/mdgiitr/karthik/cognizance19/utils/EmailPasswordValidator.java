@@ -1,4 +1,4 @@
-package com.mdgiitr.karthik.cognizance19;
+package com.mdgiitr.karthik.cognizance19.utils;
 
 import android.util.Patterns;
 

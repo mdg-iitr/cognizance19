@@ -29,7 +29,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.mdgiitr.karthik.cognizance19.AsyncResponse;
-import com.mdgiitr.karthik.cognizance19.EmailPasswordValidator;
+import com.mdgiitr.karthik.cognizance19.utils.EmailPasswordValidator;
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.models.FbGoogleLoginModel;
 import com.mdgiitr.karthik.cognizance19.models.SignupResponse;
@@ -46,7 +46,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
-import static com.mdgiitr.karthik.cognizance19.EmailPasswordValidator.isPhoneValid;
+import static com.mdgiitr.karthik.cognizance19.utils.EmailPasswordValidator.isPhoneValid;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 import static com.mdgiitr.karthik.cognizance19.view.UserLoginFragment.setViewPagerFragment;
 
