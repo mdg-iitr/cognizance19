@@ -10,6 +10,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -55,7 +57,7 @@ public class SpecificEventFragment extends Fragment {
     private ProgressDialog progressDialog;
     private String eventId = "";
     private ApiClient apiClient;
-
+    private CircleImageView smallImageView;
     private PreferenceHelper preferenceHelper;
 
     @Override
@@ -87,6 +89,7 @@ public class SpecificEventFragment extends Fragment {
         specificEventName = view.findViewById(R.id.specific_event_name);
         switcher = view.findViewById(R.id.specific_event_image_switcher);
         backIcon = view.findViewById(R.id.back_arrow);
+        smallImageView = view.findViewById(R.id.small_profile_image);
 
         registerButton.setEnabled(false);
 
@@ -113,6 +116,13 @@ public class SpecificEventFragment extends Fragment {
 
         backIcon.setOnClickListener(v -> navController.navigateUp());
 
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .error(R.drawable.com_facebook_profile_picture_blank_square);
+        Glide.with(this)
+                .load(preferenceHelper.getProfilePicURL())
+                .apply(options)
+                .into(smallImageView);
         bottomNavigationView.setVisibility(View.GONE);
         return view;
     }
@@ -260,8 +270,14 @@ public class SpecificEventFragment extends Fragment {
 
         specificEventName.setText(eventSpecificModel.getName());
         introduction.setText(Html.fromHtml(eventSpecificModel.getDescription()));
+        introduction.setMovementMethod(LinkMovementMethod.getInstance());
+        introduction.setLinksClickable(true);
         regProcedure.setText(Html.fromHtml(eventSpecificModel.getProcedure()));
+        regProcedure.setMovementMethod(LinkMovementMethod.getInstance());
+        regProcedure.setLinksClickable(true);
         rules.setText(Html.fromHtml(eventSpecificModel.getRules()));
+        rules.setMovementMethod(LinkMovementMethod.getInstance());
+        rules.setLinksClickable(true);
         List<Contact> contactList = eventSpecificModel.getContact();
         String contacts = "";
         for (Contact contact : contactList) {
