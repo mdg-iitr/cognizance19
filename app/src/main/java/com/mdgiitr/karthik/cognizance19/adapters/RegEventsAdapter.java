@@ -145,7 +145,7 @@ public class RegEventsAdapter extends RecyclerView.Adapter<RegEventsAdapter.RegE
 
         ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setCancelable(false);
-        progressDialog.setTitle("Fetching data. Please Wait...");
+        progressDialog.setMessage("Fetching data. Please Wait...");
         progressDialog.show();
 
         currentModel = model;

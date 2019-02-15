@@ -1,6 +1,7 @@
 package com.mdgiitr.karthik.cognizance19.view;
 
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
@@ -41,9 +42,13 @@ import java.util.Date;
 import java.util.HashMap;
 
 import androidx.navigation.NavOptions;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
 import static android.app.Activity.RESULT_OK;
@@ -92,10 +97,6 @@ public class MyProfileFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
         setHasOptionsMenu(true);
-
-//        preferenceHelper = new PreferenceHelper(getActivity());
-//        progressDialog = new ProgressDialog(getContext());
-//        apiClient = new ApiClient();
 
         menuImageView = view.findViewById(R.id.menu_icon);
         backIcon = view.findViewById(R.id.back_arrow_complete_your_profile);
@@ -173,7 +174,7 @@ public class MyProfileFragment extends Fragment {
 //                    cursor.close();
 //                    Log.d("Image", picturePath);
 //                    profilePicFile = new File(picturePath);
-                    uploadImage(getResizedImageFile(bitmap,selectedImage), bitmap);
+                    uploadImage(selectedImage, bitmap);
 
                 }
             } catch (FileNotFoundException e) {
@@ -186,46 +187,60 @@ public class MyProfileFragment extends Fragment {
         }
     }
 
-    private void uploadImage(File file, Bitmap bitmap) {
+    @SuppressLint("CheckResult")
+    private void uploadImage(Uri uri, Bitmap bitmap) {
 
         ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Uploading. Please Wait...");
-        if (file != null) {
-            progressDialog.show();
-            apiClient.updateUserImage(preferenceHelper.getToken(), file)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<GeneralResponse>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
+        progressDialog.show();
+        Observable.create(new ObservableOnSubscribe<File>() {
+            @Override
+            public void subscribe(ObservableEmitter<File> emitter) throws Exception {
+                emitter.onNext(getResizedImageFile(bitmap, uri));
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(file -> {
+                    if (file != null) {
+                        apiClient.updateUserImage(preferenceHelper.getToken(), file)
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Observer<GeneralResponse>() {
+                                    @Override
+                                    public void onSubscribe(Disposable d) {
 
-                        }
+                                    }
 
-                        @Override
-                        public void onNext(GeneralResponse responseBody) {
-                            Toast.makeText(getContext(), responseBody.message, Toast.LENGTH_LONG).show();
-                            userProfilePic.setImageBitmap(bitmap);
-                            progressDialog.dismiss();
-                        }
+                                    @Override
+                                    public void onNext(GeneralResponse responseBody) {
+                                        Toast.makeText(getContext(), responseBody.message, Toast.LENGTH_LONG).show();
+                                        userProfilePic.setImageBitmap(bitmap);
+                                        progressDialog.dismiss();
+                                    }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            progressDialog.dismiss();
-                            Log.d("TAGTAGTAG", e.toString());
-                            if (e.toString().trim().equals("retrofit2.adapter.rxjava2.HttpException: HTTP 413"))
-                                Toast.makeText(getContext(), "File size exceeded 50KB", Toast.LENGTH_LONG).show();
-                            else if (e.toString().trim().equals("retrofit2.adapter.rxjava2.HttpException: HTTP 400"))
-                                Toast.makeText(getContext(), "Unexpected file", Toast.LENGTH_LONG).show();
-                            else
-                                Toast.makeText(getContext(), "Couldn't update. Please try again!", Toast.LENGTH_LONG).show();
-                        }
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        progressDialog.dismiss();
+                                        Log.d("TAGTAGTAG", e.toString());
+                                        if (e.toString().trim().equals("retrofit2.adapter.rxjava2.HttpException: HTTP 413"))
+                                            Toast.makeText(getContext(), "File size exceeded 50KB", Toast.LENGTH_LONG).show();
+                                        else if (e.toString().trim().equals("retrofit2.adapter.rxjava2.HttpException: HTTP 400"))
+                                            Toast.makeText(getContext(), "Unexpected file", Toast.LENGTH_LONG).show();
+                                        else
+                                            Toast.makeText(getContext(), "Couldn't update. Please try again!", Toast.LENGTH_LONG).show();
+                                    }
 
-                        @Override
-                        public void onComplete() {
+                                    @Override
+                                    public void onComplete() {
 
-                        }
-                    });
+                                    }
+                                });
 
-        }
+                    } else {
+                        progressDialog.dismiss();
+                    }
+                } );
+
+
 
     }
 
@@ -287,10 +302,10 @@ public class MyProfileFragment extends Fragment {
 
 
     private void setUpTabs(int selectedTabPosition) {
-        tabLayout.getTabAt(0).setIcon(R.drawable.ic_registered_24dp);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_exhibition);
         tabLayout.getTabAt(0).setText("Reg Events");
 
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_registered_24dp);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_workshop);
         tabLayout.getTabAt(1).setText("Reg Workshops");
 
         ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
@@ -451,7 +466,8 @@ public class MyProfileFragment extends Fragment {
         }
         RequestOptions options = new RequestOptions()
                 .centerCrop()
-                .error(R.drawable.home_menu_gray_card);
+                .placeholder(R.drawable.com_facebook_profile_picture_blank_square)
+                .error(R.drawable.com_facebook_profile_picture_blank_square);
         Glide.with(this)
                 .load("https://bucket.cognizance.org.in/bucket/" + userDetailsSPPResponseModel.getImageUrl())
                 .apply(options)

@@ -66,8 +66,7 @@ public class ManageTeamAdapter extends RecyclerView.Adapter<ManageTeamAdapter.Ma
         }
         holder.delete.setOnClickListener(v -> {
             if (!isSelfDelete(members.get(i).getCogniId())) {
-                AlertDialog.Builder builder;
-                builder = new AlertDialog.Builder(context);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Delete Member")
                         .setMessage("Are you sure you want to delete this member?")
                         .setPositiveButton(android.R.string.yes, (dialog, which) -> {

@@ -44,6 +44,7 @@ public class DepartmentalEventAdapter extends RecyclerView.Adapter<DepartmentalE
 
         RequestOptions options = new RequestOptions()
                 .centerCrop()
+                .placeholder(R.drawable.home_menu_gray_card)
                 .error(R.drawable.home_menu_gray_card);
         Glide.with(context)
                 .load(model.getImageURL())
