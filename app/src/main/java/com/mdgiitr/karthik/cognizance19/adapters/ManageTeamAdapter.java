@@ -33,9 +33,10 @@ public class ManageTeamAdapter extends RecyclerView.Adapter<ManageTeamAdapter.Ma
     private Context activityContext;
     private boolean isTeamLeader = false;
     private Context context;
+    private RegEventsAdapter parentAdapterObject;
     private Integer teamID, eventID;
 
-    public ManageTeamAdapter(int teamLimit, List<TeamMember> members, boolean isTeamLeader, Integer teamID, Integer eventID, Context activityContext, Context context) {
+    public ManageTeamAdapter(int teamLimit, List<TeamMember> members, boolean isTeamLeader, Integer teamID, Integer eventID, Context activityContext, Context context, RegEventsAdapter regEventsAdapter) {
         this.teamLimit = teamLimit;
         this.members = members;
         apiClient = new ApiClient();
@@ -44,6 +45,7 @@ public class ManageTeamAdapter extends RecyclerView.Adapter<ManageTeamAdapter.Ma
         this.eventID = eventID;
         this.teamID = teamID;
         this.context = context;
+        parentAdapterObject = regEventsAdapter;
         preferenceHelper = new PreferenceHelper(activityContext);
     }
 
@@ -112,6 +114,7 @@ public class ManageTeamAdapter extends RecyclerView.Adapter<ManageTeamAdapter.Ma
                                     public void onNext(TeamResponse teamResponse) {
                                         members = teamResponse.getTeam().getMembers();
                                         notifyDataSetChanged();
+                                        parentAdapterObject.resetDialogState(teamResponse);
                                     }
 
                                     @Override

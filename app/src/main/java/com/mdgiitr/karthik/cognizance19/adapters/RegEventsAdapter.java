@@ -52,6 +52,7 @@ public class RegEventsAdapter extends RecyclerView.Adapter<RegEventsAdapter.RegE
     private EditText idEditText;
     private PreferenceHelper preferenceHelper;
     private Context activityContext;
+    private RegEventsAdapter thisObject;
     private int PDF_RESULT_CODE = 1212;
 
     public RegEventsAdapter(Context activityContext, Context context, List<RegEventsModel> list) {
@@ -60,6 +61,7 @@ public class RegEventsAdapter extends RecyclerView.Adapter<RegEventsAdapter.RegE
         apiClient = new ApiClient();
         preferenceHelper = new PreferenceHelper(activityContext);
         this.activityContext = activityContext;
+        thisObject = this;
     }
 
     @NonNull
@@ -174,7 +176,7 @@ public class RegEventsAdapter extends RecyclerView.Adapter<RegEventsAdapter.RegE
                         progressDialog.dismiss();
                         List<TeamMember> members = teamResponse.getTeam().getMembers();
                         boolean isTeamLeader = isUserTeamLeader(members);
-                        manageTeamAdapter = new ManageTeamAdapter(model.getTeamLimit(), members, isTeamLeader, teamResponse.getTeam().getId(), model.getId(), activityContext, context);
+                        manageTeamAdapter = new ManageTeamAdapter(model.getTeamLimit(), members, isTeamLeader, teamResponse.getTeam().getId(), model.getId(), activityContext, context, thisObject);
                         manageTeamRecyclerView.setItemAnimator(new DefaultItemAnimator());
                         manageTeamRecyclerView.setLayoutManager(new LinearLayoutManager(context));
                         manageTeamRecyclerView.setAdapter(manageTeamAdapter);
@@ -352,7 +354,7 @@ public class RegEventsAdapter extends RecyclerView.Adapter<RegEventsAdapter.RegE
                                             idEditText.setText("");
                                             List<TeamMember> members = teamResponse.getTeam().getMembers();
                                             boolean isTeamLeader = isUserTeamLeader(members);
-                                            manageTeamAdapter = new ManageTeamAdapter(currentModel.getTeamLimit(), members, isTeamLeader, teamResponse.getTeam().getId(), currentModel.getId(), activityContext, context);
+                                            manageTeamAdapter = new ManageTeamAdapter(currentModel.getTeamLimit(), members, isTeamLeader, teamResponse.getTeam().getId(), currentModel.getId(), activityContext, context, thisObject);
                                             manageTeamRecyclerView.setItemAnimator(new DefaultItemAnimator());
                                             manageTeamRecyclerView.setLayoutManager(new LinearLayoutManager(context));
                                             manageTeamRecyclerView.setAdapter(manageTeamAdapter);
@@ -404,9 +406,34 @@ public class RegEventsAdapter extends RecyclerView.Adapter<RegEventsAdapter.RegE
 
     }
 
+    void resetDialogState(TeamResponse teamResponse){
+
+        List<TeamMember> members = teamResponse.getTeam().getMembers();
+        boolean isTeamLeader = isUserTeamLeader(members);
+
+        if(!isTeamLeader){
+            addMemberView.setVisibility(View.GONE);
+            idEditText.setVisibility(View.GONE);
+            teamLimitReached.setVisibility(View.GONE);
+            notTeamLeader.setVisibility(View.VISIBLE);
+        } else if(members.size()>= currentModel.getTeamLimit()){
+            addMemberView.setVisibility(View.GONE);
+            idEditText.setVisibility(View.GONE);
+            teamLimitReached.setVisibility(View.VISIBLE);
+            notTeamLeader.setVisibility(View.GONE);
+        } else {
+            addMemberView.setVisibility(View.VISIBLE);
+            idEditText.setVisibility(View.VISIBLE);
+            teamLimitReached.setVisibility(View.GONE);
+            notTeamLeader.setVisibility(View.GONE);
+        }
+
+    }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("MyAdapter", "onActivityResult");
     }
+
 
     class RegEventsViewHolder extends RecyclerView.ViewHolder {
         TextView eventName;
