@@ -259,10 +259,9 @@ public class CompleteYourProfileFragment extends Fragment {
         ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setCancelable(false);
         progressDialog.setTitle("Please wait...");
-        progressDialog.show();
 
         if (!referralCode.trim().isEmpty()) {
-
+            progressDialog.show();
             apiClient.useReferralCode(preferenceHelper.getToken(), referralCode)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Observer<GeneralResponse>() {
