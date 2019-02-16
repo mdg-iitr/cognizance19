@@ -25,6 +25,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
+import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 import static com.mdgiitr.karthik.cognizance19.utils.EmailPasswordValidator.isPhoneValid;
 import static com.mdgiitr.karthik.cognizance19.view.UserLoginFragment.setViewPagerFragment;
 
@@ -175,8 +176,8 @@ public class RegisterFragment extends Fragment {
                             progressDialog.dismiss();
                             preferenceHelper.setToken(signupResponse.token);
                             setViewPagerFragment(0);
-//                                navController.navigate(R.id.action_userLoginFragment_to_onBoardingFragment);
-                            Toast.makeText(getContext(), signupResponse.message + "\nPlease verify your email.", Toast.LENGTH_SHORT).show();
+                            navController.navigate(R.id.action_userLoginFragment_to_completeYourProfileFragment);
+//                            Toast.makeText(getContext(), signupResponse.message + "\nPlease verify your email.", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
