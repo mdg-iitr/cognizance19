@@ -320,8 +320,6 @@ public class SpecificEventFragment extends Fragment {
             if (url != null && !url.isEmpty()) {
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 builder.setToolbarColor(getContext().getResources().getColor(R.color.fragment_bg));
-                builder.setStartAnimations(getContext(), R.anim.slide_in_right, R.anim.slide_out_left);
-                builder.setExitAnimations(getContext(), R.anim.slide_in_left, R.anim.slide_out_right);
                 CustomTabsIntent customTabsIntent = builder.build();
                 customTabsIntent.launchUrl(getContext(), Uri.parse(url));
             } else {
