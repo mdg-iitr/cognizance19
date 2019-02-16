@@ -47,7 +47,7 @@ public class RegEventsAdapter extends RecyclerView.Adapter<RegEventsAdapter.RegE
     private RecyclerView manageTeamRecyclerView;
     private ManageTeamAdapter manageTeamAdapter;
     private Button cancelButton, unregisterButton;
-    private TextView addMemberView, cantAddMember;
+    private TextView addMemberView, notTeamLeader, teamLimitReached;
     private RegEventsModel currentModel;
     private EditText idEditText;
     private PreferenceHelper preferenceHelper;
@@ -131,7 +131,8 @@ public class RegEventsAdapter extends RecyclerView.Adapter<RegEventsAdapter.RegE
                 cancelButton = manageTeamDialog.findViewById(R.id.cancel_button);
                 unregisterButton = manageTeamDialog.findViewById(R.id.unregister_button);
                 addMemberView = manageTeamDialog.findViewById(R.id.addMember);
-                cantAddMember = manageTeamDialog.findViewById(R.id.cantAddMember);
+                notTeamLeader = manageTeamDialog.findViewById(R.id.notTeamLeader);
+                teamLimitReached = manageTeamDialog.findViewById(R.id.teamLimitReached);
                 idEditText = manageTeamDialog.findViewById(R.id.idEditText);
                 manageTeam(model);
 
@@ -172,19 +173,26 @@ public class RegEventsAdapter extends RecyclerView.Adapter<RegEventsAdapter.RegE
                     public void onNext(TeamResponse teamResponse) {
                         progressDialog.dismiss();
                         List<TeamMember> members = teamResponse.getTeam().getMembers();
-                        boolean isTeamLeader = isRegisteredTeamLeader(members);
+                        boolean isTeamLeader = isUserTeamLeader(members);
                         manageTeamAdapter = new ManageTeamAdapter(model.getTeamLimit(), members, isTeamLeader, teamResponse.getTeam().getId(), model.getId(), activityContext, context);
                         manageTeamRecyclerView.setItemAnimator(new DefaultItemAnimator());
                         manageTeamRecyclerView.setLayoutManager(new LinearLayoutManager(context));
                         manageTeamRecyclerView.setAdapter(manageTeamAdapter);
-                        if (members.size() < model.getTeamLimit() && isTeamLeader) {
-                            addMemberView.setVisibility(View.VISIBLE);
-                            idEditText.setVisibility(View.VISIBLE);
-                            cantAddMember.setVisibility(View.GONE);
-                        } else {
+                        if(!isTeamLeader){
                             addMemberView.setVisibility(View.GONE);
                             idEditText.setVisibility(View.GONE);
-                            cantAddMember.setVisibility(View.VISIBLE);
+                            teamLimitReached.setVisibility(View.GONE);
+                            notTeamLeader.setVisibility(View.VISIBLE);
+                        } else if(members.size()>= model.getTeamLimit()){
+                            addMemberView.setVisibility(View.GONE);
+                            idEditText.setVisibility(View.GONE);
+                            teamLimitReached.setVisibility(View.VISIBLE);
+                            notTeamLeader.setVisibility(View.GONE);
+                        } else {
+                            addMemberView.setVisibility(View.VISIBLE);
+                            idEditText.setVisibility(View.VISIBLE);
+                            teamLimitReached.setVisibility(View.GONE);
+                            notTeamLeader.setVisibility(View.GONE);
                         }
 
                         addMemberView.setOnClickListener(v -> addMember(idEditText.getText(), teamResponse.getTeam().getId(), model.getId()));
@@ -298,14 +306,16 @@ public class RegEventsAdapter extends RecyclerView.Adapter<RegEventsAdapter.RegE
 
     }
 
-    private boolean isRegisteredTeamLeader(List<TeamMember> members) {
+    private boolean isUserTeamLeader(List<TeamMember> members) {
 
         String cogniId = preferenceHelper.getCogniId();
 
         for (TeamMember teamMember : members) {
 
-            if (teamMember.getCogniId().equals(cogniId))
-                return true;
+            if (teamMember.getLeader()){
+                if(teamMember.getCogniId().toLowerCase().equals(cogniId.toLowerCase())) return true;
+                else return false;
+            }
 
         }
         return false;
@@ -341,21 +351,28 @@ public class RegEventsAdapter extends RecyclerView.Adapter<RegEventsAdapter.RegE
                                         public void onNext(TeamResponse teamResponse) {
                                             idEditText.setText("");
                                             List<TeamMember> members = teamResponse.getTeam().getMembers();
-                                            boolean isTeamLeader = isRegisteredTeamLeader(members);
+                                            boolean isTeamLeader = isUserTeamLeader(members);
                                             manageTeamAdapter = new ManageTeamAdapter(currentModel.getTeamLimit(), members, isTeamLeader, teamResponse.getTeam().getId(), currentModel.getId(), activityContext, context);
                                             manageTeamRecyclerView.setItemAnimator(new DefaultItemAnimator());
                                             manageTeamRecyclerView.setLayoutManager(new LinearLayoutManager(context));
                                             manageTeamRecyclerView.setAdapter(manageTeamAdapter);
-                                            if (members.size() < currentModel.getTeamLimit() && isTeamLeader) {
-                                                addMemberView.setVisibility(View.VISIBLE);
-                                                idEditText.setVisibility(View.VISIBLE);
-                                                cantAddMember.setVisibility(View.GONE);
-                                            } else {
+
+                                            if(!isTeamLeader){
                                                 addMemberView.setVisibility(View.GONE);
                                                 idEditText.setVisibility(View.GONE);
-                                                cantAddMember.setVisibility(View.VISIBLE);
+                                                teamLimitReached.setVisibility(View.GONE);
+                                                notTeamLeader.setVisibility(View.VISIBLE);
+                                            } else if(members.size()>= currentModel.getTeamLimit()){
+                                                addMemberView.setVisibility(View.GONE);
+                                                idEditText.setVisibility(View.GONE);
+                                                teamLimitReached.setVisibility(View.VISIBLE);
+                                                notTeamLeader.setVisibility(View.GONE);
+                                            } else {
+                                                addMemberView.setVisibility(View.VISIBLE);
+                                                idEditText.setVisibility(View.VISIBLE);
+                                                teamLimitReached.setVisibility(View.GONE);
+                                                notTeamLeader.setVisibility(View.GONE);
                                             }
-
                                         }
 
                                         @Override

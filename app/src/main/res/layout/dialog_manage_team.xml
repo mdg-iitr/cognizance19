@@ -53,7 +53,18 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/cantAddMember"
+            android:id="@+id/teamLimitReached"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:fontFamily="@font/gibson_bold"
+            android:text="@string/can_t_add_more_members"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/notTeamLeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"

@@ -96,6 +96,7 @@
     <string name="about">About</string>
     <string name="content">Content</string>
     <string name="benefits">Benefits</string>
+    <string name="can_t_add_more_members">Can\'t add more members</string>
 
     <string-array name="Select_City">
         <item>Select City</item>
