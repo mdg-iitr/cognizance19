@@ -56,6 +56,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.REGISTRATION_TYPE_PARTICIPANT;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.REGISTRATION_TYPE_SPP;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
+import static com.mdgiitr.karthik.cognizance19.MainActivity.bottomNavigationView;
 
 public class MyProfileFragment extends Fragment {
 
@@ -144,6 +145,7 @@ public class MyProfileFragment extends Fragment {
         });
 
         backIcon.setOnClickListener(v -> navController.navigateUp());
+        bottomNavigationView.setVisibility(View.VISIBLE);
 
         isViewCreated = true;
 

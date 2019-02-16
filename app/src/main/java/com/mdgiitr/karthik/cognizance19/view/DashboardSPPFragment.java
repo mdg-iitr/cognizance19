@@ -43,6 +43,7 @@ import retrofit2.HttpException;
 
 import static android.app.Activity.RESULT_OK;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
+import static com.mdgiitr.karthik.cognizance19.MainActivity.bottomNavigationView;
 
 public class DashboardSPPFragment extends Fragment {
     private ProgressBar referalProgressBar;
@@ -126,6 +127,8 @@ public class DashboardSPPFragment extends Fragment {
                 .load(preferenceHelper.getProfilePicURL())
                 .apply(options)
                 .into(smallImageView);
+
+        bottomNavigationView.setVisibility(View.GONE);
 
         return view;
     }

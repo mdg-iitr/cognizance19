@@ -76,7 +76,9 @@ public class RegEventsAdapter extends RecyclerView.Adapter<RegEventsAdapter.RegE
         RegEventsModel model = list.get(position);
         holder.eventName.setText(model.getName());
         PopupMenu popupMenu = new PopupMenu(context, holder.moreButton);
-        if (model.get_abstract()) {
+        if(model.getType().contains("workshop")){
+            popupMenu.getMenuInflater().inflate(R.menu.reg_workshop_menu, popupMenu.getMenu());
+        } else if (model.get_abstract()) {
             popupMenu.getMenuInflater().inflate(R.menu.reg_event_menu_with_abstract, popupMenu.getMenu());
         } else {
             popupMenu.getMenuInflater().inflate(R.menu.reg_event_menu, popupMenu.getMenu());
