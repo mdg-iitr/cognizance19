@@ -149,7 +149,7 @@
                 android:layout_marginEnd="24dp"
                 android:background="@drawable/edit_text_bg"
                 android:baselineAligned="false"
-                android:hint="@string/Room_No_Hostel"
+                android:hint="@string/complete_address"
                 android:lines="1"
                 android:paddingStart="15dp"
                 android:paddingTop="9dp"

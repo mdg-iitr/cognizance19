@@ -204,7 +204,7 @@ public class SpecificEventFragment extends Fragment {
         } else {
             members = new ArrayList<String>(Collections.nCopies(1, ""));
         }
-
+        progressDialog.show();
         apiClient.registerForEvent(preferenceHelper.getToken(), eventId, members)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<GeneralResponse>() {
@@ -239,7 +239,7 @@ public class SpecificEventFragment extends Fragment {
 
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setCancelable(false);
-        progressDialog.setTitle("Registering. Please wait...");
+        progressDialog.setMessage("Registering. Please wait...");
         if (teamLimit > 1) {
             eventRegisterIDsAdapter = new EventRegisterIDsAdapter(teamLimit);
             memberRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -320,8 +320,6 @@ public class SpecificEventFragment extends Fragment {
             if (url != null && !url.isEmpty()) {
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 builder.setToolbarColor(getContext().getResources().getColor(R.color.fragment_bg));
-                builder.setStartAnimations(getContext(), R.anim.slide_in_right, R.anim.slide_out_left);
-                builder.setExitAnimations(getContext(), R.anim.slide_in_left, R.anim.slide_out_right);
                 CustomTabsIntent customTabsIntent = builder.build();
                 customTabsIntent.launchUrl(getContext(), Uri.parse(url));
             } else {

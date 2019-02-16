@@ -209,7 +209,7 @@ public class SpecificWorkshopFragment extends Fragment {
         } else {
             members = new ArrayList<String>(Collections.nCopies(1, ""));
         }
-
+        progressDialog.show();
         apiClient.registerForEvent(preferenceHelper.getToken(), eventId, members)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<GeneralResponse>() {
@@ -244,7 +244,7 @@ public class SpecificWorkshopFragment extends Fragment {
 
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setCancelable(false);
-        progressDialog.setTitle("Registering. Please wait...");
+        progressDialog.setMessage("Registering. Please wait...");
         if (teamLimit > 1) {
             eventRegisterIDsAdapter = new EventRegisterIDsAdapter(teamLimit);
             memberRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
