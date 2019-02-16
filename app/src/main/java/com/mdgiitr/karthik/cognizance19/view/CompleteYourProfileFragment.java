@@ -239,12 +239,17 @@ public class CompleteYourProfileFragment extends Fragment {
         nextButton = referralDialog.findViewById(R.id.next_action);
         cancelButton = referralDialog.findViewById(R.id.cancel_action);
         referralEditText = referralDialog.findViewById(R.id.referral_editText);
-        cancelButton.setOnClickListener(v -> referralDialog.dismiss());
+        cancelButton.setOnClickListener(v -> {
+            NavOptions navOptions = new NavOptions.Builder()
+                    .setPopUpTo(R.id.landingFragment2, true)
+                    .build();
+            navController.navigate(R.id.action_completeYourProfileFragment_to_homeMenuFragment, null, navOptions);
+            referralDialog.dismiss();
+        });
         nextButton.setOnClickListener(v -> {
             if (referralEditText.getText() != null)
                 addReferralCode(referralEditText.getText().toString());
         });
-        referralDialog.show();
 
         return view;
     }
@@ -270,11 +275,17 @@ public class CompleteYourProfileFragment extends Fragment {
                         public void onNext(GeneralResponse generalResponse) {
                             Toast.makeText(getContext(), generalResponse.message, Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
+                            referralDialog.dismiss();
+                            NavOptions navOptions = new NavOptions.Builder()
+                                    .setPopUpTo(R.id.landingFragment2, true)
+                                    .build();
+                            navController.navigate(R.id.action_completeYourProfileFragment_to_homeMenuFragment, null, navOptions);
                         }
 
                         @Override
                         public void onError(Throwable e) {
                             progressDialog.dismiss();
+                            referralDialog.dismiss();
                             handleReferralError(e);
                         }
 
@@ -327,11 +338,8 @@ public class CompleteYourProfileFragment extends Fragment {
 
                     @Override
                     public void onNext(ResponseBody responseBody) {
-                        NavOptions navOptions = new NavOptions.Builder()
-                                .setPopUpTo(R.id.landingFragment2, true)
-                                .build();
                         preferenceHelper.setLoginStatus(true);
-                        navController.navigate(R.id.action_completeYourProfileFragment_to_homeMenuFragment, null, navOptions);
+                        referralDialog.show();
                     }
 
                     @Override
