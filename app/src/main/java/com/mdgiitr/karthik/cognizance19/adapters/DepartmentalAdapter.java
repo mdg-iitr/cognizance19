@@ -6,9 +6,11 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -48,6 +50,10 @@ public class DepartmentalAdapter extends RecyclerView.Adapter<DepartmentalAdapte
     public void onBindViewHolder(@NonNull DepartmentalViewHolder holder, int position) {
         Departmental departmentalModel = list.get(position);
         holder.deptNameView.setText(departmentalModel.getName());
+        try {
+            holder.deptIcon.setImageDrawable(context.getResources().getDrawable(context.getResources().getIdentifier(departmentalModel.getName().toLowerCase().replace(" ", "_").replace("&", ""), "drawable", context.getPackageName())));
+        } catch (Exception e) {
+        }
         holder.linearLayout.setOnClickListener(v -> {
             FragmentTransaction fragmentTransaction = manager.beginTransaction();
             Bundle bundle = new Bundle();
@@ -69,7 +75,8 @@ public class DepartmentalAdapter extends RecyclerView.Adapter<DepartmentalAdapte
 
     public class DepartmentalViewHolder extends RecyclerView.ViewHolder {
         public TextView deptNameView;
-        public CircleImageView deptIcon;
+//        public CircleImageView deptIcon;
+        public ImageView deptIcon;
         public LinearLayout linearLayout;
 
         public DepartmentalViewHolder(@NonNull View itemView) {
