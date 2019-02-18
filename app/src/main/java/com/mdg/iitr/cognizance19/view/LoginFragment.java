@@ -23,6 +23,7 @@ import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -66,7 +67,8 @@ public class LoginFragment extends Fragment implements AsyncResponse {
     private ProgressDialog progressDialog;
     private TextView forgotPassword;
     private CallbackManager callbackManager;
-    private View signInGoogle, signInFacebook;
+    private View signInGoogle;
+    private LoginButton signInFacebook;
     private GoogleSignInOptions gso;
     private GoogleSignInClient googleSignInClient;
     private String name, email, imageUrl, accessToken;
@@ -93,8 +95,46 @@ public class LoginFragment extends Fragment implements AsyncResponse {
         apiClient = new ApiClient();
         preferenceHelper = new PreferenceHelper(getActivity());
 
-        signInGoogle = view.findViewById(R.id.google_login_Button);
         signInFacebook = view.findViewById(R.id.fb_login_Button);
+        signInFacebook.setFragment(this);
+        signInFacebook.setReadPermissions(Arrays.asList("email", "public_profile"));
+
+        callbackManager = CallbackManager.Factory.create();
+
+        signInFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d("TAGTAGTAG", "SUCCESS");
+                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), (object, response) -> {
+                    try {
+                        String email = object.getString("email");
+                        String id = object.getString("id");
+                        String name = object.getString("name");
+                        String accessToken = loginResult.getAccessToken().toString();
+                        String imgUrl = "https://graph.facebook.com/" + id + "/picture?type=small";
+                        facebookLogin(email, name, imgUrl, accessToken);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email");
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
+
+        signInGoogle = view.findViewById(R.id.google_login_Button);
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -103,7 +143,7 @@ public class LoginFragment extends Fragment implements AsyncResponse {
                 .build();
         googleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
 
-        callbackManager = CallbackManager.Factory.create();
+        signInGoogle.setOnClickListener(v -> googleSignIn());
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Logging in, please wait.");
@@ -190,42 +230,40 @@ public class LoginFragment extends Fragment implements AsyncResponse {
                     });
         });
 
-        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d("TAGTAGTAG", "SUCCESS");
-                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), (object, response) -> {
-                    try {
-                        String email = object.getString("email");
-                        String id = object.getString("id");
-                        String name = object.getString("name");
-                        String accessToken = loginResult.getAccessToken().toString();
-                        String imgUrl = "https://graph.facebook.com/" + id + "/picture?type=small";
-                        facebookLogin(email, name, imgUrl, accessToken);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,email");
-                request.setParameters(parameters);
-                request.executeAsync();
-            }
+//        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+//                Log.d("TAGTAGTAG", "SUCCESS");
+//                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), (object, response) -> {
+//                    try {
+//                        String email = object.getString("email");
+//                        String id = object.getString("id");
+//                        String name = object.getString("name");
+//                        String accessToken = loginResult.getAccessToken().toString();
+//                        String imgUrl = "https://graph.facebook.com/" + id + "/picture?type=small";
+//                        facebookLogin(email, name, imgUrl, accessToken);
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                });
+//                Bundle parameters = new Bundle();
+//                parameters.putString("fields", "id,name,email");
+//                request.setParameters(parameters);
+//                request.executeAsync();
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//
+//            }
+//
+//            @Override
+//            public void onError(FacebookException error) {
+//
+//            }
+//        });
 
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-
-            }
-        });
-
-        signInGoogle.setOnClickListener(v -> googleSignIn());
-
-        signInFacebook.setOnClickListener(v -> LoginManager.getInstance().logInWithReadPermissions(getActivity(), Arrays.asList("email", "public_profile")));
+//        signInFacebook.setOnClickListener(v -> LoginManager.getInstance().logInWithReadPermissions(getActivity(), Arrays.asList("email", "public_profile")));
 
         return view;
     }

@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "775564434017-ub5rco8hjo4j67k4mi2tuvjq4nc473i1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mdg.iitr.cognizance19",
+            "certificate_hash": "77e94497828d8378777eb400fa800610e0237a98"
+          }
+        },
+        {
           "client_id": "775564434017-atteq24mgropajo5ro6nmi8iii6bpqtc.apps.googleusercontent.com",
           "client_type": 3
         }
