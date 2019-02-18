@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.mdgiitr.karthik.cognizance19.R;
 import com.mdgiitr.karthik.cognizance19.models.HomeMenuEventModel;
 
@@ -20,7 +18,6 @@ import java.util.List;
 
 import static com.mdgiitr.karthik.cognizance19.MainActivity.EVENT_FRAG;
 import static com.mdgiitr.karthik.cognizance19.MainActivity.bottomNavigationView;
-import static com.mdgiitr.karthik.cognizance19.MainActivity.navController;
 
 public class HomeMenuEventAdapter extends RecyclerView.Adapter<HomeMenuEventAdapter.HomeMenuEventViewHolder> {
     Context context;
@@ -52,15 +49,16 @@ public class HomeMenuEventAdapter extends RecyclerView.Adapter<HomeMenuEventAdap
     public void onBindViewHolder(@NonNull HomeMenuEventViewHolder holder, int position) {
         HomeMenuEventModel model = myList.get(position);
 
-        RequestOptions options = new RequestOptions()
+       /* RequestOptions options = new RequestOptions()
                 .centerCrop()
                 .placeholder(R.drawable.home_menu_gray_card)
                 .error(R.drawable.home_menu_gray_card);
         Glide.with(context)
                 .load(model.getImageURL())
                 .apply(options)
-                .into(holder.eventPic);
+                .into(holder.eventPic);*/
         holder.eventName.setText(model.getEvent());
+        holder.eventPic.setImageDrawable(model.getImgDrawable());
         holder.eventCard.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             if (model.getEvent().equals("Centerstage")) {

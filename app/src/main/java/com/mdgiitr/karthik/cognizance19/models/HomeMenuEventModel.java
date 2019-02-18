@@ -1,16 +1,19 @@
 package com.mdgiitr.karthik.cognizance19.models;
 
+import android.graphics.drawable.Drawable;
+
 public class HomeMenuEventModel {
 
-    String imageURL;
+    Drawable imgDrawable;
     String event;
 
-    public String getImageURL() {
-        return imageURL;
+
+    public Drawable getImgDrawable() {
+        return imgDrawable;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public void setImgDrawable(Drawable imgDrawable) {
+        this.imgDrawable = imgDrawable;
     }
 
     public String getEvent() {

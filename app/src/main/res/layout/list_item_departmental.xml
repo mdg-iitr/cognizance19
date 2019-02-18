@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <!--<de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/department_image"
         android:layout_width="115dp"
         android:layout_height="115dp"
@@ -16,7 +16,16 @@
         android:layout_marginEnd="10dp"
         android:src="@drawable/bg_gray"
         app:civ_border_color="@color/grayText"
-        app:civ_border_width="1dp" />
+        app:civ_border_width="1dp" />-->
+    <ImageView
+        android:id="@+id/department_image"
+        android:layout_width="115dp"
+        android:layout_height="115dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/bg_gray" />
 
     <TextView
         android:id="@+id/dept_nameTextView"

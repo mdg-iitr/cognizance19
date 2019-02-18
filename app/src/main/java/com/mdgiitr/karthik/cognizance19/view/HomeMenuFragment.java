@@ -103,10 +103,12 @@ public class HomeMenuFragment extends Fragment {
     private void populateEventList() {
         HomeMenuEventModel eventModel = new HomeMenuEventModel();
         eventModel.setEvent("Centerstage");
+        eventModel.setImgDrawable(getResources().getDrawable(R.drawable.centerstage_f));
         eventList.add(eventModel);
 
         HomeMenuEventModel eventModel1 = new HomeMenuEventModel();
         eventModel1.setEvent("Departmental");
+        eventModel1.setImgDrawable(getResources().getDrawable(R.drawable.departmental));
         eventList.add(eventModel1);
 
         HomeMenuEventModel eventModel2 = new HomeMenuEventModel();
@@ -122,10 +124,12 @@ public class HomeMenuFragment extends Fragment {
     private void populateAttractionList() {
         HomeMenuEventModel eventModel = new HomeMenuEventModel();
         eventModel.setEvent("Workshops");
+        eventModel.setImgDrawable(getResources().getDrawable(R.drawable.workshop));
         attractionList.add(eventModel);
 
         HomeMenuEventModel eventModel1 = new HomeMenuEventModel();
         eventModel1.setEvent("Exhibitions");
+        eventModel1.setImgDrawable(getResources().getDrawable(R.drawable.exhibition));
         attractionList.add(eventModel1);
 
         attractionAdapter.notifyDataSetChanged();
@@ -137,10 +141,12 @@ public class HomeMenuFragment extends Fragment {
     private void populateWhatsNewList(){
         HomeMenuEventModel eventModel = new HomeMenuEventModel();
         eventModel.setEvent("FinFest");
+        eventModel.setImgDrawable(getResources().getDrawable(R.drawable.fin_tech_f));
         whatsNewList.add(eventModel);
 
         HomeMenuEventModel eventModel1 = new HomeMenuEventModel();
         eventModel1.setEvent("Lit.A.F");
+        eventModel1.setImgDrawable(getResources().getDrawable(R.drawable.lit_af));
         whatsNewList.add(eventModel1);
 
         whatsNewAdapter.notifyDataSetChanged();
