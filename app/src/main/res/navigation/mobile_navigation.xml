@@ -7,7 +7,7 @@
     
     <fragment
         android:id="@+id/centerStageAndDepartmentalFragment"
-        android:name="com.mdgiitr.karthik.cognizance19.view.EventCenterStageAndDepartmentalFragment"
+        android:name="com.mdg.iitr.cognizance19.view.EventCenterStageAndDepartmentalFragment"
         android:label="fragment_center_stage_and_departmental"
         tools:layout="@layout/fragment_event_center_stage_and_departmental">
         <action
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/finfestAndLitfestFragment"
-        android:name="com.mdgiitr.karthik.cognizance19.view.EventFinfestAndLitfestFragment"
+        android:name="com.mdg.iitr.cognizance19.view.EventFinfestAndLitfestFragment"
         android:label="fragment_finfest_and_litfest"
         tools:layout="@layout/fragment_event_finfest_and_litfest" >
         <action
@@ -34,7 +34,7 @@
 
     <fragment
         android:id="@+id/speceficEventFragment"
-        android:name="com.mdgiitr.karthik.cognizance19.view.SpecificEventFragment"
+        android:name="com.mdg.iitr.cognizance19.view.SpecificEventFragment"
         android:label="fragment_specefic_event"
         tools:layout="@layout/fragment_specific_event" >
         <action
@@ -44,7 +44,7 @@
 
     <fragment
         android:id="@+id/speceficWorkshopFragment"
-        android:name="com.mdgiitr.karthik.cognizance19.view.SpecificWorkshopFragment"
+        android:name="com.mdg.iitr.cognizance19.view.SpecificWorkshopFragment"
         android:label="fragment_specefic_workshop"
         tools:layout="@layout/fragment_specific_workshop" >
         <action
@@ -54,7 +54,7 @@
 
     <fragment
         android:id="@+id/landingFragment2"
-        android:name="com.mdgiitr.karthik.cognizance19.view.LandingFragment"
+        android:name="com.mdg.iitr.cognizance19.view.LandingFragment"
         android:label="fragment_landing"
         tools:layout="@layout/fragment_landing">
         <action
@@ -68,7 +68,7 @@
     </fragment>
     <fragment
         android:id="@+id/userLoginFragment"
-        android:name="com.mdgiitr.karthik.cognizance19.view.UserLoginFragment"
+        android:name="com.mdg.iitr.cognizance19.view.UserLoginFragment"
         android:label="fragment_user_login"
         tools:layout="@layout/fragment_user_login">
         <action
@@ -86,7 +86,7 @@
     </fragment>
     <fragment
         android:id="@+id/completeYourProfileFragment"
-        android:name="com.mdgiitr.karthik.cognizance19.view.CompleteYourProfileFragment"
+        android:name="com.mdg.iitr.cognizance19.view.CompleteYourProfileFragment"
         android:label="fragment_complete_your_profile"
         tools:layout="@layout/fragment_complete_your_profile">
         <action
@@ -96,7 +96,7 @@
     </fragment>
     <fragment
         android:id="@+id/myProfileFragment"
-        android:name="com.mdgiitr.karthik.cognizance19.view.MyProfileFragment"
+        android:name="com.mdg.iitr.cognizance19.view.MyProfileFragment"
         android:label="my_profile"
         tools:layout="@layout/fragment_my_profile">
         <action
@@ -118,7 +118,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="com.mdgiitr.karthik.cognizance19.view.ForgotPasswordFragment"
+        android:name="com.mdg.iitr.cognizance19.view.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password">
         <action
@@ -128,12 +128,12 @@
     </fragment>
     <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="com.mdgiitr.karthik.cognizance19.view.ChangePasswordFragment"
+        android:name="com.mdg.iitr.cognizance19.view.ChangePasswordFragment"
         android:label="fragment_change_password"
         tools:layout="@layout/fragment_change_password" />
     <fragment
         android:id="@+id/homeMenuFragment"
-        android:name="com.mdgiitr.karthik.cognizance19.view.HomeMenuFragment"
+        android:name="com.mdg.iitr.cognizance19.view.HomeMenuFragment"
         android:label="fragment_home_menu"
         tools:layout="@layout/fragment_home_menu">
         <action
@@ -155,12 +155,12 @@
     </fragment>
     <fragment
         android:id="@+id/dashboardSPPFragment"
-        android:name="com.mdgiitr.karthik.cognizance19.view.DashboardSPPFragment"
+        android:name="com.mdg.iitr.cognizance19.view.DashboardSPPFragment"
         android:label="fragment_dashboard_spp"
         tools:layout="@layout/fragment_dashboard_spp" />
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.mdgiitr.karthik.cognizance19.view.EditProfileFragment"
+        android:name="com.mdg.iitr.cognizance19.view.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" >
         <action
@@ -170,7 +170,7 @@
     </fragment>
     <fragment
         android:id="@+id/workshopFragment"
-        android:name="com.mdgiitr.karthik.cognizance19.view.WorkshopFragment"
+        android:name="com.mdg.iitr.cognizance19.view.WorkshopFragment"
         android:label="fragment_workshop"
         tools:layout="@layout/fragment_workshop" >
         <action
