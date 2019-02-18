@@ -23,6 +23,9 @@ public class EventDepartmentalSpecificFragment extends Fragment {
     private TextView textView;
     private DepartmentalEventAdapter adapter;
     private RecyclerView recyclerView;
+
+
+    @SuppressWarnings("unchecked")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -36,7 +39,9 @@ public class EventDepartmentalSpecificFragment extends Fragment {
         Bundle bundle = getArguments();
         textView.setText(bundle.getString("deptName"));
 
-        adapter = new DepartmentalEventAdapter(getContext(), (List<Event>) bundle.getSerializable("eventList"));
+        List<Event> eventList = (List<Event>) bundle.getSerializable("eventList");
+
+        adapter = new DepartmentalEventAdapter(getContext(), eventList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
