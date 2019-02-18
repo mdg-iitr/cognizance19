@@ -32,7 +32,7 @@ import static com.mdg.iitr.cognizance19.view.UserLoginFragment.setViewPagerFragm
 public class RegisterFragment extends Fragment {
 
     private static final String EMAIL = "email";
-    public static int REGISTRATION_TYPE = -1, RC_SIGN_IN = 100;
+    public static int REGISTRATION_TYPE = -1;
     private EditText emailEditText, passwordEditText, nameEditText, mobileEditText;
     private Button contButton;
     private ProgressDialog progressDialog;

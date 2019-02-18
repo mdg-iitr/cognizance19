@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "775564434017",
+    "firebase_url": "https://cogni19.firebaseio.com",
+    "project_id": "cogni19",
+    "storage_bucket": "cogni19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:775564434017:android:1a6bbdd99f7bdc4c",
+        "android_client_info": {
+          "package_name": "com.mdg.iitr.cognizance19"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "775564434017-nqv29rg6s5vqcro2tpl08i86gg808naf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mdg.iitr.cognizance19",
+            "certificate_hash": "fe2c9f7efbb6769b1f76431c2df1862a8fc74437"
+          }
+        },
+        {
+          "client_id": "775564434017-atteq24mgropajo5ro6nmi8iii6bpqtc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSatMNQLVrNlzi77NajSvVUzkVHoUdvbU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "775564434017-atteq24mgropajo5ro6nmi8iii6bpqtc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

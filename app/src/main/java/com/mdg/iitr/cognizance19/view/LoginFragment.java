@@ -53,7 +53,6 @@ import retrofit2.HttpException;
 import static com.mdg.iitr.cognizance19.MainActivity.REGISTRATION_TYPE_PARTICIPANT;
 import static com.mdg.iitr.cognizance19.MainActivity.REGISTRATION_TYPE_SPP;
 import static com.mdg.iitr.cognizance19.MainActivity.navController;
-import static com.mdg.iitr.cognizance19.view.RegisterFragment.RC_SIGN_IN;
 import static com.mdg.iitr.cognizance19.view.RegisterFragment.REGISTRATION_TYPE;
 
 public class LoginFragment extends Fragment implements AsyncResponse {
@@ -71,6 +70,8 @@ public class LoginFragment extends Fragment implements AsyncResponse {
     private GoogleSignInOptions gso;
     private GoogleSignInClient googleSignInClient;
     private String name, email, imageUrl, accessToken;
+
+    private static final int RC_SIGN_IN = 9001;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -96,6 +97,7 @@ public class LoginFragment extends Fragment implements AsyncResponse {
         signInFacebook = view.findViewById(R.id.fb_login_Button);
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .requestProfile()
                 .build();
@@ -315,6 +317,12 @@ public class LoginFragment extends Fragment implements AsyncResponse {
             }
             name = account.getDisplayName();
             email = account.getEmail();
+
+            if (retrieveTokenTask == null) {
+                retrieveTokenTask = new LoginFragment.RetrieveTokenTask();
+                retrieveTokenTask.asyncResponse = this;
+            }
+
             retrieveTokenTask.execute(email);
         } catch (ApiException e) {
             progressDialog.dismiss();
@@ -334,6 +342,8 @@ public class LoginFragment extends Fragment implements AsyncResponse {
 
     @Override
     public void processFinish(String output) {
+
+        retrieveTokenTask = null;
 
         accessToken = output;
         FbGoogleLoginModel googleLoginModel = new FbGoogleLoginModel();
