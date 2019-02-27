@@ -156,6 +156,11 @@
                 <!--android:textColor="@android:color/white"-->
                 <!--android:textStyle="bold" />-->
         <!--</LinearLayout>-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:orientation="horizontal">
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/fb_login_Button"
@@ -163,8 +168,30 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="37dp"
             android:layout_marginTop="39dp"
-            android:layout_marginEnd="37dp" />
+             android:layout_marginEnd="37dp"
+            android:visibility="gone"
+            android:background="@drawable/dark_blue_bg"
+            android:baselineAligned="false"
+            android:orientation="horizontal" />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="38dp"
+                android:src="@drawable/fb_icon" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:paddingStart="15dp"
+                android:paddingTop="17.9dp"
+                android:paddingBottom="19dp"
+                android:text="@string/login_fb"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/google_login_Button"
             android:layout_width="match_parent"
