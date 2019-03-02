@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.OnBoardingFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:src="@drawable/ic_keyboard_arrow_left_gray_24dp"
+        android:text="Payment"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="#ff343434"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <WebView
+            android:id="@+id/paymentWebView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="53dp"
+                android:layout_marginEnd="24dp"
+                app:hintEnabled="false">
+
+                <EditText
+                    android:id="@+id/phoneNoEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_bg"
+                    android:hint="Phone No."
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:paddingStart="24dp"
+                    android:paddingTop="9dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="9dp"
+                    android:textColor="@color/editTextgray"
+                    android:textColorHint="@color/editText_blue" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:layout_marginEnd="24dp"
+                app:hintEnabled="false">
+
+                <EditText
+                    android:id="@+id/referralCodeEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_bg"
+                    android:hint="Referral Code(Optional)"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:paddingStart="24dp"
+                    android:paddingTop="9dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="9dp"
+                    android:textColor="@color/editTextgray"
+                    android:textColorHint="@color/editText_blue" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginTop="48dp"
+                    android:layout_marginEnd="28dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/blue_button_bg"
+                    android:baselineAligned="false"
+                    android:text="Male"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginTop="48dp"
+                    android:layout_marginEnd="28dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/blue_button_bg"
+                    android:baselineAligned="false"
+                    android:text="Female"
+                    android:textColor="@android:color/white" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/acco"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginTop="48dp"
+                    android:layout_marginEnd="28dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/blue_button_bg"
+                    android:baselineAligned="false"
+                    android:padding="10dp"
+                    android:text="With Accomodation"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/nonAcco"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blue_button_bg"
+                    android:baselineAligned="false"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:text="Without Accomodation"
+                    android:textColor="@android:color/white" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

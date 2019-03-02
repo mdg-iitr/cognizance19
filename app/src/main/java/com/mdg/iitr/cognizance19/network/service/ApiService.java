@@ -111,4 +111,8 @@ public interface ApiService {
     @GET("users/event/{id}/unregister")
     Observable<GeneralResponse> unregister(@Header("Authorization") String token, @Path("id") String id);
 
+    @FormUrlEncoded
+    @POST("users/verifyDetails")
+    Observable<GeneralResponse> verifyDetails(@Header("Authorization") String token, @Field("gender") String gender, @Field("mobile") String mobile);
+
 }

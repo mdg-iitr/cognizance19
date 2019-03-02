@@ -118,6 +118,7 @@ public class MyProfileFragment extends Fragment {
 
         map.put(0, new RegEventsFragment());
         map.put(1, new RegWorkshopsFragment());
+        map.put(2, new NewPaymentFragment());
         viewPagerAdapter.notifyDataSetChanged();
 
         viewPager.setAdapter(viewPagerAdapter);
@@ -308,6 +309,9 @@ public class MyProfileFragment extends Fragment {
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_workshop);
         tabLayout.getTabAt(1).setText("Reg Workshops");
 
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_payment);
+        tabLayout.getTabAt(2).setText("Payments");
+
         ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
         int tabsCount = vg.getChildCount();
         for (int j = 0; j < tabsCount; j++) {
@@ -434,7 +438,6 @@ public class MyProfileFragment extends Fragment {
     }
 
     private void populateViews(UserDetailsSPPResponseModel userDetailsSPPResponseModel) {
-
         preferenceHelper.setCogniId(userDetailsSPPResponseModel.getCogniId());
 
         editProfileIcon.setOnClickListener(v -> {

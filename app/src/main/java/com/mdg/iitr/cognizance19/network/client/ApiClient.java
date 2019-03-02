@@ -170,4 +170,12 @@ public class ApiClient {
 
     }
 
+    public Observable<GeneralResponse> verifyDetails(String token, String gender, String mobile) {
+        return apiService.verifyDetails("Token " + token, gender, mobile).subscribeOn(Schedulers.io());
+    }
+
+    public Observable<GeneralResponse> getPaymentUrl(String token, String gender, String mobile) {
+        return apiService.verifyDetails("Token " + token, gender, mobile).subscribeOn(Schedulers.io());
+    }
+
 }
