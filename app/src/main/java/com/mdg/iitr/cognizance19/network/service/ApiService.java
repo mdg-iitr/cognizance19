@@ -5,6 +5,7 @@ import com.mdg.iitr.cognizance19.models.EventResponse;
 import com.mdg.iitr.cognizance19.models.FbGoogleLoginModel;
 import com.mdg.iitr.cognizance19.models.GeneralResponse;
 import com.mdg.iitr.cognizance19.models.LoginResponse;
+import com.mdg.iitr.cognizance19.models.PaymentRequestModel;
 import com.mdg.iitr.cognizance19.models.RegEventsResponse;
 import com.mdg.iitr.cognizance19.models.SignupResponse;
 import com.mdg.iitr.cognizance19.models.TeamResponse;
@@ -114,5 +115,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("users/verifyDetails")
     Observable<GeneralResponse> verifyDetails(@Header("Authorization") String token, @Field("gender") String gender, @Field("mobile") String mobile);
+
+    @POST("users/payments/init")
+    Observable<GeneralResponse> getPaymentUrl(@Header("Authorization") String token, @Body PaymentRequestModel paymentRequestModel);
 
 }

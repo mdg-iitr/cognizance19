@@ -115,6 +115,9 @@
             android:id="@+id/action_myProfileFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment"
               />
+        <action
+            android:id="@+id/action_myProfileFragment_to_initPaymentFragment2"
+            app:destination="@id/initPaymentFragment" />
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
@@ -181,4 +184,9 @@
             android:id="@+id/action_workshopFragment_to_myProfileFragment"
             app:destination="@id/myProfileFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/initPaymentFragment"
+        android:name="com.mdg.iitr.cognizance19.view.InitPaymentFragment"
+        android:label="fragment_init_payment"
+        tools:layout="@layout/fragment_init_payment" />
 </navigation>

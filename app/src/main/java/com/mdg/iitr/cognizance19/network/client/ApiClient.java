@@ -6,6 +6,7 @@ import com.mdg.iitr.cognizance19.models.EventResponse;
 import com.mdg.iitr.cognizance19.models.FbGoogleLoginModel;
 import com.mdg.iitr.cognizance19.models.GeneralResponse;
 import com.mdg.iitr.cognizance19.models.LoginResponse;
+import com.mdg.iitr.cognizance19.models.PaymentRequestModel;
 import com.mdg.iitr.cognizance19.models.RegEventsResponse;
 import com.mdg.iitr.cognizance19.models.SignupResponse;
 import com.mdg.iitr.cognizance19.models.TeamResponse;
@@ -174,8 +175,8 @@ public class ApiClient {
         return apiService.verifyDetails("Token " + token, gender, mobile).subscribeOn(Schedulers.io());
     }
 
-    public Observable<GeneralResponse> getPaymentUrl(String token, String gender, String mobile) {
-        return apiService.verifyDetails("Token " + token, gender, mobile).subscribeOn(Schedulers.io());
+    public Observable<GeneralResponse> getPaymentUrl(String token, PaymentRequestModel paymentRequestModel) {
+        return apiService.getPaymentUrl("Token " + token, paymentRequestModel).subscribeOn(Schedulers.io());
     }
 
 }
