@@ -13,11 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.mdg.iitr.cognizance19.R;
 import com.mdg.iitr.cognizance19.models.GeneralResponse;
 import com.mdg.iitr.cognizance19.models.PaymentEvent;
 import com.mdg.iitr.cognizance19.models.PaymentRequestModel;
+import com.mdg.iitr.cognizance19.models.UserSPPResponseModel;
 import com.mdg.iitr.cognizance19.models.VerifyDetailsRequestModel;
 import com.mdg.iitr.cognizance19.network.client.ApiClient;
 import com.mdg.iitr.cognizance19.utils.PreferenceHelper;
@@ -28,6 +30,8 @@ import java.util.List;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+
+import static com.mdg.iitr.cognizance19.MainActivity.navController;
 
 public class InitPaymentFragment extends Fragment {
 
@@ -178,6 +182,7 @@ public class InitPaymentFragment extends Fragment {
 
                                     @Override
                                     public void onError(Throwable e) {
+                                        Toast.makeText(getContext(), "Some error ocurred", Toast.LENGTH_SHORT).show();
                                         progressDialog.dismiss();
                                     }
 
@@ -190,6 +195,7 @@ public class InitPaymentFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
+                        Toast.makeText(getContext(), "Some error ocurred", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     }
 
@@ -207,4 +213,36 @@ public class InitPaymentFragment extends Fragment {
         customTabsIntent.launchUrl(getContext(), Uri.parse(url));
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        progressDialog.show();
+        apiClient.getUserDetails(preferenceHelper.getToken())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<UserSPPResponseModel>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(UserSPPResponseModel userSPPResponseModel) {
+                        progressDialog.dismiss();
+                        if (userSPPResponseModel.getDetails().getCentralPaymentStatus()) {
+                            navController.navigateUp();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(getContext(), "Some error ocurred", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
 }
