@@ -182,7 +182,7 @@ public class InitPaymentFragment extends Fragment {
 
                                     @Override
                                     public void onError(Throwable e) {
-                                        Toast.makeText(getContext(), "Some error ocurred", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "Some error occurred", Toast.LENGTH_SHORT).show();
                                         progressDialog.dismiss();
                                     }
 
@@ -195,7 +195,7 @@ public class InitPaymentFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        Toast.makeText(getContext(), "Some error ocurred", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Some error occurred", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     }
 
@@ -236,7 +236,7 @@ public class InitPaymentFragment extends Fragment {
                     @Override
                     public void onError(Throwable e) {
                         progressDialog.dismiss();
-                        Toast.makeText(getContext(), "Some error ocurred", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Some error occurred", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
