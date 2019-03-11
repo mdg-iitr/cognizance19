@@ -155,6 +155,9 @@
             android:id="@+id/action_homeMenuFragment_to_whatsnewFragment"
             app:destination="@id/finfestAndLitfestFragment"
             />
+        <action
+            android:id="@+id/action_homeMenuFragment_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
     </fragment>
     <fragment
         android:id="@+id/dashboardSPPFragment"
@@ -189,4 +192,13 @@
         android:name="com.mdg.iitr.cognizance19.view.InitPaymentFragment"
         android:label="fragment_init_payment"
         tools:layout="@layout/fragment_init_payment" />
+    <fragment
+        android:id="@+id/scheduleFragment"
+        android:name="com.mdg.iitr.cognizance19.view.ScheduleFragment"
+        android:label="fragment_schedule"
+        tools:layout="@layout/fragment_schedule" >
+        <action
+            android:id="@+id/action_scheduleFragment_to_myProfileFragment"
+            app:destination="@id/myProfileFragment" />
+    </fragment>
 </navigation>
