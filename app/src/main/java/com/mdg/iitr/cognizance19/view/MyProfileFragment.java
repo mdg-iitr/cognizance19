@@ -140,7 +140,7 @@ public class MyProfileFragment extends Fragment {
 
         updateProfile.setOnClickListener(v -> {
             if (updateVisible) {
-                startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI), PROFILE_PIC_REQUEST);
+                //startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI), PROFILE_PIC_REQUEST);
             }
         });
 

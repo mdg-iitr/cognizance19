@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.mdg.iitr.cognizance19.MainActivity;
 import com.mdg.iitr.cognizance19.R;
 import com.mdg.iitr.cognizance19.adapters.EventRegisterIDsAdapter;
 import com.mdg.iitr.cognizance19.models.Contact;
@@ -112,6 +113,7 @@ public class SpecificEventFragment extends Fragment {
         rulesBrick.setOnClickListener(v -> rulesSplit());
         problemBrick.setOnClickListener(v -> problemSplit());
         contactBrick.setOnClickListener(v -> contactSplit());
+
 
 
         registerButton.setOnClickListener(v -> registerForEventDialog());

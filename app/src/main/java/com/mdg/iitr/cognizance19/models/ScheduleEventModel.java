@@ -4,10 +4,12 @@ public class ScheduleEventModel {
 
     public String name = "";
     public String time = "";
+    public int eventId;
 
-    public ScheduleEventModel(String name, String time) {
+    public ScheduleEventModel(String name, String time, int eventId) {
         this.name = name;
         this.time = time;
+        this.eventId = eventId;
     }
 
 }

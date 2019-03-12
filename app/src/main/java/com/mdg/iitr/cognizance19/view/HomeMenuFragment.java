@@ -133,7 +133,7 @@ public class HomeMenuFragment extends Fragment {
         HomeMenuEventModel eventModel1 = new HomeMenuEventModel();
         eventModel1.setEvent("Exhibitions");
         eventModel1.setImgDrawable(getResources().getDrawable(R.drawable.exhibition));
-        attractionList.add(eventModel1);
+        //attractionList.add(eventModel1);
 
         attractionAdapter.notifyDataSetChanged();
 

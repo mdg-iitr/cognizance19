@@ -1,23 +1,32 @@
 package com.mdg.iitr.cognizance19.adapters;
 
+import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mdg.iitr.cognizance19.R;
 import com.mdg.iitr.cognizance19.models.ScheduleEventModel;
+import com.mdg.iitr.cognizance19.utils.PreferenceHelper;
 
 import java.util.List;
+
+import static com.mdg.iitr.cognizance19.MainActivity.navController;
 
 public class ScheduleRecyclerAdapter extends RecyclerView.Adapter<ScheduleRecyclerAdapter.ScheduleViewHolder> {
 
     List<ScheduleEventModel> list;
+    Context context;
+    PreferenceHelper preferenceHelper;
 
-    public ScheduleRecyclerAdapter(List<ScheduleEventModel> list) {
+    public ScheduleRecyclerAdapter(List<ScheduleEventModel> list, Context context) {
         this.list = list;
+        this.context = context;
     }
 
     @NonNull
@@ -35,6 +44,15 @@ public class ScheduleRecyclerAdapter extends RecyclerView.Adapter<ScheduleRecycl
 
         holder.name.setText(scheduleEventModel.name);
         holder.time.setText(scheduleEventModel.time);
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", scheduleEventModel.eventId);
+        preferenceHelper = new PreferenceHelper(context);
+        if (preferenceHelper.getLoginStatus()) {
+            holder.itemView.setOnClickListener(v -> navController.navigate(R.id.action_scheduleFragment_to_speceficEventFragment, bundle));
+        } else {
+            Toast.makeText(context, "Please login to continue", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
