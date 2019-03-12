@@ -227,6 +227,9 @@
         <action
             android:id="@+id/action_bottonNavigationMenu_to_scheduleFragment"
             app:destination="@id/scheduleFragment" />
+        <action
+            android:id="@+id/action_bottonNavigationMenu_to_spotlightFragment"
+            app:destination="@id/spotLightFragment" />
     </fragment>
 
 

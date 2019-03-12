@@ -1,29 +1,23 @@
 package com.mdg.iitr.cognizance19.view;
 
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.mdg.iitr.cognizance19.R;
 import com.mdg.iitr.cognizance19.adapters.ViewPagerAdapter;
-import com.mdg.iitr.cognizance19.models.SpotlightEvents;
+import com.mdg.iitr.cognizance19.models.SpotlightSchedule;
 import com.mdg.iitr.cognizance19.network.client.ApiClient;
 
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 
 import static com.mdg.iitr.cognizance19.MainActivity.navController;
 
@@ -36,7 +30,6 @@ public class AboutUsFragment extends Fragment {
     private ApiClient apiClient;
     private CircleImageView smallImageView;
     private ImageView backArrow;
-    public static SpotlightEvents localSpotlightEvents;
 
     public AboutUsFragment() {
         // Required empty public constructor

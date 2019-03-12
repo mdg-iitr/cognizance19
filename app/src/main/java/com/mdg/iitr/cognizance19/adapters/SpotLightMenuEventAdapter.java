@@ -11,74 +11,48 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.mdg.iitr.cognizance19.R;
 import com.mdg.iitr.cognizance19.models.HomeMenuEventModel;
+import com.mdg.iitr.cognizance19.models.SpotlightEventModel;
 
 import java.util.List;
 
 import static com.mdg.iitr.cognizance19.MainActivity.EVENT_FRAG;
 import static com.mdg.iitr.cognizance19.MainActivity.bottomNavigationView;
 
-public class SpotLightMenuEventAdapter extends RecyclerView.Adapter<SpotLightMenuEventAdapter.HomeMenuEventViewHolder> {
+public class SpotLightMenuEventAdapter extends RecyclerView.Adapter<SpotLightMenuEventAdapter.SpotlightMenuEventViewHolder> {
     Context context;
-    List<HomeMenuEventModel> myList;
-    int flag;
+    List<SpotlightEventModel> myList;
 
-    public SpotLightMenuEventAdapter(Context context, List<HomeMenuEventModel> myList, int flag) {
+    public SpotLightMenuEventAdapter(Context context, List<SpotlightEventModel> myList) {
         this.context = context;
         this.myList = myList;
-        this.flag = flag;
     }
 
     @NonNull
     @Override
-    public HomeMenuEventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SpotlightMenuEventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView;
-        if(flag==0) {
             itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.list_item_home_menu_event, parent, false);
-        }
-        else {
-            itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.list_item_home_menu_attraction, parent, false);
-        }
-        return new HomeMenuEventViewHolder(itemView);
+                    .inflate(R.layout.list_item_spotlight_menu, parent, false);
+        return new SpotlightMenuEventViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HomeMenuEventViewHolder holder, int position) {
-        HomeMenuEventModel model = myList.get(position);
+    public void onBindViewHolder(@NonNull SpotlightMenuEventViewHolder holder, int position) {
+        SpotlightEventModel model = myList.get(position);
 
-       /* RequestOptions options = new RequestOptions()
+        RequestOptions options = new RequestOptions()
                 .centerCrop()
                 .placeholder(R.drawable.home_menu_gray_card)
                 .error(R.drawable.home_menu_gray_card);
         Glide.with(context)
-                .load(model.getImageURL())
+                .load(model.getThumbnail())
                 .apply(options)
-                .into(holder.eventPic);*/
-        holder.eventName.setText(model.getEvent());
-        holder.eventPic.setImageDrawable(model.getImgDrawable());
-        holder.eventCard.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            if (model.getEvent().equals("Centerstage")) {
-                EVENT_FRAG = 0;
-                bottomNavigationView.setSelectedItemId(R.id.events);
-            } else if (model.getEvent().equals("Departmental")) {
-                EVENT_FRAG = 1;
-                bottomNavigationView.setSelectedItemId(R.id.events);
-            } else if (model.getEvent().equals("Workshops")) {
-                bottomNavigationView.setSelectedItemId(R.id.workshops);
-            } else if (model.getEvent().equals("FinFest")) {
-                EVENT_FRAG = 0;
-                bottomNavigationView.setSelectedItemId(R.id.whatsNew);
-            } else if (model.getEvent().equals("Lit.A.F")) {
-                EVENT_FRAG = 1;
-                bottomNavigationView.setSelectedItemId(R.id.whatsNew);
-            }
-
-        });
-
+                .into(holder.eventPic);
+        holder.eventName.setText(model.getName());
     }
 
     @Override
@@ -86,15 +60,15 @@ public class SpotLightMenuEventAdapter extends RecyclerView.Adapter<SpotLightMen
         return myList.size();
     }
 
-    public class HomeMenuEventViewHolder extends RecyclerView.ViewHolder {
+    public class SpotlightMenuEventViewHolder extends RecyclerView.ViewHolder {
         public ImageView eventPic;
         public TextView eventName;
         public CardView eventCard;
 
-        public HomeMenuEventViewHolder(@NonNull View itemView) {
+        public SpotlightMenuEventViewHolder(@NonNull View itemView) {
             super(itemView);
-            eventPic = itemView.findViewById(R.id.home_menu_event_image);
-            eventName = itemView.findViewById(R.id.home_menu_event_name);
+            eventPic = itemView.findViewById(R.id.spotlight_event_image);
+            eventName = itemView.findViewById(R.id.spotlight_event_name);
             eventCard = itemView.findViewById(R.id.event_card);
         }
     }

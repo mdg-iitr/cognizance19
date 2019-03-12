@@ -9,7 +9,8 @@ import com.mdg.iitr.cognizance19.models.LoginResponse;
 import com.mdg.iitr.cognizance19.models.PaymentRequestModel;
 import com.mdg.iitr.cognizance19.models.RegEventsResponse;
 import com.mdg.iitr.cognizance19.models.SignupResponse;
-import com.mdg.iitr.cognizance19.models.SpotlightEvents;
+import com.mdg.iitr.cognizance19.models.SpotlightResponse;
+import com.mdg.iitr.cognizance19.models.SpotlightSchedule;
 import com.mdg.iitr.cognizance19.models.TeamResponse;
 import com.mdg.iitr.cognizance19.models.UserSPPResponseModel;
 import com.mdg.iitr.cognizance19.models.WorkshopResponse;
@@ -180,7 +181,7 @@ public class ApiClient {
         return apiService.getPaymentUrl("Token " + token, paymentRequestModel).subscribeOn(Schedulers.io());
     }
 
-    public Observable<SpotlightEvents> fetchSpotlightEvents() {
+    public Observable<SpotlightResponse> fetchSpotlightEvents() {
         return apiService.fetchSpotlightEvents().subscribeOn(Schedulers.io());
     }
 

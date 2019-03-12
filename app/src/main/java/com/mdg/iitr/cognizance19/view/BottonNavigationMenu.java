@@ -64,7 +64,7 @@ public class BottonNavigationMenu extends Fragment {
 
 
         scheduleLinearLayout.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_bottonNavigationMenu_to_scheduleFragment));
-
+        spotlightLinearLayout.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_bottonNavigationMenu_to_spotlightFragment));
         faqsLinearLayout.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_bottonNavigationMenu_to_aboutUsFragment));
         contactUsLinearLayout.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_bottonNavigationMenu_to_aboutUsFragment));
         sponsorsLinearLayout.setOnClickListener(v1 -> {
