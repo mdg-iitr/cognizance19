@@ -16,17 +16,15 @@ import com.mdg.iitr.cognizance19.models.HomeMenuEventModel;
 
 import java.util.List;
 
-import androidx.navigation.Navigation;
-
 import static com.mdg.iitr.cognizance19.MainActivity.EVENT_FRAG;
 import static com.mdg.iitr.cognizance19.MainActivity.bottomNavigationView;
 
-public class HomeMenuEventAdapter extends RecyclerView.Adapter<HomeMenuEventAdapter.HomeMenuEventViewHolder> {
+public class SpotLightMenuEventAdapter extends RecyclerView.Adapter<SpotLightMenuEventAdapter.HomeMenuEventViewHolder> {
     Context context;
     List<HomeMenuEventModel> myList;
     int flag;
 
-    public HomeMenuEventAdapter(Context context, List<HomeMenuEventModel> myList, int flag) {
+    public SpotLightMenuEventAdapter(Context context, List<HomeMenuEventModel> myList, int flag) {
         this.context = context;
         this.myList = myList;
         this.flag = flag;
@@ -80,10 +78,6 @@ public class HomeMenuEventAdapter extends RecyclerView.Adapter<HomeMenuEventAdap
             }
 
         });
-
-         if (model.getEvent().equals("Panel discussion") || model.getEvent().equals("Techtainment") || model.getEvent().equals("Guest Lecture")) {
-            holder.eventCard.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_homeMenuFragment_to_spotLightFragment));
-        }
 
     }
 

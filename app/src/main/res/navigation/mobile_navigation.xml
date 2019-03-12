@@ -65,6 +65,9 @@
             android:id="@+id/action_landingFragment2_to_homeMenuFragment2"
             app:destination="@id/homeMenuFragment"
               />
+        <action
+            android:id="@+id/action_landingFragment2_to_landingFragmentNew"
+            app:destination="@id/landingFragmentNew" />
     </fragment>
     <fragment
         android:id="@+id/userLoginFragment"
@@ -158,6 +161,9 @@
         <action
             android:id="@+id/action_homeMenuFragment_to_scheduleFragment"
             app:destination="@id/scheduleFragment" />
+        <action
+            android:id="@+id/action_homeMenuFragment_to_spotLightFragment"
+            app:destination="@id/spotLightFragment" />
     </fragment>
     <fragment
         android:id="@+id/dashboardSPPFragment"
@@ -200,5 +206,43 @@
         <action
             android:id="@+id/action_scheduleFragment_to_myProfileFragment"
             app:destination="@id/myProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/spotLightFragment"
+        android:name="com.mdg.iitr.cognizance19.view.SpotLightFragment"
+        android:label="fragment_spotlight"
+        tools:layout="@layout/fragment_schedule" >
+      <!--  <action
+            android:id="@+id/action_scheduleFragment_to_myProfileFragment"
+            app:destination="@id/myProfileFragment" />-->
+    </fragment>
+    <fragment
+        android:id="@+id/bottonNavigationMenu"
+        android:name="com.mdg.iitr.cognizance19.view.BottonNavigationMenu"
+        android:label="fragment_botton_navigation_menu"
+        tools:layout="@layout/fragment_botton_navigation_menu" >
+        <action
+            android:id="@+id/action_bottonNavigationMenu_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment" />
+        <action
+            android:id="@+id/action_bottonNavigationMenu_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.mdg.iitr.cognizance19.view.AboutUsFragment"
+        android:label="fragment_about_us"
+        tools:layout="@layout/fragment_about_us" >
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/landingFragmentNew"
+        android:name="com.mdg.iitr.cognizance19.view.LandingFragmentNew"
+        android:label="fragment_landing_new"
+        tools:layout="@layout/fragment_landing_new" >
+
     </fragment>
 </navigation>

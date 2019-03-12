@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/FullScreen"
+    tools:context=".view.LandingFragment">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/landing_bg" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/cognizance_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp"
+        android:text="@string/cognizance"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/presents_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cognizance_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="@string/presents"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/unwinding_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/presents_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="@string/unwinding_chaos"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/unwinding_title"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="57dp"
+        android:layout_marginEnd="48dp"
+        android:background="@drawable/edit_text_bg"
+        android:text="@string/login"
+        android:drawableStart="@drawable/ic_compass"
+        android:textColor="@color/grayText" />
+
+    <TextView
+        android:id="@+id/or_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="@string/or"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/register_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/or_title"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="48dp"
+        android:background="@drawable/edit_text_bg"
+        android:text="@string/register"
+        android:drawableStart="@drawable/ic_schedule"
+        android:textColor="@color/grayText" />
+
+    <Button
+        android:id="@+id/register2_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_button"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="48dp"
+        android:background="@drawable/edit_text_bg"
+        android:drawableStart="@drawable/ic_spotlight"
+        android:text="@string/register"
+        android:textColor="@color/grayText" />
+
+
+
+</RelativeLayout>

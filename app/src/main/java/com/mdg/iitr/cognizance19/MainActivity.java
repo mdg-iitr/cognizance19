@@ -58,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
                         bundle1.putInt("event_frag_id", EVENT_FRAG);
                         navController.navigate(R.id.finfestAndLitfestFragment, bundle1, navOptions);
                         return true;
-                    case R.id.schedule:
-                        navController.navigate(R.id.scheduleFragment, null, navOptions);
+                    case R.id.more:
+                        navController.navigate(R.id.bottonNavigationMenu, null, navOptions);
                         return true;
                 }
 

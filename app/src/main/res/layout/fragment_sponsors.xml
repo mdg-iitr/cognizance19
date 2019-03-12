@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="16dp"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/white_card"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/specific_evnt_intro_brick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="27dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/introduction"
+                android:textColor="#ff454f63"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/specific_event_introduction_split"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add_black_24dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/specific_event_introduction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="17dp"
+            android:linksClickable="true"
+            android:text="@string/dummy_data"
+            android:textColor="#ff343434"
+            android:textIsSelectable="true"
+            android:textSize="15sp"
+            android:visibility="gone" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="23dp"
+            android:background="#ffd1d1d1" />
+
+
+        <LinearLayout
+            android:id="@+id/specific_evnt_reg_pro_brick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="27dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/registration_procedure"
+                android:textColor="#ff454f63"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/specific_event_registration_procedure_split"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add_black_24dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/specific_event_registration_procedure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="17dp"
+            android:linksClickable="true"
+            android:text="@string/dummy_data"
+            android:textColor="#ff343434"
+            android:textIsSelectable="true"
+            android:textSize="15sp"
+            android:visibility="gone" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="23dp"
+            android:background="#ffd1d1d1" />
+
+
+        <LinearLayout
+            android:id="@+id/specific_evnt_rules_brick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="27dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/rules"
+                android:textColor="#ff454f63"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/specific_event_rules_split"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add_black_24dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/specific_event_rules"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="17dp"
+            android:linksClickable="true"
+            android:text="@string/dummy_data"
+            android:textColor="#ff343434"
+            android:textIsSelectable="true"
+            android:textSize="15sp"
+            android:visibility="gone" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="23dp"
+            android:background="#ffd1d1d1" />
+
+
+        <LinearLayout
+            android:id="@+id/specific_evnt_prob_brick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="27dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/problem_statement"
+                android:textColor="#ff454f63"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/specific_event_problem_statement_split"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add_black_24dp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/specific_event_problem_statement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="46dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="46dp"
+            android:background="@color/bg_blue"
+            android:text="@string/view_problem_statement"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="23dp"
+            android:background="#ffd1d1d1" />
+
+
+        <LinearLayout
+            android:id="@+id/specific_evnt_contact_brick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="27dp"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/contact_details"
+                android:textColor="#ff454f63"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/specific_event_contact_details_split"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add_black_24dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/specific_event_contact_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:layout_marginEnd="17dp"
+            android:layout_marginBottom="16dp"
+            android:linksClickable="true"
+            android:text="@string/dummy_data"
+            android:textColor="#ff343434"
+            android:textIsSelectable="true"
+            android:textSize="15sp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</LinearLayout>

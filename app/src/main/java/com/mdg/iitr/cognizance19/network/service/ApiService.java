@@ -8,6 +8,7 @@ import com.mdg.iitr.cognizance19.models.LoginResponse;
 import com.mdg.iitr.cognizance19.models.PaymentRequestModel;
 import com.mdg.iitr.cognizance19.models.RegEventsResponse;
 import com.mdg.iitr.cognizance19.models.SignupResponse;
+import com.mdg.iitr.cognizance19.models.SpotlightEvents;
 import com.mdg.iitr.cognizance19.models.TeamResponse;
 import com.mdg.iitr.cognizance19.models.UserSPPResponseModel;
 import com.mdg.iitr.cognizance19.models.WorkshopResponse;
@@ -118,5 +119,8 @@ public interface ApiService {
 
     @POST("users/payments/init")
     Observable<GeneralResponse> getPaymentUrl(@Header("Authorization") String token, @Body PaymentRequestModel paymentRequestModel);
+
+    @GET("events/spotlight")
+    Observable<SpotlightEvents> fetchSpotlightEvents();
 
 }

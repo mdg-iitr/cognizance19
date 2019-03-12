@@ -1,0 +1,14 @@
+<vector android:height="24dp" android:viewportHeight="480"
+    android:viewportWidth="480" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#00AEEF" android:pathData="M240,0C107.5,0 0,107.5 0,240s107.5,240 240,240s240,-107.5 240,-240C479.9,107.5 372.5,0.1 240,0zM240,464C116.3,464 16,363.7 16,240S116.3,16 240,16s224,100.3 224,224C463.9,363.7 363.7,463.9 240,464z"/>
+    <path android:fillColor="#00AEEF" android:pathData="M240,40C129.5,40 40,129.5 40,240s89.5,200 200,200s200,-89.5 200,-200C439.9,129.6 350.4,40.1 240,40zM240,424c-101.6,0 -184,-82.4 -184,-184S138.4,56 240,56s184,82.4 184,184C423.9,341.6 341.6,423.9 240,424z"/>
+    <path android:fillColor="#00AEEF" android:pathData="M357.8,122.2c-2.5,-2.5 -6.5,-3.1 -9.6,-1.3l-142.8,81.5c-0.1,0.1 -0.1,0.2 -0.2,0.2c-0.9,0.8 -1.8,1.6 -2.6,2.6c-0.1,0.1 -0.1,0.1 -0.2,0.2l-81.5,142.8c-1.8,3.1 -1.3,7.1 1.3,9.6c2.6,2.5 6.5,3.1 9.6,1.3l142.8,-81.5c0.1,-0.1 0.1,-0.2 0.2,-0.2c0.9,-0.8 1.8,-1.6 2.6,-2.6c0.1,-0.1 0.1,-0.1 0.2,-0.2l81.5,-142.8C360.9,128.7 360.4,124.7 357.8,122.2zM149.3,330.7l61.8,-108.2l46.5,46.4L149.3,330.7zM268.9,257.6l-46.4,-46.4l108.2,-61.8L268.9,257.6z"/>
+    <path android:fillColor="#00AEEF" android:pathData="M112,232H80c-4.4,0 -8,3.6 -8,8s3.6,8 8,8h32c4.4,0 8,-3.6 8,-8S116.4,232 112,232z"/>
+    <path android:fillColor="#00AEEF" android:pathData="M400,232h-32c-4.4,0 -8,3.6 -8,8s3.6,8 8,8h32c4.4,0 8,-3.6 8,-8S404.4,232 400,232z"/>
+    <path android:fillColor="#00AEEF" android:pathData="M240,120c4.4,0 8,-3.6 8,-8V80c0,-4.4 -3.6,-8 -8,-8s-8,3.6 -8,8v32C232,116.4 235.6,120 240,120z"/>
+    <path android:fillColor="#00AEEF" android:pathData="M240,360c-4.4,0 -8,3.6 -8,8v32c0,4.4 3.6,8 8,8s8,-3.6 8,-8v-32C248,363.6 244.4,360 240,360z"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M240,240m-215,0a215,215 0,1 1,430 0a215,215 0,1 1,-430 0"
+        android:strokeColor="#00AEEF" android:strokeWidth="31"/>
+    <path android:fillColor="#00AEEF" android:pathData="M215,203.5l56,60.4l75.1,-130.4z"/>
+</vector>

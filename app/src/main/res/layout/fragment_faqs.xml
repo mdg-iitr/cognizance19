@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="17dp"
+            android:layout_marginBottom="16dp"
+            android:animateLayoutChanges="true"
+            android:background="@drawable/white_card"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/specific_evnt_intro_brick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="27dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="What’s the weather like?"
+                    android:textColor="#ff454f63"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/specific_event_introduction_split"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_add_black_24dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/specific_event_introduction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="17dp"
+                android:linksClickable="true"
+                android:text="Quite chilly. During Daytime, slightly warm, however nights are a little cold. Hence, it is advisable to carry some warm clothes."
+                android:textColor="#ff343434"
+                android:textIsSelectable="true"
+                android:textSize="15sp"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="23dp"
+                android:background="#ffd1d1d1" />
+
+
+            <LinearLayout
+                android:id="@+id/specific_evnt_reg_pro_brick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="27dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="What is the registration fee for Cognizance 19?"
+                    android:textColor="#ff454f63"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/specific_event_registration_procedure_split"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_add_black_24dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/specific_event_registration_procedure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="17dp"
+                android:linksClickable="true"
+                android:text="Rs 2100 with accommodation and Rs 1400 without accommodation. Caution money of Rs 200, payable in cash only, to be refunded after the fest. Once paid, fee is non-refundable."
+                android:textColor="#ff343434"
+                android:textIsSelectable="true"
+                android:textSize="15sp"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="23dp"
+                android:background="#ffd1d1d1" />
+
+
+            <LinearLayout
+                android:id="@+id/specific_evnt_rules_brick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="27dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="What is the last date for registration?"
+                    android:textColor="#ff454f63"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/specific_event_rules_split"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_add_black_24dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/specific_event_rules"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="17dp"
+                android:linksClickable="true"
+                android:text="No last date for registration but since there are limited seats, so register as soon as possible."
+                android:textColor="#ff343434"
+                android:textIsSelectable="true"
+                android:textSize="15sp"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="23dp"
+                android:background="#ffd1d1d1" />
+
+
+            <LinearLayout
+                android:id="@+id/specific_evnt_prob_brick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="27dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Are there any extra charges for pronites?"
+                    android:textColor="#ff454f63"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/specific_event_problem_statement_split"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_add_black_24dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/specific_eventa_rules"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="17dp"
+                android:linksClickable="true"
+                android:text="No extra charges for pronities, registration fee inclusive of pronites passes."
+                android:textColor="#ff343434"
+                android:textIsSelectable="true"
+                android:textSize="15sp"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="23dp"
+                android:background="#ffd1d1d1" />
+
+
+            <LinearLayout
+                android:id="@+id/specific_evnt_contact_brick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="27dp"
+                android:layout_marginBottom="24dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Does Cogni have any age restriction?"
+                    android:textColor="#ff454f63"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/specific_event_contact_details_split"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_add_black_24dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/specific_event_contact_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="23dp"
+                android:layout_marginEnd="17dp"
+                android:layout_marginBottom="16dp"
+                android:linksClickable="true"
+                android:text="No restriction of age but the participant must be a student enrolled in a Undergraduate or Postgraduate program."
+                android:textColor="#ff343434"
+                android:textIsSelectable="true"
+                android:textSize="15sp"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

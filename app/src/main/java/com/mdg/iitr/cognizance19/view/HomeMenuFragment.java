@@ -25,11 +25,11 @@ import static com.mdg.iitr.cognizance19.MainActivity.bottomNavigationView;
 import static com.mdg.iitr.cognizance19.MainActivity.navController;
 
 public class HomeMenuFragment extends Fragment {
-    private RecyclerView eventRecyclerView, attractionRecyclerView, whatsNewRecyclerView, panelRecyclerView, techtainmentRecyclerView, guestRecyclerView;
+    private RecyclerView eventRecyclerView, attractionRecyclerView, whatsNewRecyclerView, panelRecyclerView, techtainmentRecyclerView, guestRecyclerView, spotlightRecyclerView;
     private CircleImageView smallImageView;
-    private List<HomeMenuEventModel> eventList, attractionList, whatsNewList, panelList;
+    private List<HomeMenuEventModel> eventList, attractionList, whatsNewList, panelList, spotlightList;
     private List<String> techtainmentURL, guestURL;
-    private HomeMenuEventAdapter eventAdapter, attractionAdapter, whatsNewAdapter, panelAdapter;
+    private HomeMenuEventAdapter eventAdapter, attractionAdapter, whatsNewAdapter, panelAdapter, spotlightAdapter;
     private HomeMenuTechtainmentAdapter techtainmentAdapter, guestAdapter;
     private PreferenceHelper preferenceHelper;
 
@@ -45,6 +45,7 @@ public class HomeMenuFragment extends Fragment {
         whatsNewRecyclerView = view.findViewById(R.id.home_menu_whats_new_recyclerview);
         panelRecyclerView = view.findViewById(R.id.home_menu_panel_discussion_recyclerview);
         techtainmentRecyclerView = view.findViewById(R.id.home_menu_techtainment_recyclerview);
+        spotlightRecyclerView = view.findViewById(R.id.home_menu_spotlight_recyclerview);
         guestRecyclerView = view.findViewById(R.id.home_menu_guest_recyclerview);
         smallImageView = view.findViewById(R.id.small_profile_image);
 
@@ -56,12 +57,13 @@ public class HomeMenuFragment extends Fragment {
         panelList = new ArrayList<>();
         techtainmentURL = new ArrayList<>();
         guestURL = new ArrayList<>();
+        spotlightList = new ArrayList<>();
 
         eventAdapter = new HomeMenuEventAdapter(getContext(), eventList,0);
         attractionAdapter = new HomeMenuEventAdapter(getContext(), attractionList,1);
         whatsNewAdapter = new HomeMenuEventAdapter(getContext(), whatsNewList,0);
         panelAdapter = new HomeMenuEventAdapter(getContext(),panelList,0);
-
+        spotlightAdapter = new HomeMenuEventAdapter(getContext(), spotlightList, 0);
         techtainmentAdapter = new HomeMenuTechtainmentAdapter(getContext(), techtainmentURL);
         guestAdapter = new HomeMenuTechtainmentAdapter(getContext(), guestURL);
 
@@ -69,6 +71,7 @@ public class HomeMenuFragment extends Fragment {
         populateAttractionList();
         populateWhatsNewList();
         populatePanelDiscussionList();
+        populateSpotlight();
 
         techtainmentURL.add("a");
         techtainmentURL.add("b");
@@ -166,4 +169,27 @@ public class HomeMenuFragment extends Fragment {
         panelRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         panelRecyclerView.setAdapter(panelAdapter);
     }
+
+    private void populateSpotlight(){
+        HomeMenuEventModel eventModel = new HomeMenuEventModel();
+        eventModel.setEvent("Panel discussion");
+        eventModel.setImgDrawable(getResources().getDrawable(R.drawable.fin_tech_f));
+        spotlightList.add(eventModel);
+
+        HomeMenuEventModel eventModel1 = new HomeMenuEventModel();
+        eventModel1.setEvent("Techtainment");
+        eventModel1.setImgDrawable(getResources().getDrawable(R.drawable.lit_af));
+        spotlightList.add(eventModel1);
+
+        HomeMenuEventModel eventModel2 = new HomeMenuEventModel();
+        eventModel2.setEvent("Guest Lecture");
+        eventModel2.setImgDrawable(getResources().getDrawable(R.drawable.lit_af));
+        spotlightList.add(eventModel2);
+
+        spotlightAdapter.notifyDataSetChanged();
+
+        spotlightRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        spotlightRecyclerView.setAdapter(spotlightAdapter);
+    }
+
 }
