@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.mdg.iitr.cognizance19.MainActivity;
 import com.mdg.iitr.cognizance19.R;
 import com.mdg.iitr.cognizance19.adapters.ViewPagerAdapter;
 import com.mdg.iitr.cognizance19.models.Centerstage;
@@ -22,6 +23,7 @@ import com.mdg.iitr.cognizance19.models.Event;
 import com.mdg.iitr.cognizance19.models.Schedule;
 import com.mdg.iitr.cognizance19.models.ScheduleEventModel;
 import com.mdg.iitr.cognizance19.network.client.ApiClient;
+import com.mdg.iitr.cognizance19.utils.PreferenceHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,6 +70,10 @@ public class ScheduleFragment extends Fragment {
         backArrow = view.findViewById(R.id.back_arrow);
         backArrow.setOnClickListener(v -> navController.navigateUp());
 
+        PreferenceHelper preferenceHelper = new PreferenceHelper(getContext());
+        if (preferenceHelper.getLoginStatus()) {
+            MainActivity.bottomNavigationView.setVisibility(View.VISIBLE);
+        }
         setUpTabs();
 
         return view;
@@ -105,13 +111,13 @@ public class ScheduleFragment extends Fragment {
                                             if (schedule != null)
                                                 switch (schedule.getDay()) {
                                                     case 1:
-                                                        dayOne.add(new ScheduleEventModel(event.getName(), schedule.getTime()));
+                                                        dayOne.add(new ScheduleEventModel(event.getName(), schedule.getTime(), event.getID()));
                                                         break;
                                                     case 2:
-                                                        dayTwo.add(new ScheduleEventModel(event.getName(), schedule.getTime()));
+                                                        dayTwo.add(new ScheduleEventModel(event.getName(), schedule.getTime(), event.getID()));
                                                         break;
                                                     case 3:
-                                                        dayThree.add(new ScheduleEventModel(event.getName(), schedule.getTime()));
+                                                        dayThree.add(new ScheduleEventModel(event.getName(), schedule.getTime(), event.getID()));
                                                         break;
                                                 }
                                         }
@@ -127,13 +133,13 @@ public class ScheduleFragment extends Fragment {
                                             if (schedule != null)
                                                 switch (schedule.getDay()) {
                                                     case 1:
-                                                        dayOne.add(new ScheduleEventModel(event.getName(), schedule.getTime()));
+                                                        dayOne.add(new ScheduleEventModel(event.getName(), schedule.getTime(), event.getID()));
                                                         break;
                                                     case 2:
-                                                        dayTwo.add(new ScheduleEventModel(event.getName(), schedule.getTime()));
+                                                        dayTwo.add(new ScheduleEventModel(event.getName(), schedule.getTime(), event.getID()));
                                                         break;
                                                     case 3:
-                                                        dayThree.add(new ScheduleEventModel(event.getName(), schedule.getTime()));
+                                                        dayThree.add(new ScheduleEventModel(event.getName(), schedule.getTime(), event.getID()));
                                                         break;
                                                 }
                                         }

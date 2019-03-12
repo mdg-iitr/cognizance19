@@ -42,7 +42,7 @@ public class ScheduleDayFragment extends Fragment {
 
         scheduleRecyclerView = view.findViewById(R.id.schedule_recyclerView);
 
-        scheduleRecyclerAdapter = new ScheduleRecyclerAdapter(scheduleEventModelList);
+        scheduleRecyclerAdapter = new ScheduleRecyclerAdapter(scheduleEventModelList, getContext());
 
         scheduleRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         scheduleRecyclerView.setItemAnimator(new DefaultItemAnimator());
