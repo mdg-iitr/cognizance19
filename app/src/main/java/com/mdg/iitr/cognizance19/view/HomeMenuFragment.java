@@ -173,7 +173,7 @@ public class HomeMenuFragment extends Fragment {
     private void populateSpotlight(){
         HomeMenuEventModel eventModel = new HomeMenuEventModel();
         eventModel.setEvent("Panel discussion");
-        eventModel.setImgDrawable(getResources().getDrawable(R.drawable.fin_tech_f));
+        eventModel.setImgDrawable(getResources().getDrawable(R.drawable.panelsm));
         spotlightList.add(eventModel);
 
         HomeMenuEventModel eventModel1 = new HomeMenuEventModel();
@@ -183,7 +183,7 @@ public class HomeMenuFragment extends Fragment {
 
         HomeMenuEventModel eventModel2 = new HomeMenuEventModel();
         eventModel2.setEvent("Guest Lecture");
-        eventModel2.setImgDrawable(getResources().getDrawable(R.drawable.lit_af));
+        eventModel2.setImgDrawable(getResources().getDrawable(R.drawable.guestlecture));
         spotlightList.add(eventModel2);
 
         spotlightAdapter.notifyDataSetChanged();

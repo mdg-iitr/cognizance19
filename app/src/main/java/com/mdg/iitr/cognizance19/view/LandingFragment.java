@@ -66,6 +66,16 @@ public class LandingFragment extends Fragment {
                     .setPopUpTo(R.id.landingFragment2, true)
                     .build();
             navController.navigate(R.id.action_landingFragment2_to_homeMenuFragment2, null, navOptions);
+        } else {
+            if (LandingFragmentNew.whatPressed == 0) {
+                NavOptions navOptions = new NavOptions.Builder()
+                        .setPopUpTo(R.id.landingFragmentNew, true)
+                        .build();
+                navController.navigate(R.id.action_landingFragment2_to_landingFragmentNew, null, navOptions);
+
+            } else {
+                LandingFragmentNew.whatPressed = 0;
+            }
         }
 
     }

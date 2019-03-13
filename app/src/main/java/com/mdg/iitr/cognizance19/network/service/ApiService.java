@@ -5,6 +5,7 @@ import com.mdg.iitr.cognizance19.models.EventResponse;
 import com.mdg.iitr.cognizance19.models.FbGoogleLoginModel;
 import com.mdg.iitr.cognizance19.models.GeneralResponse;
 import com.mdg.iitr.cognizance19.models.LoginResponse;
+import com.mdg.iitr.cognizance19.models.NewSchedule;
 import com.mdg.iitr.cognizance19.models.PaymentRequestModel;
 import com.mdg.iitr.cognizance19.models.RegEventsResponse;
 import com.mdg.iitr.cognizance19.models.SignupResponse;
@@ -123,5 +124,9 @@ public interface ApiService {
 
     @GET("g/spotlight")
     Observable<SpotlightResponse> fetchSpotlightEvents();
+
+
+    @GET("events/sorted")
+    Observable<NewSchedule> fetchSchedule();
 
 }

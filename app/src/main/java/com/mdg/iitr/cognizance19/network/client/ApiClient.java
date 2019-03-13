@@ -6,6 +6,7 @@ import com.mdg.iitr.cognizance19.models.EventResponse;
 import com.mdg.iitr.cognizance19.models.FbGoogleLoginModel;
 import com.mdg.iitr.cognizance19.models.GeneralResponse;
 import com.mdg.iitr.cognizance19.models.LoginResponse;
+import com.mdg.iitr.cognizance19.models.NewSchedule;
 import com.mdg.iitr.cognizance19.models.PaymentRequestModel;
 import com.mdg.iitr.cognizance19.models.RegEventsResponse;
 import com.mdg.iitr.cognizance19.models.SignupResponse;
@@ -183,6 +184,10 @@ public class ApiClient {
 
     public Observable<SpotlightResponse> fetchSpotlightEvents() {
         return apiService.fetchSpotlightEvents().subscribeOn(Schedulers.io());
+    }
+
+    public Observable<NewSchedule> fetchSchedule() {
+        return apiService.fetchSchedule().subscribeOn(Schedulers.io());
     }
 
 }

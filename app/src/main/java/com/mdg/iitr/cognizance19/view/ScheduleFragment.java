@@ -20,6 +20,7 @@ import com.mdg.iitr.cognizance19.models.Centerstage;
 import com.mdg.iitr.cognizance19.models.CenterstageOrDepartmentalEventsResponse;
 import com.mdg.iitr.cognizance19.models.Departmental;
 import com.mdg.iitr.cognizance19.models.Event;
+import com.mdg.iitr.cognizance19.models.NewSchedule;
 import com.mdg.iitr.cognizance19.models.Schedule;
 import com.mdg.iitr.cognizance19.models.ScheduleEventModel;
 import com.mdg.iitr.cognizance19.network.client.ApiClient;
@@ -85,20 +86,46 @@ public class ScheduleFragment extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.setTitle("Please Wait...");
         progressDialog.show();
-        apiClient.fetchEvents()
+        apiClient.fetchSchedule()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<CenterstageOrDepartmentalEventsResponse>() {
+                .subscribe(new Observer<NewSchedule>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(CenterstageOrDepartmentalEventsResponse centerstageOrDepartmentalEventsResponse) {
+                    public void onNext(NewSchedule newSchedule) {
                         progressDialog.dismiss();
                         List<ScheduleEventModel> dayOne = new ArrayList<>();
                         List<ScheduleEventModel> dayTwo = new ArrayList<>();
                         List<ScheduleEventModel> dayThree = new ArrayList<>();
+
+                        for (int i = 0; i < 3; i++) {
+                            if (newSchedule.getEvents().get(i).day == 1) {
+                                for (NewSchedule.OuterEvents.Events events: newSchedule.getEvents().get(i).getEvents()) {
+                                    dayOne.add(new ScheduleEventModel(events.getName(), events.getSchedule().get(0).getTime(), events.getId(), events.getVenue()));
+                                }
+                            } else if (newSchedule.getEvents().get(i).day == 2) {
+                                for (NewSchedule.OuterEvents.Events events: newSchedule.getEvents().get(i).getEvents()) {
+                                    dayTwo.add(new ScheduleEventModel(events.getName(), events.getSchedule().get(1).getTime(), events.getId(), events.getVenue()));
+                                }
+                            } else if (newSchedule.getEvents().get(i).day == 3) {
+                                for (NewSchedule.OuterEvents.Events events: newSchedule.getEvents().get(i).getEvents()) {
+                                    dayThree.add(new ScheduleEventModel(events.getName(), events.getSchedule().get(2).getTime(), events.getId(), events.getVenue()));
+                                }
+                            }
+                        }
+
+
+
+
+
+
+
+
+/*
+
                         List<Centerstage> centerstageList = centerstageOrDepartmentalEventsResponse.getCenterstage();
                         List<Departmental> departmentalList = centerstageOrDepartmentalEventsResponse.getDepartmental();
                         for (Centerstage centerstage : centerstageList) {
@@ -144,7 +171,8 @@ public class ScheduleFragment extends Fragment {
                                                 }
                                         }
                                 }
-                        }
+                        }*/
+
                         map = new HashMap<>();
                         map.put(0, new ScheduleDayFragment(dayOne));
                         map.put(1, new ScheduleDayFragment(dayTwo));
@@ -165,7 +193,7 @@ public class ScheduleFragment extends Fragment {
                     @Override
                     public void onError(Throwable e) {
                         progressDialog.dismiss();
-                        Toast.makeText(getContext(), "Some error occured.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

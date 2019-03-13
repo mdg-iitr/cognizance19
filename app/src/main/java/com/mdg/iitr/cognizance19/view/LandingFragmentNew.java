@@ -4,6 +4,7 @@ package com.mdg.iitr.cognizance19.view;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -20,8 +21,9 @@ import static com.mdg.iitr.cognizance19.MainActivity.navController;
 
 public class LandingFragmentNew extends Fragment {
 
-    private Button loginButton, registerButton;
+    private Button loginButton, registerButton, register2Button;
     private PreferenceHelper preferenceHelper;
+    public static int whatPressed = 0;
 
     public LandingFragmentNew() {
         // Required empty public constructor
@@ -35,23 +37,25 @@ public class LandingFragmentNew extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_landing, container, false);
+        View view = inflater.inflate(R.layout.fragment_landing_new, container, false);
 
         preferenceHelper = new PreferenceHelper(getActivity());
 
         loginButton = view.findViewById(R.id.login_button);
-        loginButton.setOnClickListener((View v) -> {
-            Bundle bundle = new Bundle();
-            bundle.putInt("fr_open", 0);
-            Navigation.findNavController(getActivity(), R.id.my_nav_host_fragment).navigate(R.id.action_landingFragment2_to_userLoginFragment, bundle);
+        loginButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_landingFragmentNew_to_landingFragment2));
+        loginButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                whatPressed = 1;
+                return false;
+            }
         });
 
         registerButton = view.findViewById(R.id.register_button);
-        registerButton.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putInt("fr_open", 1);
-            Navigation.findNavController(getActivity(), R.id.my_nav_host_fragment).navigate(R.id.action_landingFragment2_to_userLoginFragment, bundle);
-        });
+        registerButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_landingFragmentNew_to_scheduleFragment));
+
+        register2Button = view.findViewById(R.id.register2_button);
+        register2Button.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_landingFragmentNew_to_spotLightFragment));
 
         checkUserLoggedIn();
 

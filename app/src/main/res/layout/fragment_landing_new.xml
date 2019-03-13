@@ -63,7 +63,9 @@
         android:layout_marginTop="57dp"
         android:layout_marginEnd="48dp"
         android:background="@drawable/edit_text_bg"
-        android:text="@string/login"
+        android:text="Explore"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:drawableStart="@drawable/ic_compass"
         android:textColor="@color/grayText" />
 
@@ -89,8 +91,11 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="48dp"
         android:background="@drawable/edit_text_bg"
-        android:text="@string/register"
+        android:text="Schedule"
         android:drawableStart="@drawable/ic_schedule"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+
         android:textColor="@color/grayText" />
 
     <Button
@@ -103,7 +108,10 @@
         android:layout_marginEnd="48dp"
         android:background="@drawable/edit_text_bg"
         android:drawableStart="@drawable/ic_spotlight"
-        android:text="@string/register"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+
+        android:text="Spotlights"
         android:textColor="@color/grayText" />
 
 

@@ -218,6 +218,9 @@
       <!--  <action
             android:id="@+id/action_scheduleFragment_to_myProfileFragment"
             app:destination="@id/myProfileFragment" />-->
+        <action
+            android:id="@+id/action_spotLightFragment_to_specific_spotlight_event_fragment"
+            app:destination="@id/specific_spotlight_event_fragment" />
     </fragment>
     <fragment
         android:id="@+id/bottonNavigationMenu"
@@ -249,6 +252,24 @@
         android:name="com.mdg.iitr.cognizance19.view.LandingFragmentNew"
         android:label="fragment_landing_new"
         tools:layout="@layout/fragment_landing_new" >
+
+        <action
+            android:id="@+id/action_landingFragmentNew_to_landingFragment2"
+            app:destination="@id/landingFragment2" />
+        <action
+            android:id="@+id/action_landingFragmentNew_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
+        <action
+            android:id="@+id/action_landingFragmentNew_to_spotLightFragment"
+            app:destination="@id/spotLightFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/specific_spotlight_event_fragment"
+        android:name="com.mdg.iitr.cognizance19.view.SpecificSpotLightEventFragment"
+        android:label="fragment_specific_spotlight_event"
+        tools:layout="@layout/fragment_specific_spotlight_event" >
 
     </fragment>
 </navigation>

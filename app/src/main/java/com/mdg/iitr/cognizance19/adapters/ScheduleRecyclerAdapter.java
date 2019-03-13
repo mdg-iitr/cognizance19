@@ -44,6 +44,8 @@ public class ScheduleRecyclerAdapter extends RecyclerView.Adapter<ScheduleRecycl
 
         holder.name.setText(scheduleEventModel.name);
         holder.time.setText(scheduleEventModel.time);
+        holder.category.setText(scheduleEventModel.venue);
+
 
         Bundle bundle = new Bundle();
         bundle.putInt("id", scheduleEventModel.eventId);
@@ -51,7 +53,12 @@ public class ScheduleRecyclerAdapter extends RecyclerView.Adapter<ScheduleRecycl
         if (preferenceHelper.getLoginStatus()) {
             holder.itemView.setOnClickListener(v -> navController.navigate(R.id.action_scheduleFragment_to_speceficEventFragment, bundle));
         } else {
-            Toast.makeText(context, "Please login to continue", Toast.LENGTH_SHORT).show();
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, "Please login to continue", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 
@@ -63,11 +70,13 @@ public class ScheduleRecyclerAdapter extends RecyclerView.Adapter<ScheduleRecycl
     public class ScheduleViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
         public TextView time;
+        public TextView category;
 
         public ScheduleViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.eventName);
             time = itemView.findViewById(R.id.eventTime);
+            category  = itemView.findViewById(R.id.category);
         }
     }
 
